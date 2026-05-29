@@ -1,15 +1,24 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+import React from 'react'
+
+type ButtonAsButton = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  as?: 'button'
+  href?: never
+}
+
+type ButtonAsAnchor = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  as: 'a'
+  href?: string
+}
+
+type ButtonProps = (ButtonAsButton | ButtonAsAnchor) & {
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
-  as?: 'button' | 'a'
-  href?: string
 }
 
 export function Button({
   variant = 'primary',
   size = 'md',
   as: Tag = 'button',
-  href,
   children,
   className = '',
   ...props
@@ -30,8 +39,8 @@ export function Button({
   const cls = `${base} ${variants[variant]} ${sizes[size]} ${className}`
 
   if (Tag === 'a') {
-    return <a href={href} className={cls}>{children}</a>
+    return <a className={cls} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>{children}</a>
   }
 
-  return <button className={cls} {...props}>{children}</button>
+  return <button className={cls} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>{children}</button>
 }

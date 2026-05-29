@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg:           #0a1628;
+    --color-surface:      #0f1e33;
+    --color-surface-2:    #162a45;
+    --color-gold:         #b8946a;
+    --color-gold-muted:   rgba(184, 148, 106, 0.2);
+    --color-text:         #f5edd8;
+    --color-text-muted:   #8a7a62;
+    --font-serif:         'Playfair Display', Georgia, serif;
+    --font-sans:          'Inter', system-ui, sans-serif;
+  }
+
+  html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
+  h1, h2, h3 { font-family: var(--font-serif); }
+}

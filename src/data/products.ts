@@ -1,4 +1,4 @@
-import type { Product } from '../types/product'
+import type { Product, ProductCategory } from '../types/product'
 
 export const products: Product[] = [
   {
@@ -62,5 +62,5 @@ export const getFeatured = (): Product[] => products.filter(p => p.featured)
 export const getBySlug = (slug: string): Product | undefined =>
   products.find(p => p.slug === slug)
 
-export const getByCategory = (category: string): Product[] =>
+export const getByCategory = (category: ProductCategory | 'All'): Product[] =>
   category === 'All' ? products : products.filter(p => p.category === category)

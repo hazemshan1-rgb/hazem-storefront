@@ -1,5 +1,21 @@
+import { useEffect } from 'react'
+
 export function EmailCapture() {
   const formId = import.meta.env.VITE_CONVERTKIT_FORM_ID ?? ''
+
+  useEffect(() => {
+    if (!formId) return
+
+    const script = document.createElement('script')
+    script.src = `https://hazem-shanshal.kit.com/${formId}/index.js`
+    script.async = true
+    script.dataset['uid'] = formId
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [formId])
 
   return (
     <section id="email-capture" className="bg-[var(--color-surface)] border-y border-[var(--color-gold-muted)]">
@@ -11,7 +27,7 @@ export function EmailCapture() {
         </p>
 
         {formId ? (
-          <script async data-uid={formId} src={`https://hazem-shanshal.kit.com/${formId}/index.js`} />
+          <div data-uid={formId} />
         ) : (
           <form
             className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"

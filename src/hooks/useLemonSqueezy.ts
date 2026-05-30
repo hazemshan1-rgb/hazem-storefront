@@ -15,10 +15,4 @@ export function useLemonSqueezy() {
       window.createLemonSqueezy()
     }
   }, [])
-
-  const openCheckout = (checkoutUrl: string) => {
-    window.open(checkoutUrl, '_blank', 'noopener')
-  }
-
-  return { openCheckout }
 }

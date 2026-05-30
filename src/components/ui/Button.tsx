@@ -1,16 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type ButtonAsButton = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   as?: 'button'
   href?: never
+  to?: never
 }
 
 type ButtonAsAnchor = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   as: 'a'
   href?: string
+  to?: never
 }
 
-type ButtonProps = (ButtonAsButton | ButtonAsAnchor) & {
+type ButtonAsLink = {
+  as: 'link'
+  to: string
+  href?: never
+  className?: string
+  children?: React.ReactNode
+  variant?: 'primary' | 'secondary'
+  size?: 'sm' | 'md' | 'lg'
+}
+
+type ButtonProps = (ButtonAsButton | ButtonAsAnchor | ButtonAsLink) & {
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
 }
@@ -37,6 +50,11 @@ export function Button({
   }
 
   const cls = `${base} ${variants[variant]} ${sizes[size]} ${className}`
+
+  if (Tag === 'link') {
+    const { to } = props as ButtonAsLink
+    return <Link to={to} className={cls}>{children}</Link>
+  }
 
   if (Tag === 'a') {
     return <a className={cls} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>{children}</a>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { getFeatured } from '../../data/products'
 import { ProductCard } from '../shop/ProductCard'
 
@@ -11,9 +12,9 @@ export function FeaturedProducts() {
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Field-Tested Knowledge</p>
           <h2 className="font-serif text-3xl text-[var(--color-text)]">Featured Resources</h2>
         </div>
-        <a href="/shop" className="text-xs tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors hidden md:block">
+        <Link to="/shop" className="text-xs tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors hidden md:block">
           View All →
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

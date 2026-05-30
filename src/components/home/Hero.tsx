@@ -47,7 +47,7 @@ export function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
-              <Button as="a" href="/shop" size="lg">Browse Resources</Button>
+              <Button as="link" to="/shop" size="lg">Browse Resources</Button>
               <Button as="a" href="#email-capture" variant="secondary" size="lg">Get the Free SOP</Button>
             </div>
           </div>

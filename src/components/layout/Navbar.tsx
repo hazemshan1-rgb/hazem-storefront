@@ -35,7 +35,7 @@ export function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Button as="a" href="/shop" size="sm">Browse Resources</Button>
+          <Button as="link" to="/shop" size="sm">Browse Resources</Button>
         </nav>
 
         {/* Mobile toggle */}
@@ -61,7 +61,7 @@ export function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Button as="a" href="/shop" size="sm" className="w-fit">Browse Resources</Button>
+          <Button as="link" to="/shop" size="sm" className="w-fit">Browse Resources</Button>
         </div>
       )}
     </header>

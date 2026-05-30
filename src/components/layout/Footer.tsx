@@ -27,6 +27,7 @@ export function Footer() {
           <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-4">Connect</p>
           <div className="flex flex-col gap-2">
             <Link to="/about" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">About Hazem</Link>
+            <Link to="/newsletter" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Newsletter</Link>
             <Link to="/resources" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Resources Library</Link>
             <Link to="/consultation" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Book a Consultation</Link>
             <a

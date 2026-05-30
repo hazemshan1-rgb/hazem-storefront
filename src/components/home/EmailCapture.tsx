@@ -52,6 +52,8 @@ const guides = [
     title: '10 Ways to Ruin a Biofloc System',
     body: 'The mistakes are documented. Most operators make the same five errors before they make the right call. This guide maps each failure mode — oxygen crashes, C:N imbalances, floc collapse — so you can see them before they cost you a cycle.',
     featured: true,
+    cover: '/images/guides/biofloc-guide-cover.png',
+    coverAlt: '10 Ways to Ruin a Biofloc System — guide cover',
   },
   {
     formId: FORM_STRATEGIES,
@@ -59,6 +61,8 @@ const guides = [
     title: '7 Strategies for Waste-Free Shrimp Farming',
     body: 'Proven frameworks for reducing feed waste, managing effluent, and building an operation that survives tightening export regulations. Field-tested across Southeast Asia and the Middle East.',
     featured: false,
+    cover: '/images/guides/7-strategies-cover.png',
+    coverAlt: '7 Strategies for Waste-Free Shrimp Farming — guide cover',
   },
 ]
 
@@ -83,25 +87,33 @@ export function EmailCapture() {
           {guides.map(guide => (
             <div
               key={guide.title}
-              className={`bg-[var(--color-surface)] rounded-sm p-8 flex flex-col gap-6 ${
+              className={`bg-[var(--color-surface)] rounded-sm overflow-hidden flex flex-col gap-6 ${
                 guide.featured
                   ? 'border border-[var(--color-gold-cta)] shadow-[0_0_32px_rgba(202,138,4,0.08)]'
                   : 'border border-[var(--color-border)]'
               }`}
             >
-              {guide.featured && (
-                <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-2.5 py-1 rounded-sm">
-                  Most Downloaded
-                </span>
-              )}
-
-              <div>
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-2">{guide.tag}</p>
-                <h3 className="font-serif text-xl text-[var(--color-text)] leading-snug mb-3">{guide.title}</h3>
-                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{guide.body}</p>
+              <div className="relative">
+                <img
+                  src={guide.cover}
+                  alt={guide.coverAlt}
+                  className="w-full h-48 object-cover object-top"
+                />
+                {guide.featured && (
+                  <span className="absolute top-3 left-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-2.5 py-1 rounded-sm">
+                    Most Downloaded
+                  </span>
+                )}
               </div>
 
-              <ConvertKitForm formId={guide.formId} />
+              <div className="px-8 pb-8 flex flex-col gap-6">
+                <div>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-2">{guide.tag}</p>
+                  <h3 className="font-serif text-xl text-[var(--color-text)] leading-snug mb-3">{guide.title}</h3>
+                  <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{guide.body}</p>
+                </div>
+                <ConvertKitForm formId={guide.formId} />
+              </div>
             </div>
           ))}
         </div>

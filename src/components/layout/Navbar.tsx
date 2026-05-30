@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react'
 import { Button } from '../ui/Button'
 
 const links = [
-  { to: '/shop', label: 'Resources' },
+  { to: '/', label: 'Home' },
   { to: '/resources', label: 'Library' },
   { to: '/about', label: 'About' },
 ]
@@ -25,6 +25,7 @@ export function Navbar() {
             <NavLink
               key={l.to}
               to={l.to}
+              end={l.to === '/'}
               className={({ isActive }) =>
                 `text-xs tracking-widest uppercase transition-colors ${
                   isActive

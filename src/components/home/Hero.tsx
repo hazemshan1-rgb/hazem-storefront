@@ -18,13 +18,13 @@ export function Hero() {
 
           {/* Left — photo */}
           <div className="flex justify-center md:justify-start order-2 md:order-1">
-            <div className="relative w-72 h-80 md:w-80 md:h-96">
+            <div className="relative w-72 h-80 md:w-80 md:h-96 animate-fade-in animation-delay-200">
               {/* Gold frame rings */}
               <div className="absolute inset-0 rounded-sm border border-[var(--color-gold)] translate-x-3 translate-y-3 opacity-40" />
               <div className="absolute inset-0 rounded-sm border border-[var(--color-gold)] translate-x-1.5 translate-y-1.5 opacity-60" />
               <img
                 src="/images/hero/hazem-placeholder.jpg"
-                alt="Hazem Shanshal — Aquaculture Consultant"
+                alt="Hazem Shannak — Aquaculture Consultant"
                 className="relative z-10 w-full h-full object-cover rounded-sm"
               />
               {/* Gold accent bar */}
@@ -34,19 +34,19 @@ export function Hero() {
 
           {/* Right — headline */}
           <div className="order-1 md:order-2 flex flex-col gap-6">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] font-semibold">
+            <p className="text-[10px] tracking-[0.3em] uppercase font-semibold gold-shimmer animate-fade-in-up">
               Aquaculture · Systems · Growth
             </p>
 
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight animate-fade-in-up animation-delay-100">
               I turn underperforming aqua-ventures into high-yield enterprises
             </h1>
 
-            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-md">
+            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
               30 years. 15 countries. Field-tested frameworks for shrimp, tilapia, and integrated systems — now productised so you can apply them without me in the room.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-400">
               <Button as="link" to="/shop" size="lg">Browse Resources</Button>
               <Button as="a" href="#email-capture" variant="secondary" size="lg">Get the Free SOP</Button>
             </div>

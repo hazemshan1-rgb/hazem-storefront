@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
+import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 export function EmailCapture() {
   const formId = import.meta.env.VITE_CONVERTKIT_FORM_ID ?? ''
+  const ref = useScrollReveal<HTMLElement>()
 
   useEffect(() => {
     if (!formId) return
 
     const script = document.createElement('script')
-    script.src = `https://hazem-shanshal.kit.com/${formId}/index.js`
+    script.src = `https://hazem-shannak.kit.com/${formId}/index.js`
     script.async = true
     script.dataset['uid'] = formId
     document.body.appendChild(script)
@@ -18,7 +20,7 @@ export function EmailCapture() {
   }, [formId])
 
   return (
-    <section id="email-capture" className="bg-[var(--color-surface)] border-y border-[var(--color-gold-muted)]">
+    <section ref={ref} id="email-capture" className="scroll-reveal bg-[var(--color-surface)] border-y border-[var(--color-gold-muted)]">
       <div className="max-w-2xl mx-auto px-6 py-16 text-center">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-3">Free Resource</p>
         <h2 className="font-serif text-3xl text-[var(--color-text)] mb-4">Start with the free SOP</h2>

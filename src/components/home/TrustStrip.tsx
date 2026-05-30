@@ -1,3 +1,5 @@
+import { useScrollReveal } from '../../hooks/useScrollReveal'
+
 const stats = [
   { value: '30+', label: 'Years Experience' },
   { value: '15+', label: 'Countries Deployed' },
@@ -6,8 +8,10 @@ const stats = [
 ]
 
 export function TrustStrip() {
+  const ref = useScrollReveal<HTMLElement>()
+
   return (
-    <section className="border-y border-[var(--color-gold-muted)] bg-[var(--color-surface)]">
+    <section ref={ref} className="scroll-reveal border-y border-[var(--color-gold-muted)] bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map(stat => (

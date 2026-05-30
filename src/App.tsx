@@ -11,6 +11,7 @@ import { ConsultationPage } from './pages/ConsultationPage'
 import { NewsletterPage } from './pages/NewsletterPage'
 import { CoursesPage } from './pages/CoursesPage'
 import { CaseStudiesPage } from './pages/CaseStudiesPage'
+import { AuditPage } from './pages/AuditPage'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/case-studies" element={<CaseStudiesPage />} />
+        <Route path="/audit" element={<AuditPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
       </Routes>
       <Footer />

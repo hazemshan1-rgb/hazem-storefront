@@ -143,7 +143,7 @@ export function ConsultationPage() {
             <div className="mb-8">
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Investment</p>
               <div className="flex items-end gap-3 mb-3">
-                <span className="font-serif text-4xl text-[var(--color-text)]">$350</span>
+                <span className="font-serif text-4xl text-[var(--color-text)]">$500</span>
                 <span className="text-xs text-[var(--color-text-muted)] mb-1.5">per 60-minute session</span>
               </div>
               <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">

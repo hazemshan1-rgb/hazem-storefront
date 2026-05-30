@@ -3,8 +3,8 @@ import type { ProductCategory } from '../../types/product'
 const categories: Array<'All' | ProductCategory> = ['All', 'Ebook', 'SOP', 'Toolkit', 'Training']
 
 interface CategoryFilterProps {
-  active: string
-  onChange: (cat: string) => void
+  active: 'All' | ProductCategory
+  onChange: (cat: 'All' | ProductCategory) => void
 }
 
 export function CategoryFilter({ active, onChange }: CategoryFilterProps) {

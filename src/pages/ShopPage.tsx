@@ -16,7 +16,7 @@ export function ShopPage() {
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Knowledge Store</p>
         <h1 className="font-serif text-4xl text-[var(--color-text)]">All Resources</h1>
       </div>
-      <CategoryFilter active={activeCategory} onChange={cat => setActiveCategory(cat as 'All' | ProductCategory)} />
+      <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
       <ProductGrid products={filtered} />
     </main>
   )

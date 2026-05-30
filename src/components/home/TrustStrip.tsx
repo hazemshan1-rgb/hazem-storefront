@@ -1,7 +1,7 @@
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 const stats = [
-  { value: '30+', label: 'Years Experience' },
+  { value: '30+', label: 'Years in the Field' },
   { value: '15+', label: 'Countries Deployed' },
   { value: '$50M+', label: 'Farm Value Advised' },
   { value: '500+', label: 'Operators Trained' },

@@ -23,9 +23,9 @@ export function EmailCapture() {
     <section ref={ref} id="email-capture" className="scroll-reveal bg-[var(--color-surface)] border-y border-[var(--color-gold-muted)]">
       <div className="max-w-2xl mx-auto px-6 py-16 text-center">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-3">Free Resource</p>
-        <h2 className="font-serif text-3xl text-[var(--color-text)] mb-4">Start with the free SOP</h2>
+        <h2 className="font-serif text-3xl text-[var(--color-text)] mb-4">Not sure where to start? Start here.</h2>
         <p className="text-sm text-[var(--color-text-muted)] mb-8 leading-relaxed">
-          Download the Standard Operating Procedure for Freshwater Giant Prawn Production. No fluff — a working document you can hand to your farm manager today.
+          Download the Standard Operating Procedure for Freshwater Giant Prawn Production — free. Field-tested, no padding. A working document you can hand to your farm manager today and see the impact this week.
         </p>
 
         {formId ? (

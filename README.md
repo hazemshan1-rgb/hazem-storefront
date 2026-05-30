@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+# Hazem Shanshal — Digital Products Storefront
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Premium aquaculture resources by Hazem Shanshal.
 
-Currently, two official plugins are available:
+**Live:** https://hazem-storefront.vercel.app *(update this URL after connecting Vercel)*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript + Vite + Tailwind CSS 4
+- Lemon Squeezy (payments + file delivery)
+- ConvertKit (email capture)
+- Vercel (deployment)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Deploying to Vercel
 
-## Expanding the ESLint configuration
+1. Go to https://vercel.com/new → Import Git Repository → select `hazemshan1-rgb/hazem-storefront`
+2. Framework Preset: **Vite** (auto-detected)
+3. Click **Deploy** — no build settings need changing
+4. In project Settings → **Environment Variables**, add:
+   ```
+   VITE_CONVERTKIT_FORM_ID = (from ConvertKit → Forms → your form → embed code)
+   ```
+5. Redeploy after adding env vars
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Adding a product
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Upload the PDF to Lemon Squeezy dashboard
+2. Copy the checkout URL
+3. Add an entry to `src/data/products.ts`
+4. Add the cover image to `public/images/covers/`
+5. Push to `main` — Vercel auto-deploys
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Environment variables
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Variable | Where to get it |
+|---|---|
+| `VITE_CONVERTKIT_FORM_ID` | ConvertKit → Forms → your form → embed code |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Setting up Lemon Squeezy checkout URLs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The placeholder URLs in `src/data/products.ts` must be replaced before launch:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Create each product in your Lemon Squeezy dashboard (Products → Add Product → upload PDF)
+2. Copy the checkout URL for each product
+3. Update the `checkoutUrl` field in `src/data/products.ts`
+4. Push to `main`

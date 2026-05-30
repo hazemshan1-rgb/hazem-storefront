@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom'
+import { caseStudies } from '../data/caseStudies'
+
 export function AboutPage() {
   return (
     <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
@@ -31,6 +34,37 @@ export function AboutPage() {
           >
             Connect on LinkedIn →
           </a>
+        </div>
+      </div>
+
+      {/* Case studies */}
+      <div className="mb-16">
+        <div className="flex items-end justify-between mb-6">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Field Results</p>
+          <Link to="/case-studies" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
+            View all →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {caseStudies.map(cs => (
+            <div key={cs.client} className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-5 flex flex-col gap-4">
+              <div className="text-center border-b border-[var(--color-gold-muted)] pb-4">
+                <p className="font-serif text-3xl text-[var(--color-gold)]">{cs.metric}</p>
+                <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mt-1">{cs.metricLabel}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-text)] mb-1">{cs.client}</p>
+                <p className="text-xs text-[var(--color-text-muted)]">{cs.region} · {cs.species}</p>
+              </div>
+              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed flex-1 line-clamp-3">{cs.outcome}</p>
+              <Link
+                to="/case-studies"
+                className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] hover:underline mt-auto"
+              >
+                Read full case →
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
 

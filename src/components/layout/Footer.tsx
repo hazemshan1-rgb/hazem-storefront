@@ -6,7 +6,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <p className="font-serif text-lg tracking-widest uppercase text-[var(--color-text)] mb-2">
-            Hazem Shanshal
+            Hazem Shannak
           </p>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed max-w-xs">
             30 years turning aquaculture ventures into high-yield, investment-ready enterprises.
@@ -28,7 +28,7 @@ export function Footer() {
           <div className="flex flex-col gap-2">
             <Link to="/about" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">About Hazem</Link>
             <a
-              href="https://www.linkedin.com/in/hazemshanshal"
+              href="https://www.linkedin.com/in/hazemhshannak"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
@@ -41,7 +41,7 @@ export function Footer() {
 
       <div className="border-t border-[var(--color-gold-muted)] max-w-6xl mx-auto px-6 py-4">
         <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-          © {new Date().getFullYear()} Hazem Shanshal. All rights reserved.
+          © {new Date().getFullYear()} Hazem Shannak. All rights reserved.
         </p>
       </div>
     </footer>

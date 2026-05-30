@@ -8,7 +8,7 @@ export function AboutPage() {
         <div className="md:col-span-1">
           <img
             src="/images/hero/hazem-placeholder.jpg"
-            alt="Hazem Shanshal"
+            alt="Hazem Shannak"
             className="w-full aspect-[3/4] object-cover rounded-sm border border-[var(--color-gold-muted)]"
           />
         </div>
@@ -23,7 +23,7 @@ export function AboutPage() {
             The resources I sell are the distilled version of what I teach my highest-paying consulting clients. The same tools. The same frameworks. At a price that makes them accessible to operators who cannot yet afford to bring me on-site.
           </p>
           <a
-            href="https://www.linkedin.com/in/hazemshanshal"
+            href="https://www.linkedin.com/in/hazemhshannak"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-[var(--color-gold)] text-xs tracking-widest uppercase hover:underline mt-4"

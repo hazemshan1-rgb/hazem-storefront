@@ -1,6 +1,6 @@
-# Hazem Shanshal — Digital Products Storefront
+# Hazem Shannak — Digital Products Storefront
 
-Premium aquaculture resources by Hazem Shanshal.
+Premium aquaculture resources by Hazem Shannak.
 
 **Live:** https://hazem-storefront.vercel.app
 

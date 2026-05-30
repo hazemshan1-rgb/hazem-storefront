@@ -9,37 +9,49 @@ function formatDate(iso: string): string {
 
 function ArticleCard({ article }: { article: Article }) {
   return (
-    <article className="flex flex-col gap-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 hover:border-[var(--color-gold)] transition-colors group">
-      <div className="flex items-center justify-between gap-4">
-        <time className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)]">
-          {formatDate(article.date)}
-        </time>
+    <article className="flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-colors group">
+      {/* Cover image */}
+      <div className="relative h-48 overflow-hidden shrink-0">
+        <img
+          src={article.image}
+          alt={article.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface)]/60 to-transparent" />
         {article.tag && (
-          <span className="text-[9px] tracking-widest uppercase text-[var(--color-gold)] bg-[var(--color-gold-muted)] px-2 py-0.5 rounded-sm shrink-0">
+          <span className="absolute top-3 right-3 text-[9px] tracking-widest uppercase text-[var(--color-gold)] bg-[var(--color-bg)]/90 px-2 py-1 rounded-sm">
             {article.tag}
           </span>
         )}
       </div>
 
-      <h2 className="font-serif text-lg text-[var(--color-text)] leading-snug group-hover:text-[var(--color-gold)] transition-colors">
-        {article.title}
-      </h2>
+      {/* Content */}
+      <div className="flex flex-col gap-3 p-5 flex-1">
+        <time className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)]">
+          {formatDate(article.date)}
+        </time>
 
-      <p className="text-xs text-[var(--color-text-muted)] leading-relaxed flex-1">
-        {article.summary}
-      </p>
+        <h2 className="font-serif text-base text-[var(--color-text)] leading-snug group-hover:text-[var(--color-gold)] transition-colors">
+          {article.title}
+        </h2>
 
-      <a
-        href={article.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-[10px] tracking-widest uppercase text-[var(--color-gold)] hover:underline mt-auto"
-      >
-        Read on LinkedIn
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-          <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </a>
+        <p className="text-xs text-[var(--color-text-muted)] leading-relaxed flex-1">
+          {article.summary}
+        </p>
+
+        <a
+          href={article.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-[10px] tracking-widest uppercase text-[var(--color-gold)] hover:underline mt-auto pt-1"
+        >
+          Read on LinkedIn
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
+      </div>
     </article>
   )
 }

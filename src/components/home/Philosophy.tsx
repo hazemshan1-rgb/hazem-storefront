@@ -26,8 +26,8 @@ export function Philosophy() {
 
         <div className="relative">
           <img
-            src="/images/hero/shrimp-pond.jpg"
-            alt="Aquaculture farm — aerial view"
+            src="/images/hero/aerators-sunset.jpg"
+            alt="Paddle aerators at sunset on a Vietnamese shrimp pond"
             className="w-full rounded-sm object-cover aspect-[4/3]"
             loading="lazy"
           />

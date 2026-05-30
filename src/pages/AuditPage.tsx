@@ -82,8 +82,8 @@ export function AuditPage() {
             <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 w-full lg:max-w-xs">
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-3">Investment</p>
               <div className="flex items-end gap-2 mb-2">
-                <span className="font-serif text-4xl text-[var(--color-text)]">$3,000</span>
-                <span className="text-sm text-[var(--color-text-muted)] mb-1">– $5,000</span>
+                <span className="font-serif text-4xl text-[var(--color-text)]">$5,000</span>
+                <span className="text-sm text-[var(--color-text-muted)] mb-1">– $8,000</span>
               </div>
               <p className="text-xs text-[var(--color-text-muted)] mb-4 leading-relaxed">
                 Fixed fee. Varies by farm size, complexity, and travel requirements. 50% upfront, 50% on delivery.

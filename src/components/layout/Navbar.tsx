@@ -5,6 +5,7 @@ import { Button } from '../ui/Button'
 
 const links = [
   { to: '/shop', label: 'Resources' },
+  { to: '/resources', label: 'Library' },
   { to: '/about', label: 'About' },
 ]
 
@@ -36,6 +37,7 @@ export function Navbar() {
             </NavLink>
           ))}
           <Button as="link" to="/shop" size="sm">Browse Resources</Button>
+          <Button as="link" to="/consultation" size="sm" variant="secondary">Book a Call</Button>
         </nav>
 
         {/* Mobile toggle */}
@@ -62,6 +64,7 @@ export function Navbar() {
             </NavLink>
           ))}
           <Button as="link" to="/shop" size="sm" className="w-fit">Browse Resources</Button>
+          <Button as="link" to="/consultation" size="sm" variant="secondary" className="w-fit">Book a Call</Button>
         </div>
       )}
     </header>

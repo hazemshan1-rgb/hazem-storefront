@@ -6,6 +6,8 @@ import { ShopPage } from './pages/ShopPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { AboutPage } from './pages/AboutPage'
 import { ThankYouPage } from './pages/ThankYouPage'
+import { ResourcesPage } from './pages/ResourcesPage'
+import { ConsultationPage } from './pages/ConsultationPage'
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:slug" element={<ProductDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/consultation" element={<ConsultationPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
       </Routes>
       <Footer />

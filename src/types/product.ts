@@ -8,8 +8,9 @@ export interface Product {
   tagline: string
   description: string
   benefits: string[]
-  price: number          // in USD
-  coverImage: string     // path relative to /public
-  checkoutUrl: string    // Lemon Squeezy checkout URL (full URL with ?embed=1)
+  price: number           // in USD; 0 = free
+  coverImage: string      // path relative to /public
+  checkoutUrl: string     // Lemon Squeezy checkout URL (full URL with ?embed=1)
+  downloadUrl?: string    // direct download path for free products
   featured: boolean
 }

@@ -36,14 +36,24 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center justify-between pt-2 border-t border-[var(--color-gold-muted)]">
           <span className="font-serif text-xl text-[var(--color-gold)]">
-            ${product.price}
+            {product.price === 0 ? 'Free' : `$${product.price}`}
           </span>
-          <a
-            href={product.checkoutUrl}
-            className="lemonsqueezy-button"
-          >
-            <Button size="sm">Buy Now</Button>
-          </a>
+          {product.price === 0 && product.downloadUrl ? (
+            <a
+              href={product.downloadUrl}
+              download
+              className="inline-flex items-center gap-1.5 bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[10px] font-semibold tracking-widest uppercase px-4 py-2 rounded-sm hover:brightness-110 transition-all"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M6 1v7M3 5.5l3 3 3-3M1 10h10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Download
+            </a>
+          ) : (
+            <a href={product.checkoutUrl} className="lemonsqueezy-button">
+              <Button size="sm">Buy Now</Button>
+            </a>
+          )}
         </div>
       </div>
     </div>

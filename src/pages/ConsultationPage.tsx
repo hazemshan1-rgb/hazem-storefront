@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     q: 'Do you work with all aquaculture species?',
-    a: 'My deepest experience is in shrimp (Litopenaeus vannamei and Penaeus monodon), tilapia, and freshwater prawn. I also work across seabass, seabream, carp, and IMTA systems. If you are unsure whether your species is within scope, book anyway — the first 10 minutes will tell us.',
+    a: 'My practice covers five shrimp species: Litopenaeus vannamei (Pacific white shrimp), Penaeus monodon (giant tiger prawn), Fenneropenaeus indicus (Indian white prawn), Penaeus semisulcatus (green tiger prawn), and Macrobrachium rosenbergii (giant freshwater prawn). If your operation involves one of these, we are a direct fit. For other species, I am unlikely to add the value you need.',
   },
   {
     q: 'What time zones do you cover?',

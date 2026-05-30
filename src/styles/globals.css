@@ -1,21 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-serif: 'Playfair Display', Georgia, serif;
-  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-serif: 'Bodoni Moda', Georgia, serif;
+  --font-family-sans: 'Jost', system-ui, sans-serif;
 }
 
 @layer base {
   :root {
-    --color-bg:           #f7f2e8;
-    --color-surface:      #ede8dd;
-    --color-surface-2:    #e4ddd1;
-    --color-gold:         #8b6c3a;
-    --color-gold-muted:   rgba(139, 108, 58, 0.18);
-    --color-text:         #1a1208;
-    --color-text-muted:   #6b5c44;
-    --font-serif:         'Playfair Display', Georgia, serif;
-    --font-sans:          'Inter', system-ui, sans-serif;
+    --color-bg:              #F8FAFC;
+    --color-surface:         #FFFFFF;
+    --color-surface-2:       #F1F5F9;
+    --color-navy:            #0F172A;
+    --color-navy-2:          #1E293B;
+    --color-gold:            #8B6914;
+    --color-gold-cta:        #CA8A04;
+    --color-gold-muted:      rgba(139, 105, 20, 0.14);
+    --color-text:            #0F172A;
+    --color-text-muted:      #475569;
+    --color-text-on-dark:    #F1F5F9;
+    --color-text-muted-dark: #94A3B8;
+    --color-border:          #E2E8F0;
+    --font-serif:            'Bodoni Moda', Georgia, serif;
+    --font-sans:             'Jost', system-ui, sans-serif;
   }
 
   html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
@@ -53,8 +59,8 @@
 }
 
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 108, 58, 0); }
-  50%       { box-shadow: 0 0 0 6px rgba(139, 108, 58, 0.12); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0); }
+  50%       { box-shadow: 0 0 0 6px rgba(139, 105, 20, 0.12); }
 }
 
 @layer utilities {
@@ -153,9 +159,9 @@
     background: linear-gradient(
       90deg,
       var(--color-gold) 0%,
-      #b8862a 40%,
+      #CA8A04 40%,
       var(--color-gold) 60%,
-      #9a7030 100%
+      #A06B10 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;

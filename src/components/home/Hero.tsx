@@ -3,14 +3,14 @@ import { RingTexture } from '../ui/RingTexture'
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg)]">
-      {/* Background image with soft warm overlay */}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-navy)]">
+      {/* Background image with navy overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
+        className="absolute inset-0 bg-cover bg-center opacity-15"
         style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/95 to-[var(--color-bg)]/75" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/95 to-[var(--color-navy)]/80" aria-hidden="true" />
       <RingTexture />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
@@ -38,11 +38,11 @@ export function Hero() {
               Aquaculture · Systems · Profitability
             </p>
 
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight animate-fade-in-up animation-delay-100">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-on-dark)] leading-tight animate-fade-in-up animation-delay-100">
               Most farms fail for reasons their operators never identify.
             </h1>
 
-            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
+            <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
               After 30 years across 15 countries, the pattern is clear: it's rarely the biology. Feed conversion leaks, management blind spots, mis-timed interventions — these cost operators entire seasons, silently. These resources give you the frameworks to find those failures before they compound into something irreversible.
             </p>
 

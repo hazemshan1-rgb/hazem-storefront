@@ -42,11 +42,11 @@ export function EmailCapture() {
               type="email"
               placeholder="your@email.com"
               required
-              className="flex-1 bg-[var(--color-bg)] border border-[var(--color-gold-muted)] rounded-sm px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-gold)]"
+              className="flex-1 bg-[var(--color-surface-2)] border border-[var(--color-border)] rounded-sm px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-gold)]"
             />
             <button
               type="submit"
-              className="bg-[var(--color-gold)] text-[var(--color-bg)] px-6 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
+              className="bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-6 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
             >
               Send It
             </button>

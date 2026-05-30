@@ -39,8 +39,8 @@ export function Button({
   const base = 'inline-flex items-center justify-center font-semibold tracking-widest uppercase transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)]'
 
   const variants = {
-    primary: 'bg-[var(--color-gold)] text-[var(--color-bg)] hover:brightness-110',
-    secondary: 'border border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold-muted)]',
+    primary: 'bg-[var(--color-gold-cta)] text-[var(--color-navy)] hover:brightness-110',
+    secondary: 'border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] hover:bg-[var(--color-gold-muted)]',
   }
 
   const sizes = {

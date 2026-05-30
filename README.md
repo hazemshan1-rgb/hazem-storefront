@@ -2,7 +2,7 @@
 
 Premium aquaculture resources by Hazem Shanshal.
 
-**Live:** https://hazem-storefront.vercel.app *(update this URL after connecting Vercel)*
+**Live:** https://hazem-storefront.vercel.app
 
 ## Stack
 

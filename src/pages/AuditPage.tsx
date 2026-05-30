@@ -1,5 +1,6 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { Link } from 'react-router-dom'
+
+
 
 const scope = [
   {
@@ -57,6 +58,10 @@ const process = [
 
 export function AuditPage() {
   const headerRef = useScrollReveal<HTMLElement>()
+  const whoRef = useScrollReveal<HTMLElement>()
+  const scopeRef = useScrollReveal<HTMLDivElement>()
+  const delivRef = useScrollReveal<HTMLDivElement>()
+  const processRef = useScrollReveal<HTMLElement>()
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
@@ -90,10 +95,7 @@ export function AuditPage() {
                 Enquire Now
               </a>
               <p className="text-[10px] text-[var(--color-text-muted)] text-center mt-3">
-                Or{' '}
-                <Link to="/consultation" className="text-[var(--color-gold)] hover:underline">
-                  book a discovery call first →
-                </Link>
+                Response within 48 hours
               </p>
             </div>
           </div>
@@ -101,7 +103,7 @@ export function AuditPage() {
       </section>
 
       {/* Who this is for */}
-      <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+      <section ref={whoRef} className="scroll-reveal max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Who This Is For</p>
@@ -128,7 +130,7 @@ export function AuditPage() {
       <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Audit Scope</p>
         <h2 className="font-serif text-2xl text-[var(--color-text)] mb-8">Six areas. Every one measured.</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={scopeRef} className="stagger-children grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {scope.map((s, i) => (
             <div key={s.area} className="flex flex-col gap-3 p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm">
               <div className="flex items-center gap-3">
@@ -145,7 +147,7 @@ export function AuditPage() {
       <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">What You Receive</p>
         <h2 className="font-serif text-2xl text-[var(--color-text)] mb-8">Four deliverables. One clear outcome.</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div ref={delivRef} className="stagger-children grid grid-cols-1 md:grid-cols-2 gap-6">
           {deliverables.map(d => (
             <div key={d.item} className="flex gap-4 p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm">
               <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[var(--color-gold)] shrink-0" />
@@ -159,7 +161,7 @@ export function AuditPage() {
       </section>
 
       {/* Process */}
-      <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+      <section ref={processRef} className="scroll-reveal max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">How It Works</p>
         <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">Five steps. Three to four weeks total.</h2>
         <div className="flex flex-col gap-0">
@@ -185,21 +187,15 @@ export function AuditPage() {
           <div>
             <p className="font-serif text-2xl text-[var(--color-text)] mb-3">Ready to find out what your operation is actually worth?</p>
             <p className="text-sm text-[var(--color-text-muted)] max-w-xl leading-relaxed">
-              Start with a 30-minute discovery call. No commitment. We scope the engagement, confirm it is the right fit, and go from there.
+              Send a brief description of your operation and your primary challenge. I will review it and come back to you within 48 hours to confirm fit and scope.
             </p>
           </div>
-          <div className="flex flex-col gap-3 shrink-0">
-            <Link
-              to="/consultation"
-              className="text-center text-xs tracking-widest uppercase font-semibold text-[var(--color-bg)] bg-[var(--color-gold)] px-8 py-3.5 rounded-sm hover:opacity-90 transition-opacity"
-            >
-              Book a Discovery Call
-            </Link>
+          <div className="shrink-0">
             <a
               href="mailto:hazemshan1@gmail.com?subject=90-Day Farm Profitability Audit — Enquiry"
-              className="text-center text-xs tracking-widest uppercase text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-8 py-3.5 rounded-sm hover:border-[var(--color-gold)] transition-colors"
+              className="gold-pulse inline-block text-center text-xs tracking-widest uppercase font-semibold text-[var(--color-bg)] bg-[var(--color-gold)] px-8 py-3.5 rounded-sm hover:opacity-90 transition-opacity"
             >
-              Send an Enquiry
+              Send an Enquiry →
             </a>
           </div>
         </div>

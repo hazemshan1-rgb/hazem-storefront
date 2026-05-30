@@ -27,6 +27,7 @@ const courses = [
 
 export function CoursesPage() {
   const headerRef = useScrollReveal<HTMLElement>()
+  const gridRef = useScrollReveal<HTMLDivElement>()
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
@@ -79,11 +80,11 @@ export function CoursesPage() {
 
       {/* Course previews */}
       <section className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div ref={gridRef} className="stagger-children grid grid-cols-1 lg:grid-cols-3 gap-8">
           {courses.map(course => (
             <div
               key={course.title}
-              className="flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 gap-5"
+              className="card-hover flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 gap-5"
             >
               <div>
                 <span className="text-[9px] tracking-widest uppercase text-[var(--color-gold)] bg-[var(--color-bg)] border border-[var(--color-gold-muted)] px-2 py-1 rounded-sm">

@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom'
 import { caseStudies } from '../data/caseStudies'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export function AboutPage() {
+  const bioRef = useScrollReveal<HTMLDivElement>()
+  const caseRef = useScrollReveal<HTMLDivElement>()
+
   return (
     <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
-      <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">The Person Behind the Products</p>
-      <h1 className="font-serif text-4xl text-[var(--color-text)] mb-10">About Hazem</h1>
+      <p className="animate-fade-in-up text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">The Person Behind the Products</p>
+      <h1 className="animate-fade-in-up animation-delay-100 font-serif text-4xl text-[var(--color-text)] mb-10">About Hazem</h1>
 
       {/* Primary bio block */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+      <div ref={bioRef} className="scroll-reveal grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
         <div className="md:col-span-1">
           <img
             src="/images/hero/hazem-studio.jpg"
@@ -38,7 +42,7 @@ export function AboutPage() {
       </div>
 
       {/* Case studies */}
-      <div className="mb-16">
+      <div ref={caseRef} className="scroll-reveal mb-16">
         <div className="flex items-end justify-between mb-6">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Field Results</p>
           <Link to="/case-studies" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
@@ -47,7 +51,7 @@ export function AboutPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {caseStudies.map(cs => (
-            <div key={cs.client} className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-5 flex flex-col gap-4">
+            <div key={cs.client} className="card-hover bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-5 flex flex-col gap-4">
               <div className="text-center border-b border-[var(--color-gold-muted)] pb-4">
                 <p className="font-serif text-3xl text-[var(--color-gold)]">{cs.metric}</p>
                 <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mt-1">{cs.metricLabel}</p>
@@ -68,29 +72,6 @@ export function AboutPage() {
         </div>
       </div>
 
-      {/* Field work section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="relative overflow-hidden rounded-sm border border-[var(--color-gold-muted)]">
-          <img
-            src="/images/hero/hazem-at-ponds.jpg"
-            alt="Hazem standing at a shrimp farm with paddle aerators"
-            className="w-full aspect-[3/4] object-cover object-center"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/60 to-transparent" />
-          <p className="absolute bottom-4 left-4 text-xs tracking-widest uppercase text-[var(--color-gold)]">In the Field</p>
-        </div>
-        <div className="relative overflow-hidden rounded-sm border border-[var(--color-gold-muted)]">
-          <img
-            src="/images/hero/hazem-teaching.jpg"
-            alt="Hazem teaching shrimp aquaculture in a training session"
-            className="w-full aspect-[3/4] object-cover object-center"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/60 to-transparent" />
-          <p className="absolute bottom-4 left-4 text-xs tracking-widest uppercase text-[var(--color-gold)]">Training & Instruction</p>
-        </div>
-      </div>
     </main>
   )
 }

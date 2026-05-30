@@ -9,7 +9,7 @@ function formatDate(iso: string): string {
 
 function ArticleCard({ article }: { article: Article }) {
   return (
-    <article className="flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-colors group">
+    <article className="card-hover flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-colors group">
       {/* Cover image */}
       <div className="relative h-48 overflow-hidden shrink-0">
         <img
@@ -58,6 +58,7 @@ function ArticleCard({ article }: { article: Article }) {
 
 export function NewsletterPage() {
   const headerRef = useScrollReveal<HTMLElement>()
+  const gridRef = useScrollReveal<HTMLDivElement>()
   const [activeTag, setActiveTag] = useState('All')
 
   const filtered = activeTag === 'All'
@@ -112,7 +113,7 @@ export function NewsletterPage() {
 
       {/* Article grid */}
       <section className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="stagger-children grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map(article => (
             <ArticleCard key={article.url + article.date} article={article} />
           ))}

@@ -15,7 +15,7 @@ export const products: Product[] = [
       'Build a waste-to-resource loop inside your pond system',
     ],
     price: 47,
-    coverImage: '/images/covers/waste-free-shrimp.jpg',
+    coverImage: '/images/covers/shrimp-harvest.jpg',
     checkoutUrl: 'https://YOUR_STORE.lemonsqueezy.com/checkout/buy/PRODUCT_ID?embed=1',
     featured: true,
   },

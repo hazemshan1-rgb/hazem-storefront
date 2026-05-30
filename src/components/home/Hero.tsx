@@ -23,9 +23,9 @@ export function Hero() {
               <div className="absolute inset-0 rounded-sm border border-[var(--color-gold)] translate-x-3 translate-y-3 opacity-40" />
               <div className="absolute inset-0 rounded-sm border border-[var(--color-gold)] translate-x-1.5 translate-y-1.5 opacity-60" />
               <img
-                src="/images/hero/hazem-shannak.jpg"
-                alt="Hazem Shannak — Aquaculture Consultant"
-                className="relative z-10 w-full h-full object-cover object-top rounded-sm"
+                src="/images/hero/hazem-at-ponds.jpg"
+                alt="Hazem at a shrimp farm — paddle aerators and ponds behind him"
+                className="relative z-10 w-full h-full object-cover object-center rounded-sm"
               />
               {/* Gold accent bar */}
               <div className="absolute -bottom-4 left-4 right-4 h-1 bg-gradient-to-r from-[var(--color-gold)] to-transparent" />

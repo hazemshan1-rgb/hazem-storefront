@@ -51,6 +51,17 @@ export function ConsultationPage() {
 
           {/* Left — context */}
           <div>
+            <div className="flex items-center gap-5 mb-8">
+              <img
+                src="/images/hero/hazem-headshot.jpg"
+                alt="Hazem Shannak"
+                className="w-20 h-20 rounded-full object-cover object-top border border-[var(--color-gold-muted)] shrink-0"
+              />
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-text)]">Hazem Shannak</p>
+                <p className="text-xs text-[var(--color-text-muted)]">Aquaculture Systems Consultant — 30+ years, 15 countries</p>
+              </div>
+            </div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Book a Consultation</p>
             <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-6">
               One hour. Your operation. A clear next step.

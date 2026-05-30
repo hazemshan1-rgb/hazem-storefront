@@ -59,16 +59,16 @@
 
 @layer utilities {
   .animate-fade-in-up {
-    animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .animate-fade-in {
-    animation: fadeIn 0.65s ease both;
+    animation: fadeIn 0.55s ease both;
   }
   .animate-fade-in-left {
-    animation: fadeInLeft 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .animate-fade-in-right {
-    animation: fadeInRight 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .animate-scale-in {
     animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -88,24 +88,24 @@
   .scroll-reveal {
     opacity: 0;
     transform: translateY(22px);
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
 
   .scroll-reveal-left {
     opacity: 0;
     transform: translateX(-28px);
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .scroll-reveal-left.revealed { opacity: 1; transform: translateX(0); }
 
   .scroll-reveal-right {
     opacity: 0;
     transform: translateX(28px);
-    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .scroll-reveal-right.revealed { opacity: 1; transform: translateX(0); }
 
@@ -134,6 +134,7 @@
 
   /* --- Card lift on hover --- */
   .card-hover {
+    cursor: pointer;
     transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.28s ease;
@@ -161,5 +162,45 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: shimmer 3s linear infinite;
+  }
+}
+
+/* --- Focus states — gold outline for keyboard nav --- */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* --- Respect OS reduced-motion preference --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .gold-pulse,
+  .gold-shimmer {
+    animation: none;
   }
 }

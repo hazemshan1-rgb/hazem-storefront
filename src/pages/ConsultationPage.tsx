@@ -1,7 +1,57 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL ?? ''
+
+const faqs = [
+  {
+    q: 'How should I prepare for the session?',
+    a: 'Come with one or two specific problems — not a general overview of your operation. The more focused your question, the more useful the hour. If you have production data, financial snapshots, or a site layout, bring them. We work best from real numbers.',
+  },
+  {
+    q: 'Do you work with all aquaculture species?',
+    a: 'My deepest experience is in shrimp (Litopenaeus vannamei and Penaeus monodon), tilapia, and freshwater prawn. I also work across seabass, seabream, carp, and IMTA systems. If you are unsure whether your species is within scope, book anyway — the first 10 minutes will tell us.',
+  },
+  {
+    q: 'What time zones do you cover?',
+    a: 'I work regularly across the Middle East, Southeast Asia, Sub-Saharan Africa, and Europe. Sessions are scheduled via Calendly so you can find a slot that suits you. If your time zone is not shown, contact me directly.',
+  },
+  {
+    q: 'What is your refund policy?',
+    a: 'You can reschedule up to 24 hours before the session with no charge. Cancellations inside 24 hours are non-refundable. If I need to cancel for any reason, you will receive a full refund or a rescheduled slot — your choice.',
+  },
+  {
+    q: 'Is this a one-off session or part of an ongoing engagement?',
+    a: 'This is a standalone session. Many clients return for follow-up sessions as their situation develops, but there is no commitment beyond the hour you book. If you want ongoing advisory support, that is a separate conversation.',
+  },
+]
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="border-b border-[var(--color-gold-muted)] last:border-0">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between py-4 text-left gap-4 group"
+        aria-expanded={open}
+      >
+        <span className="text-sm text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors leading-snug">
+          {q}
+        </span>
+        <span className={`text-[var(--color-gold)] shrink-0 transition-transform duration-200 ${open ? 'rotate-45' : ''}`}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        </span>
+      </button>
+      {open && (
+        <p className="text-xs text-[var(--color-text-muted)] leading-relaxed pb-4">
+          {a}
+        </p>
+      )}
+    </div>
+  )
+}
 
 const bullets = [
   'Diagnosing the specific bottleneck holding your operation below its yield potential',
@@ -82,11 +132,33 @@ export function ConsultationPage() {
               </ul>
             </div>
 
-            <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6">
+            <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 mb-8">
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Good to know</p>
               <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
                 Sessions are conducted via video call. I work across time zones — Middle East, Asia, Africa, and Europe are all regularly covered. If you are unsure whether your question fits this format, book anyway. The first 10 minutes are for scoping.
               </p>
+            </div>
+
+            {/* Investment */}
+            <div className="mb-8">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Investment</p>
+              <div className="flex items-end gap-3 mb-3">
+                <span className="font-serif text-4xl text-[var(--color-text)]">$350</span>
+                <span className="text-xs text-[var(--color-text-muted)] mb-1.5">per 60-minute session</span>
+              </div>
+              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
+                Paid at time of booking. Includes a written summary of key actions sent within 24 hours of the session. No retainer. No upsell. Just the work.
+              </p>
+            </div>
+
+            {/* FAQ */}
+            <div>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Common questions</p>
+              <div className="divide-y divide-[var(--color-gold-muted)]">
+                {faqs.map(f => (
+                  <FaqItem key={f.q} q={f.q} a={f.a} />
+                ))}
+              </div>
             </div>
           </div>
 

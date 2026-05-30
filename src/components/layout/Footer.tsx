@@ -29,6 +29,8 @@ export function Footer() {
             <Link to="/about" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">About Hazem</Link>
             <Link to="/newsletter" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Newsletter</Link>
             <Link to="/resources" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Resources Library</Link>
+            <Link to="/case-studies" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Case Studies</Link>
+            <Link to="/courses" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Courses</Link>
             <Link to="/consultation" className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Book a Consultation</Link>
             <a
               href="https://www.linkedin.com/in/hazemhshannak"

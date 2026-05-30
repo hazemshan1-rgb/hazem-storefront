@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
-const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL ?? ''
+const CHECKOUT_URL = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
 
 const faqs = [
   {
@@ -62,33 +62,6 @@ const bullets = [
   'Evaluating a new site, species, or system before you commit capital',
 ]
 
-function CalendlyWidget({ url }: { url: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!ref.current || !url) return
-
-    // Calendly inline widget — loaded via script in index.html
-    const win = window as Window & { Calendly?: { initInlineWidget: (opts: object) => void } }
-    if (win.Calendly) {
-      win.Calendly.initInlineWidget({
-        url,
-        parentElement: ref.current,
-        prefill: {},
-        utm: {},
-      })
-    }
-  }, [url])
-
-  return (
-    <div
-      ref={ref}
-      className="calendly-inline-widget w-full"
-      style={{ minWidth: 320, height: 700 }}
-      data-auto-load="false"
-    />
-  )
-}
 
 export function ConsultationPage() {
   const headerRef = useScrollReveal<HTMLElement>()
@@ -162,21 +135,69 @@ export function ConsultationPage() {
             </div>
           </div>
 
-          {/* Right — Calendly */}
-          <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden">
-            {CALENDLY_URL ? (
-              <CalendlyWidget url={CALENDLY_URL} />
-            ) : (
-              <div className="flex flex-col items-center justify-center p-12 text-center gap-4 min-h-[500px]">
-                <p className="font-serif text-2xl text-[var(--color-text)]">Booking coming soon</p>
-                <p className="text-sm text-[var(--color-text-muted)] max-w-xs leading-relaxed">
-                  Set <code className="text-[var(--color-gold)] bg-[var(--color-surface-2)] px-1.5 py-0.5 rounded text-xs">VITE_CALENDLY_URL</code> in your Vercel environment variables to activate the booking widget.
-                </p>
-                <p className="text-xs text-[var(--color-text-muted)]">
-                  Your Calendly URL format: <code className="text-[var(--color-gold)]">https://calendly.com/your-username/consultation</code>
+          {/* Right — Payment card */}
+          <div className="sticky top-28">
+            <div className="bg-[var(--color-navy)] border border-[rgba(255,255,255,0.08)] rounded-sm p-8">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-6">Investment</p>
+
+              <div className="flex items-end gap-3 mb-2">
+                <span className="font-serif text-5xl text-[var(--color-text-on-dark)]">$500</span>
+                <span className="text-xs text-[var(--color-text-muted-dark)] mb-2">/ 60-minute session</span>
+              </div>
+              <p className="text-xs text-[var(--color-text-muted-dark)] mb-8 leading-relaxed">
+                Paid at time of booking. You'll choose your time slot immediately after payment.
+              </p>
+
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Focused diagnostic on your specific operation',
+                  'Written action summary within 24 hours',
+                  'Video call — all time zones covered',
+                  'No retainer. No upsell. Just the work.',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text-muted-dark)] leading-snug">
+                    <svg className="shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M2.5 7l3 3L11.5 4" stroke="var(--color-gold-cta)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              {CHECKOUT_URL ? (
+                <a
+                  href={CHECKOUT_URL}
+                  className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all"
+                >
+                  Pay $500 &amp; Choose Your Time
+                </a>
+              ) : (
+                <div className="text-center p-4 border border-[rgba(255,255,255,0.12)] rounded-sm">
+                  <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed">
+                    Set{' '}
+                    <code className="text-[var(--color-gold-cta)] text-[10px]">VITE_CONSULTATION_CHECKOUT_URL</code>{' '}
+                    in Vercel to activate payment.
+                  </p>
+                </div>
+              )}
+
+              <div className="flex items-center justify-center gap-2 mt-5">
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                  <rect x="1" y="6" width="10" height="7" rx="1.5" stroke="var(--color-text-muted-dark)" strokeWidth="1.2"/>
+                  <path d="M3.5 6V4a2.5 2.5 0 015 0v2" stroke="var(--color-text-muted-dark)" strokeWidth="1.2" strokeLinecap="round"/>
+                </svg>
+                <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">
+                  Secure payment via Lemon Squeezy
                 </p>
               </div>
-            )}
+            </div>
+
+            <div className="mt-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-sm p-5">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-2">Reschedule policy</p>
+              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
+                You can reschedule up to 24 hours before the session. Cancellations inside 24 hours are non-refundable.
+              </p>
+            </div>
           </div>
 
         </div>

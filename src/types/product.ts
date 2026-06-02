@@ -13,4 +13,5 @@ export interface Product {
   checkoutUrl: string     // Lemon Squeezy checkout URL (full URL with ?embed=1)
   downloadUrl?: string    // direct download path for free products
   featured: boolean
+  isLeadMagnet?: boolean  // true = email gate only, never shown in shop
 }

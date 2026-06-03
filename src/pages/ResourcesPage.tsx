@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { GoldBadge } from '../components/ui/GoldBadge'
+import { SEO } from '../components/ui/SEO'
+import { Search } from 'lucide-react'
 import { resources, resourceCategories } from '../data/resources'
 import type { ResourceCategory } from '../data/resources'
 
@@ -47,13 +49,26 @@ function ResourceCard({ title, description, url, category, free }: {
 
 export function ResourcesPage() {
   const [active, setActive] = useState<Filter>('All')
+  const [query, setQuery] = useState('')
   const headerRef = useScrollReveal<HTMLElement>()
 
   const filters: Filter[] = ['All', ...resourceCategories]
-  const filtered = active === 'All' ? resources : resources.filter(r => r.category === active)
+
+  const filtered = useMemo(() => {
+    return resources.filter(r => {
+      const matchesCategory = active === 'All' || r.category === active
+      const matchesSearch = r.title.toLowerCase().includes(query.toLowerCase()) ||
+                            r.description.toLowerCase().includes(query.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+  }, [active, query])
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="Resources Library"
+        description="A curated collection of the authoritative databases, journals, and technical guides that serious aquaculture operators actually use."
+      />
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-10">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-3">Resources Library</p>
@@ -68,22 +83,35 @@ export function ResourcesPage() {
         </p>
       </section>
 
-      {/* Filters */}
+      {/* Filters & Search */}
       <div className="border-b border-[var(--color-gold-muted)] bg-[var(--color-surface)] sticky top-16 z-30">
-        <div className="max-w-6xl mx-auto px-6 py-0 flex gap-0 overflow-x-auto">
-          {filters.map(f => (
-            <button
-              key={f}
-              onClick={() => setActive(f)}
-              className={`text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
-                active === f
-                  ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
-                  : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
-              }`}
-            >
-              {f}
-            </button>
-          ))}
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex gap-0 overflow-x-auto w-full md:w-auto no-scrollbar">
+            {filters.map(f => (
+              <button
+                key={f}
+                onClick={() => setActive(f)}
+                className={`text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
+                  active === f
+                    ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
+                    : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative w-full md:w-64 pb-4 md:pb-0">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={14} />
+            <input
+              type="text"
+              placeholder="Search resources..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm pl-9 pr-4 py-2 text-xs text-[var(--color-text)] focus:outline-none focus:border-[var(--color-gold)]"
+            />
+          </div>
         </div>
       </div>
 

@@ -1,4 +1,6 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { SEO } from '../components/ui/SEO'
+import { useState, useEffect } from 'react'
 
 const scope = [
   {
@@ -61,8 +63,38 @@ export function AuditPage() {
   const delivRef = useScrollReveal<HTMLDivElement>()
   const processRef = useScrollReveal<HTMLElement>()
 
+  const [showSticky, setShowSticky] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSticky(window.scrollY > 600)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="90-Day Farm Profitability Audit"
+        description="A structured, on-site diagnostic engagement that identifies exactly where your operation is losing money and delivers a clear 90-day roadmap for closing the gap."
+      />
+
+      {/* Sticky CTA for conversion */}
+      <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-lg transition-all duration-500 ${showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
+        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-4 shadow-2xl flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold">90-Day Audit</p>
+            <p className="text-xs text-white/90">Find your hidden margin.</p>
+          </div>
+          <a
+            href="mailto:hazemshan1@gmail.com?subject=90-Day Farm Profitability Audit — Enquiry"
+            className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-5 py-2.5 rounded-sm hover:brightness-110 transition-all whitespace-nowrap"
+          >
+            Enquire Now
+          </a>
+        </div>
+      </div>
 
       {/* ── Header ──────────────────────────────────── */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">

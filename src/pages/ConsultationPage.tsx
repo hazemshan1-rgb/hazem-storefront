@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { SEO } from '../components/ui/SEO'
 
 const CHECKOUT_URL = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
 
@@ -65,9 +66,39 @@ const bullets = [
 
 export function ConsultationPage() {
   const headerRef = useScrollReveal<HTMLElement>()
+  const [showSticky, setShowSticky] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSticky(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="Book a Consultation"
+        description="One hour. Your operation. A clear next step. Focused diagnostic session for aquaculture farm owners and investors."
+      />
+
+      {/* Sticky CTA */}
+      <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-lg transition-all duration-500 ${showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
+        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-4 shadow-2xl flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold">1-Hour Consultation</p>
+            <p className="text-xs text-white/90">Book your diagnostic session.</p>
+          </div>
+          <a
+            href={CHECKOUT_URL || '#'}
+            className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-5 py-2.5 rounded-sm hover:brightness-110 transition-all whitespace-nowrap"
+          >
+            Book Now — $500
+          </a>
+        </div>
+      </div>
+
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">

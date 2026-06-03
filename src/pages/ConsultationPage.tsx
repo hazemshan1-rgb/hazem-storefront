@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
+import { caseStudies } from '../data/caseStudies'
 
 const CHECKOUT_URL = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
 
@@ -156,11 +157,29 @@ export function ConsultationPage() {
             </div>
 
             {/* FAQ */}
-            <div>
+            <div className="mb-12">
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Common questions</p>
               <div className="divide-y divide-[var(--color-gold-muted)]">
                 {faqs.map(f => (
                   <FaqItem key={f.q} q={f.q} a={f.a} />
+                ))}
+              </div>
+            </div>
+
+            {/* Social Proof */}
+            <div className="pt-12 border-t border-[var(--color-gold-muted)]">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">Client Results</p>
+              <div className="space-y-6">
+                {caseStudies.slice(0, 2).map(cs => (
+                  <div key={cs.client} className="p-5 bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm">
+                    <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed mb-3">
+                      "{cs.outcome}"
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-[10px] font-semibold text-[var(--color-text)]">{cs.client}</p>
+                      <span className="text-[10px] font-serif text-[var(--color-gold)]">{cs.metric}</span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

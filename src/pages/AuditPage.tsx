@@ -1,6 +1,7 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { useState, useEffect } from 'react'
+import { caseStudies } from '../data/caseStudies'
 
 const scope = [
   {
@@ -278,6 +279,29 @@ export function AuditPage() {
         />
         <div className="absolute inset-0 bg-[var(--color-navy)]/55" />
       </div>
+
+      {/* ── Social Proof ─────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Field Results</p>
+        <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">What the audit uncovers</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {caseStudies.map(cs => (
+            <div key={cs.client} className="flex flex-col gap-4 p-6 bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm">
+              <div className="flex items-center gap-3">
+                <span className="font-serif text-2xl text-[var(--color-gold)]">{cs.metric}</span>
+                <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)]">{cs.metricLabel}</span>
+              </div>
+              <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed">
+                "{cs.outcome.split('.')[0]}."
+              </p>
+              <div className="mt-auto pt-3 border-t border-[var(--color-gold-muted)]">
+                <p className="text-[10px] font-semibold text-[var(--color-text)]">{cs.client}</p>
+                <p className="text-[9px] text-[var(--color-text-muted)]">{cs.region}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ── CTA ───────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-6 pt-16">

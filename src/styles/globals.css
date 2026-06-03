@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-serif: 'Bodoni Moda', Georgia, serif;
-  --font-family-sans: 'Jost', system-ui, sans-serif;
+  --font-family-serif: 'Playfair Display', Georgia, serif;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
 }
 
 @layer base {
@@ -20,8 +20,8 @@
     --color-text-on-dark:    #F1F5F9;
     --color-text-muted-dark: #94A3B8;
     --color-border:          #E2E8F0;
-    --font-serif:            'Bodoni Moda', Georgia, serif;
-    --font-sans:             'Jost', system-ui, sans-serif;
+    --font-serif:            'Playfair Display', Georgia, serif;
+    --font-sans:             'Inter', system-ui, sans-serif;
   }
 
   html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }

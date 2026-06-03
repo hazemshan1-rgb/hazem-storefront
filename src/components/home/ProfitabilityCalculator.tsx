@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export function ProfitabilityCalculator() {
   const [revenue, setRevenue] = useState<number>(1000000)
@@ -82,12 +83,12 @@ export function ProfitabilityCalculator() {
             <p className="text-xs text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-[240px]">
               Estimated margin recovered by optimizing FCR to <strong>{targetFcr.toFixed(1)}</strong>.
             </p>
-            <a
-              href="/audit"
+            <Link
+              to="/audit"
               className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-8 py-3.5 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
             >
               Get the Audit →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

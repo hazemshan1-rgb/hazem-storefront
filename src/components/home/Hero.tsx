@@ -1,13 +1,19 @@
+import { useRef } from 'react'
+import { useScroll, useTransform, motion } from 'framer-motion'
 import { Button } from '../ui/Button'
 import { RingTexture } from '../ui/RingTexture'
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-navy)]">
-      {/* Background image with navy overlay */}
-      <div
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-navy)]">
+      {/* Parallax background */}
+      <motion.div
         className="absolute inset-0 bg-cover bg-center opacity-15"
-        style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
+        style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)', y: bgY }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/95 to-[var(--color-navy)]/80" aria-hidden="true" />
@@ -27,8 +33,13 @@ export function Hero() {
                 alt="Hazem Shannak — aquaculture consultant"
                 className="relative z-10 w-full h-full object-cover object-top rounded-sm"
               />
-              {/* Gold accent bar */}
-              <div className="absolute -bottom-4 left-4 right-4 h-1 bg-gradient-to-r from-[var(--color-gold)] to-transparent" />
+              {/* Gold accent bar — animated draw */}
+              <motion.div
+                className="absolute -bottom-4 left-4 h-px bg-gradient-to-r from-[var(--color-gold)] to-transparent"
+                initial={{ width: 0 }}
+                animate={{ width: 'calc(100% - 1rem)' }}
+                transition={{ delay: 0.8, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              />
             </div>
           </div>
 

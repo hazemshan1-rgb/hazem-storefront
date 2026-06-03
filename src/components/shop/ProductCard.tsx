@@ -1,4 +1,6 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { GoldBadge } from '../ui/GoldBadge'
 import { Button } from '../ui/Button'
 import type { Product } from '../../types/product'
@@ -8,8 +10,35 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 20 })
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 20 })
+
+  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = cardRef.current?.getBoundingClientRect()
+    if (!rect) return
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5)
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  function onMouseLeave() {
+    rawX.set(0)
+    rawY.set(0)
+  }
+
   return (
-    <div className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.20)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
+    <motion.div
+      ref={cardRef}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ scale: { duration: 0.2 } }}
+      className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.20)] flex flex-col"
+    >
       {/* Cover image */}
       <Link to={`/shop/${product.slug}`} className="block overflow-hidden aspect-[4/3]">
         <img
@@ -43,6 +72,6 @@ export function ProductCard({ product }: ProductCardProps) {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { SEO } from './components/ui/SEO'
@@ -18,7 +19,6 @@ const AuditPage = lazy(() => import('./pages/AuditPage').then(m => ({ default: m
 const BookConsultationPage = lazy(() => import('./pages/BookConsultationPage').then(m => ({ default: m.BookConsultationPage })))
 const ThankYouPage = lazy(() => import('./pages/ThankYouPage').then(m => ({ default: m.ThankYouPage })))
 
-// Simple loading fallback
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)]">
@@ -27,27 +27,53 @@ function PageLoader() {
   )
 }
 
+const pageVariants = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit:    { opacity: 0, y: -8 },
+}
+
+const pageTransition = { duration: 0.22, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
+
+function AnimatedRoutes() {
+  const location = useLocation()
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={pageTransition}
+      >
+        <Suspense fallback={<PageLoader />}>
+          <Routes location={location}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/:slug" element={<ProductDetailPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/library" element={<ResourcesPage />} />
+            <Route path="/consultation" element={<ConsultationPage />} />
+            <Route path="/newsletter" element={<NewsletterPage />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/audit" element={<AuditPage />} />
+            <Route path="/book-consultation" element={<BookConsultationPage />} />
+            <Route path="/thank-you" element={<ThankYouPage />} />
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <SEO />
       <Navbar />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/:slug" element={<ProductDetailPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/library" element={<ResourcesPage />} />
-          <Route path="/consultation" element={<ConsultationPage />} />
-          <Route path="/newsletter" element={<NewsletterPage />} />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/case-studies" element={<CaseStudiesPage />} />
-          <Route path="/audit" element={<AuditPage />} />
-          <Route path="/book-consultation" element={<BookConsultationPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-        </Routes>
-      </Suspense>
+      <AnimatedRoutes />
       <Footer />
     </BrowserRouter>
   )

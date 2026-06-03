@@ -21,6 +21,7 @@ type ButtonAsLink = {
   children?: React.ReactNode
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md' | 'lg'
+  onClick?: () => void
 }
 
 type ButtonProps = (ButtonAsButton | ButtonAsAnchor | ButtonAsLink) & {
@@ -52,8 +53,8 @@ export function Button({
   const cls = `${base} ${variants[variant]} ${sizes[size]} ${className}`
 
   if (Tag === 'link') {
-    const { to } = props as ButtonAsLink
-    return <Link to={to} className={cls}>{children}</Link>
+    const { to, onClick } = props as ButtonAsLink
+    return <Link to={to} className={cls} onClick={onClick}>{children}</Link>
   }
 
   if (Tag === 'a') {

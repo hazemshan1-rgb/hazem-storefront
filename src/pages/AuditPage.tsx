@@ -1,4 +1,7 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { SEO } from '../components/ui/SEO'
+import { useState, useEffect } from 'react'
+import { caseStudies } from '../data/caseStudies'
 
 const scope = [
   {
@@ -61,8 +64,38 @@ export function AuditPage() {
   const delivRef = useScrollReveal<HTMLDivElement>()
   const processRef = useScrollReveal<HTMLElement>()
 
+  const [showSticky, setShowSticky] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowSticky(window.scrollY > 600)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="90-Day Farm Profitability Audit"
+        description="A structured, on-site diagnostic engagement that identifies exactly where your operation is losing money and delivers a clear 90-day roadmap for closing the gap."
+      />
+
+      {/* Sticky CTA for conversion */}
+      <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-lg transition-all duration-500 ${showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
+        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-4 shadow-2xl flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold">90-Day Audit</p>
+            <p className="text-xs text-white/90">Find your hidden margin.</p>
+          </div>
+          <a
+            href="mailto:hazemshan1@gmail.com?subject=90-Day Farm Profitability Audit — Enquiry"
+            className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-5 py-2.5 rounded-sm hover:brightness-110 transition-all whitespace-nowrap"
+          >
+            Enquire Now
+          </a>
+        </div>
+      </div>
 
       {/* ── Header ──────────────────────────────────── */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">
@@ -246,6 +279,29 @@ export function AuditPage() {
         />
         <div className="absolute inset-0 bg-[var(--color-navy)]/55" />
       </div>
+
+      {/* ── Social Proof ─────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Field Results</p>
+        <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">What the audit uncovers</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {caseStudies.map(cs => (
+            <div key={cs.client} className="flex flex-col gap-4 p-6 bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm">
+              <div className="flex items-center gap-3">
+                <span className="font-serif text-2xl text-[var(--color-gold)]">{cs.metric}</span>
+                <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)]">{cs.metricLabel}</span>
+              </div>
+              <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed">
+                "{cs.outcome.split('.')[0]}."
+              </p>
+              <div className="mt-auto pt-3 border-t border-[var(--color-gold-muted)]">
+                <p className="text-[10px] font-semibold text-[var(--color-text)]">{cs.client}</p>
+                <p className="text-[9px] text-[var(--color-text-muted)]">{cs.region}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ── CTA ───────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-6 pt-16">

@@ -169,6 +169,14 @@
     background-clip: text;
     animation: shimmer 3s linear infinite;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* --- Focus states — gold outline for keyboard nav --- */

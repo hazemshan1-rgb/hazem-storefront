@@ -1,9 +1,10 @@
 import { useParams, Link } from 'react-router-dom'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
-import { getBySlug } from '../data/products'
+import { getBySlug, products } from '../data/products'
 import { GoldBadge } from '../components/ui/GoldBadge'
 import { Button } from '../components/ui/Button'
-import { Check } from 'lucide-react'
+import { SEO } from '../components/ui/SEO'
+import { Check, ArrowRight } from 'lucide-react'
 
 export function ProductDetailPage() {
   useLemonSqueezy()
@@ -19,8 +20,16 @@ export function ProductDetailPage() {
     )
   }
 
+  const nextProducts = products.filter(p => p.id !== product.id).slice(0, 2)
+
   return (
     <main className="max-w-6xl mx-auto px-6 pt-28 pb-20">
+      <SEO
+        title={product.title}
+        description={product.tagline}
+        image={product.coverImage}
+        type="product"
+      />
       <Link to="/shop" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors mb-8 block">
         ← All Resources
       </Link>
@@ -62,6 +71,32 @@ export function ProductDetailPage() {
           <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
             Secure checkout via Lemon Squeezy. Instant PDF delivery. 30-day money-back guarantee.
           </p>
+        </div>
+      </div>
+
+      {/* Recommended Next Step */}
+      <div className="mt-24 pt-16 border-t border-[var(--color-gold-muted)]">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Recommended Next Step</p>
+        <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">Complement your knowledge</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {nextProducts.map(p => (
+            <Link key={p.id} to={`/shop/${p.slug}`} className="group block bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-all">
+              <div className="flex flex-col sm:flex-row h-full">
+                <div className="sm:w-1/3 aspect-square sm:aspect-auto">
+                  <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="sm:w-2/3 p-6 flex flex-col justify-center">
+                  <GoldBadge label={p.category} />
+                  <h3 className="font-serif text-lg text-[var(--color-text)] mt-3 group-hover:text-[var(--color-gold)] transition-colors">{p.title}</h3>
+                  <p className="text-xs text-[var(--color-text-muted)] mt-2 line-clamp-2">{p.tagline}</p>
+                  <div className="mt-4 flex items-center gap-2 text-[10px] tracking-widest uppercase font-semibold text-[var(--color-gold)]">
+                    View Resource <ArrowRight size={12} />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </main>

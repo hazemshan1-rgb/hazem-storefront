@@ -54,22 +54,34 @@ export function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-[rgba(255,255,255,0.08)] bg-[var(--color-navy-2)] px-6 py-4 flex flex-col gap-4">
-          {links.map(l => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              onClick={() => setOpen(false)}
-              className="text-xs tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)]"
-            >
-              {l.label}
-            </NavLink>
-          ))}
-          <Button as="link" to="/shop" size="sm" className="w-fit">Browse Resources</Button>
-          <Button as="link" to="/consultation" size="sm" variant="secondary" className="w-fit">Book a Call</Button>
+      <div
+        className={`fixed inset-0 top-16 z-40 bg-[var(--color-navy)]/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setOpen(false)}
+      />
+      <div
+        className={`fixed top-16 left-0 right-0 z-50 border-t border-[rgba(255,255,255,0.08)] bg-[var(--color-navy-2)] px-6 py-8 flex flex-col gap-6 transition-all duration-300 ease-in-out md:hidden ${
+          open ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0 pointer-events-none'
+        }`}
+      >
+        {links.map(l => (
+          <NavLink
+            key={l.to}
+            to={l.to}
+            onClick={() => setOpen(false)}
+            className={({ isActive }) =>
+              `text-sm tracking-widest uppercase transition-colors ${
+                isActive ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-text-muted-dark)]'
+              }`
+            }
+          >
+            {l.label}
+          </NavLink>
+        ))}
+        <div className="pt-4 border-t border-[rgba(255,255,255,0.08)] flex flex-col gap-3">
+          <Button as="link" to="/shop" size="lg" className="w-full text-center py-4" onClick={() => setOpen(false)}>Browse Resources</Button>
+          <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full text-center py-4" onClick={() => setOpen(false)}>Book a Call</Button>
         </div>
-      )}
+      </div>
     </header>
   )
 }

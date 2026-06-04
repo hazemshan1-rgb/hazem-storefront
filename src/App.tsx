@@ -16,8 +16,12 @@ const NewsletterPage = lazy(() => import('./pages/NewsletterPage').then(m => ({ 
 const CoursesPage = lazy(() => import('./pages/CoursesPage').then(m => ({ default: m.CoursesPage })))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage').then(m => ({ default: m.CaseStudiesPage })))
 const AuditPage = lazy(() => import('./pages/AuditPage').then(m => ({ default: m.AuditPage })))
-const BookConsultationPage = lazy(() => import('./pages/BookConsultationPage').then(m => ({ default: m.BookConsultationPage })))
-const ThankYouPage = lazy(() => import('./pages/ThankYouPage').then(m => ({ default: m.ThankYouPage })))
+const BookConsultationPage  = lazy(() => import('./pages/BookConsultationPage').then(m => ({ default: m.BookConsultationPage })))
+const ThankYouPage          = lazy(() => import('./pages/ThankYouPage').then(m => ({ default: m.ThankYouPage })))
+const DiagnosticPage        = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })))
+const BenchmarkPage         = lazy(() => import('./pages/BenchmarkPage').then(m => ({ default: m.BenchmarkPage })))
+const ValuationPage         = lazy(() => import('./pages/ValuationPage').then(m => ({ default: m.ValuationPage })))
+const SymptomCheckerPage    = lazy(() => import('./pages/SymptomCheckerPage').then(m => ({ default: m.SymptomCheckerPage })))
 
 function PageLoader() {
   return (
@@ -59,8 +63,12 @@ function AnimatedRoutes() {
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/audit" element={<AuditPage />} />
-            <Route path="/book-consultation" element={<BookConsultationPage />} />
-            <Route path="/thank-you" element={<ThankYouPage />} />
+            <Route path="/book-consultation"  element={<BookConsultationPage />} />
+            <Route path="/thank-you"          element={<ThankYouPage />} />
+            <Route path="/diagnostic"         element={<DiagnosticPage />} />
+            <Route path="/benchmark"          element={<BenchmarkPage />} />
+            <Route path="/valuation"          element={<ValuationPage />} />
+            <Route path="/symptom-checker"    element={<SymptomCheckerPage />} />
           </Routes>
         </Suspense>
       </motion.div>

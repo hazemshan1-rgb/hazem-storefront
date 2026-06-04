@@ -22,18 +22,6 @@ export function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
 
-        {/* Free ebooks announcement pill */}
-        <div className="flex justify-center md:justify-start mb-8 animate-fade-in">
-          <Link
-            to="/shop"
-            className="inline-flex items-center gap-2.5 border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] rounded-full px-5 py-2 text-[11px] tracking-[0.15em] uppercase font-semibold hover:bg-[var(--color-gold-cta)] hover:text-[var(--color-navy)] transition-all duration-300 group"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-gold-cta)] group-hover:bg-[var(--color-navy)] transition-colors" />
-            Claim your free field guides
-            <span className="opacity-70 group-hover:opacity-100 transition-opacity">→</span>
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
           {/* Left — photo */}
@@ -75,6 +63,14 @@ export function Hero() {
               <Button as="link" to="/diagnostic" size="lg">Get My Farm Score →</Button>
               <Button as="link" to="/shop" variant="secondary" size="lg">Browse Resources</Button>
             </div>
+
+            <Link
+              to="/shop"
+              className="inline-flex items-center gap-2 self-start text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors duration-300 animate-fade-in-up animation-delay-400 group"
+            >
+              <span className="w-1 h-1 rounded-full bg-[var(--color-gold-cta)] opacity-70 group-hover:opacity-100 transition-opacity" />
+              Claim your free field guides →
+            </Link>
           </div>
 
         </div>

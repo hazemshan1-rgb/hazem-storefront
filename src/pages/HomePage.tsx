@@ -65,13 +65,19 @@ function ConsultationBanner() {
 function ToolsNav() {
   return (
     <section className="max-w-6xl mx-auto px-6 py-12">
-      <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6 text-center">Free Diagnostic Tools</p>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="flex items-center justify-between mb-6">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Free Diagnostic Tools</p>
+        <Link to="/tools" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
+          See all tools →
+        </Link>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
-          { to: '/diagnostic',      label: 'Farm Score',        sub: '6 questions → health report' },
-          { to: '/benchmark',       label: 'Benchmark',         sub: 'FCR, survival, cost/kg' },
-          { to: '/valuation',       label: 'Farm Valuation',    sub: 'Current & potential value' },
-          { to: '/symptom-checker', label: 'AI Diagnosis',      sub: 'Describe a problem, get a diagnosis' },
+          { to: '/diagnostic',      label: 'Farm Score',      sub: '6 questions' },
+          { to: '/benchmark',       label: 'Benchmark',       sub: 'FCR · survival · $/kg' },
+          { to: '/valuation',       label: 'Valuation',       sub: 'Today vs potential' },
+          { to: '/symptom-checker', label: 'AI Symptom',      sub: 'Instant diagnosis' },
+          { to: '/ask',             label: 'Ask AI',          sub: 'Library assistant' },
         ].map(t => (
           <Link key={t.to} to={t.to}
             className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">

@@ -5,13 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '../ui/Button'
 
 const links = [
-  { to: '/',                label: 'Home' },
-  { to: '/diagnostic',      label: 'Farm Score' },
-  { to: '/audit',           label: 'Farm Audit' },
-  { to: '/consultation',    label: 'Consultation' },
-  { to: '/shop',            label: 'Shop' },
-  { to: '/library',         label: 'Library' },
-  { to: '/about',           label: 'About' },
+  { to: '/',             label: 'Home' },
+  { to: '/tools',        label: 'Tools' },
+  { to: '/ask',          label: 'Ask AI' },
+  { to: '/audit',        label: 'Farm Audit' },
+  { to: '/consultation', label: 'Consultation' },
+  { to: '/shop',         label: 'Shop' },
+  { to: '/library',      label: 'Library' },
+  { to: '/about',        label: 'About' },
 ]
 
 export function Navbar() {

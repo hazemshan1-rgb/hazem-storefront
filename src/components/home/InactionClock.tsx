@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 
-// $55,000/yr farm leak ÷ 365 ÷ 24 ÷ 3600 = $0.001743 per second
-// Based on: FCR 1.90 vs 1.65 benchmark on $600K revenue + survival gap
-const RATE_PER_SECOND = 0.001743
+// Model: each pond ≈ $70K annual revenue, 25% efficiency gap = $17,500/pond/yr lost
+const LOSS_PER_POND_PER_SECOND = 17500 / 365 / 24 / 3600  // $0.000555/pond/sec
+
+function fmt(n: number) {
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`
+  if (n >= 1_000)     return `$${Math.round(n).toLocaleString()}`
+  return `$${n.toFixed(2)}`
+}
 
 export function InactionClock() {
-  const ref    = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const ref     = useRef<HTMLElement>(null)
+  const inView  = useInView(ref, { once: true, margin: '-80px' })
   const [elapsed, setElapsed] = useState(0)
+  const [ponds,   setPonds]   = useState(10)
   const startRef = useRef<number | null>(null)
   const rafRef   = useRef<number>(0)
 
@@ -16,37 +22,75 @@ export function InactionClock() {
     if (!inView) return
     startRef.current = performance.now()
     const tick = (now: number) => {
-      const secs = (now - (startRef.current ?? now)) / 1000
-      setElapsed(secs)
+      setElapsed((now - (startRef.current ?? now)) / 1000)
       rafRef.current = requestAnimationFrame(tick)
     }
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
   }, [inView])
 
-  const lost = (elapsed * RATE_PER_SECOND).toFixed(2)
-  const monthly = (RATE_PER_SECOND * 86400 * 30).toFixed(0)
+  const ratePerSec = ponds * LOSS_PER_POND_PER_SECOND
+  const session    = elapsed * ratePerSec
+  const monthly    = ratePerSec * 86400 * 30
+  const annual     = ratePerSec * 86400 * 365
+  const daily      = ratePerSec * 86400
 
   return (
-    <section ref={ref} className="border-y border-[var(--color-gold-muted)] bg-[var(--color-surface)]">
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    <section ref={ref} className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.06)]">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+
+          {/* Pond selector */}
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Cost of Inaction</p>
-            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-md">
-              A farm running at 75% capacity with an FCR of 1.90 is leaving{' '}
-              <span className="text-[var(--color-text)] font-semibold">${Number(monthly).toLocaleString()}/month</span>{' '}
-              on the table. Since you started reading this page:
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">Cost of Inaction</p>
+            <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mb-2 font-semibold">
+              Number of ponds
+            </label>
+            <input
+              type="range" min={1} max={50} step={1} value={ponds}
+              onChange={e => { setPonds(Number(e.target.value)); startRef.current = performance.now(); setElapsed(0) }}
+              className="w-full accent-[var(--color-gold-cta)] mb-2"
+            />
+            <div className="flex justify-between">
+              <span className="font-serif text-2xl text-[var(--color-text-on-dark)]">{ponds}</span>
+              <span className="text-[10px] text-[var(--color-text-muted-dark)] self-end">ponds</span>
+            </div>
+            <p className="text-[10px] text-[var(--color-text-muted-dark)] mt-2 leading-relaxed">
+              Based on 25% inefficiency gap vs benchmark on typical intensive production.
             </p>
           </div>
-          <div className="text-center shrink-0">
-            <p className="font-serif text-5xl md:text-6xl text-[var(--color-gold)] tabular-nums">
-              ${lost}
+
+          {/* Breakdown */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: 'Annual leak',    value: fmt(annual)  },
+              { label: 'Monthly leak',   value: fmt(monthly) },
+              { label: 'Daily leak',     value: fmt(daily)   },
+              { label: 'Per hour',       value: fmt(ratePerSec * 3600) },
+            ].map(({ label, value }) => (
+              <div key={label} className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] rounded-sm p-3 text-center">
+                <p className="font-serif text-lg text-[var(--color-gold-cta)]">{value}</p>
+                <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Live counter */}
+          <div className="text-center">
+            <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mb-3">
+              Lost since this page opened
             </p>
-            <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] mt-1">
-              lost on a typical underperforming farm
+            <p className="font-serif text-5xl md:text-6xl text-[#ef4444] tabular-nums">
+              {fmt(session)}
+            </p>
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mt-2">
+              on your {ponds}-pond operation
+            </p>
+            <p className="text-[9px] text-[var(--color-text-muted-dark)] mt-4">
+              {(elapsed).toFixed(0)}s on this page
             </p>
           </div>
+
         </div>
       </div>
     </section>

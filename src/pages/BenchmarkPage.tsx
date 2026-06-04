@@ -89,7 +89,7 @@ function BenchmarkBar({ metricKey, value, onChange }: {
         {[{ pos: p25pos, label: 'P25' }, { pos: p50pos, label: 'Avg' }, { pos: p75pos, label: 'P75' }].map(m => (
           <div key={m.label}>
             <div className="absolute top-0 bottom-0 w-px bg-[var(--color-gold-muted)]" style={{ left: `${m.pos}%` }} />
-            <span className="absolute -top-5 text-[8px] text-[var(--color-text-muted)] -translate-x-1/2" style={{ left: `${m.pos}%` }}>{m.label}</span>
+            <span className="absolute text-[8px] text-[var(--color-text-muted)] -translate-x-1/2 hidden sm:block" style={{ left: `${m.pos}%`, top: '-18px' }}>{m.label}</span>
           </div>
         ))}
         {/* User needle */}

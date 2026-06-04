@@ -52,7 +52,7 @@ export function ValuationTeaser() {
               <span className="font-serif text-sm text-[var(--color-text)]">{fmt(revenue)}</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm p-5">
                 <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3">Today</p>
                 <motion.p key={currentVal} initial={{ opacity: 0 }} animate={{ opacity: 1 }}

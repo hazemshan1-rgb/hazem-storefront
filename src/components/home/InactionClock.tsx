@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 
-// Model: each pond ≈ $70K annual revenue, 25% efficiency gap = $17,500/pond/yr lost
-const LOSS_PER_POND_PER_SECOND = 17500 / 365 / 24 / 3600  // $0.000555/pond/sec
+// Model: intensive commercial pond ≈ $100K annual revenue, 40% efficiency gap
+// Breakdown: FCR overspend 15% + invisible mortality 12% + disease risk amortised 8%
+//            + suboptimal harvest/growth 5% + energy/water waste 5% → ~40% lost
+// = $40,000/pond/yr → $0.001268/pond/sec (2.3× more accurate than prior 25% model)
+const LOSS_PER_POND_PER_SECOND = 40000 / 365 / 24 / 3600
 
 function fmt(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`
@@ -56,21 +59,32 @@ export function InactionClock() {
               <span className="text-[10px] text-[var(--color-text-muted-dark)] self-end">ponds</span>
             </div>
             <p className="text-[10px] text-[var(--color-text-muted-dark)] mt-2 leading-relaxed">
-              Based on 25% inefficiency gap vs benchmark on typical intensive production.
+              Based on 40% efficiency gap: FCR waste, invisible mortality, disease risk, and energy losses vs benchmark.
             </p>
           </div>
 
           {/* Breakdown */}
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: 'Annual leak',    value: fmt(annual)  },
-              { label: 'Monthly leak',   value: fmt(monthly) },
-              { label: 'Daily leak',     value: fmt(daily)   },
-              { label: 'Per hour',       value: fmt(ratePerSec * 3600) },
-            ].map(({ label, value }) => (
-              <div key={label} className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] rounded-sm p-3 text-center">
-                <p className="font-serif text-lg text-[var(--color-gold-cta)]">{value}</p>
-                <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mt-1">{label}</p>
+              { label: 'Annual leak',  value: fmt(annual),               highlight: true  },
+              { label: 'Monthly leak', value: fmt(monthly),              highlight: false },
+              { label: 'Daily leak',   value: fmt(daily),                highlight: false },
+              { label: 'Per hour',     value: fmt(ratePerSec * 3600),    highlight: false },
+            ].map(({ label, value, highlight }) => (
+              <div
+                key={label}
+                className={`rounded-sm p-4 text-center border ${
+                  highlight
+                    ? 'bg-[rgba(202,138,4,0.12)] border-[var(--color-gold-cta)]'
+                    : 'bg-[rgba(255,255,255,0.06)] border-[rgba(255,255,255,0.12)]'
+                }`}
+              >
+                <p className={`font-serif text-2xl leading-none mb-1.5 ${highlight ? 'text-[var(--color-gold-cta)]' : 'text-white'}`}>
+                  {value}
+                </p>
+                <p className={`text-[9px] tracking-[0.2em] uppercase font-semibold ${highlight ? 'text-[var(--color-gold-cta)]/80' : 'text-[var(--color-text-muted-dark)]'}`}>
+                  {label}
+                </p>
               </div>
             ))}
           </div>

@@ -564,6 +564,15 @@ export function AuditPage() {
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
             You do not need every tier. You need the tier that matches where your farm is bleeding. Start at the bottom. Move up only when you cannot fix it yourself.
           </p>
+          <a
+            href="#free-ebook"
+            className="inline-flex items-center gap-2 mt-6 self-start text-[10px] tracking-[0.2em] uppercase font-semibold border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] px-4 py-2 rounded-sm hover:bg-[rgba(202,138,4,0.08)] transition-all"
+          >
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Not sure which tier? Read the free audit guide first
+          </a>
         </div>
 
         {/* ── 3-tier overview cards ─────────────────── */}
@@ -694,6 +703,40 @@ export function AuditPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Free ebook lead magnet ─────────────────── */}
+      <section id="free-ebook" className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm overflow-hidden flex flex-col md:flex-row items-stretch shadow-[0_0_40px_rgba(202,138,4,0.1)]">
+          <div className="w-full md:w-48 shrink-0 bg-[var(--color-navy-2)] flex items-center justify-center p-6">
+            <img
+              src="/images/products/farm-audit-thumbnail.png"
+              alt="Aquaculture Profit Leak Audit — Free Ebook"
+              className="w-full max-w-[140px] md:max-w-none rounded-sm shadow-lg"
+            />
+          </div>
+          <div className="flex flex-col justify-center px-8 py-8 gap-4 flex-1">
+            <div>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] font-semibold mb-2">Free Ebook</p>
+              <h2 className="font-serif text-2xl md:text-3xl text-white leading-snug mb-3">
+                Aquaculture Profit Leak Audit
+              </h2>
+              <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-xl">
+                Before you invest in any tier, read this. It maps every category of profit leak in a working aquaculture system — feed waste, invisible mortality, energy drag, SOP gaps — with the diagnostic metrics that reveal them. Use it to score your operation before our first conversation.
+              </p>
+            </div>
+            <a
+              href="/downloads/aquaculture-profit-leak-audit.pdf"
+              download
+              className="gold-pulse inline-flex items-center gap-2 self-start text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-7 py-3 rounded-sm hover:brightness-110 transition-all"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Download Free — PDF
+            </a>
+          </div>
         </div>
       </section>
 

@@ -56,7 +56,7 @@ export function Navbar() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             to="/"
-            className="font-sans font-bold text-xl tracking-[0.2em] text-[var(--color-text-on-dark)] uppercase hover:text-[var(--color-gold-cta)] transition-colors duration-300"
+            className="font-serif font-bold text-lg tracking-[0.12em] text-[var(--color-text-on-dark)] uppercase hover:text-[var(--color-gold-cta)] transition-colors duration-300"
           >
             Hazem Shannak
           </Link>

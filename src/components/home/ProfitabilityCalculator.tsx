@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 export function ProfitabilityCalculator() {
+  const revealRef = useScrollReveal<HTMLElement>()
   const [revenue, setRevenue] = useState<number>(1000000)
   const [fcr, setFcr] = useState<number>(1.8)
 
@@ -19,8 +21,35 @@ export function ProfitabilityCalculator() {
   const newFeedCost = currentFeedCost * (targetFcr / fcr)
   const annualSavings = currentFeedCost - newFeedCost
 
+  // Animation for the number
+  const [displaySavings, setDisplaySavings] = useState(0)
+  useEffect(() => {
+    const duration = 1000
+    const start = displaySavings
+    const end = Math.round(annualSavings)
+    if (start === end) return
+
+    const startTime = performance.now()
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const easeOutQuad = (t: number) => t * (2 - t)
+
+      const current = Math.floor(start + (end - start) * easeOutQuad(progress))
+      setDisplaySavings(current)
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    requestAnimationFrame(animate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [annualSavings])
+
   return (
-    <section className="bg-[var(--color-navy)] py-20 border-y border-[rgba(255,255,255,0.08)]">
+    <section ref={revealRef} className="bg-[var(--color-navy)] py-20 border-y border-[rgba(255,255,255,0.08)] scroll-reveal">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-12">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">Diagnostic Tool</p>
@@ -78,7 +107,7 @@ export function ProfitabilityCalculator() {
           <div className="text-center p-8 bg-[var(--color-surface-2)] rounded-sm border border-[var(--color-gold-muted)] flex flex-col justify-center items-center">
             <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-2">Potential Annual Recovery</p>
             <p className="font-serif text-5xl md:text-6xl text-[var(--color-gold)] mb-4">
-              ${Math.round(annualSavings).toLocaleString()}
+              ${displaySavings.toLocaleString()}
             </p>
             <p className="text-xs text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-[240px]">
               Estimated margin recovered by optimizing FCR to <strong>{targetFcr.toFixed(1)}</strong>.

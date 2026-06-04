@@ -14,4 +14,5 @@ export interface Product {
   downloadUrl?: string    // direct download path for free products
   featured: boolean
   isLeadMagnet?: boolean  // true = email gate only, never shown in shop
+  comingSoon?: boolean    // true = show in shop but disable purchase
 }

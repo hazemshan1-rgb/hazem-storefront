@@ -40,13 +40,23 @@ export function ProductCard({ product }: ProductCardProps) {
       className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.20)] flex flex-col"
     >
       {/* Cover image */}
-      <Link to={`/shop/${product.slug}`} className="block overflow-hidden aspect-[4/3]">
+      <Link to={`/shop/${product.slug}`} className="block overflow-hidden aspect-[4/3] relative">
         <img
           src={product.coverImage}
           alt={product.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
+          onError={e => {
+            const img = e.currentTarget
+            img.src = '/images/hero/aerial-ponds.jpg'
+            img.style.filter = 'grayscale(0.6)'
+          }}
         />
+        {product.comingSoon && (
+          <span className="absolute top-3 right-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-navy)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-2.5 py-1 rounded-sm">
+            Coming Soon
+          </span>
+        )}
       </Link>
 
       {/* Content */}
@@ -67,9 +77,15 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="font-serif text-xl text-[var(--color-gold)]">
             {product.price === 0 ? 'Free' : `$${product.price}`}
           </span>
-          <a href={product.checkoutUrl} className="lemonsqueezy-button">
-            <Button size="sm">{product.price === 0 ? 'Get Free' : 'Buy Now'}</Button>
-          </a>
+          {product.comingSoon ? (
+            <Link to={`/shop/${product.slug}`}>
+              <Button size="sm" variant="secondary">Notify Me</Button>
+            </Link>
+          ) : (
+            <a href={product.checkoutUrl} className="lemonsqueezy-button">
+              <Button size="sm">{product.price === 0 ? 'Get Free' : 'Buy Now'}</Button>
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

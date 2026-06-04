@@ -59,7 +59,7 @@ export function Hero() {
 
             <div className="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-400">
               <Button as="link" to="/shop" size="lg">Browse Resources</Button>
-              <Button as="a" href="#email-capture" variant="secondary" size="lg">Get the Free SOP</Button>
+              <Button as="a" href="#email-capture" variant="secondary" size="lg">Download a Free Guide</Button>
             </div>
           </div>
 

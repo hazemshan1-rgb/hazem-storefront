@@ -14,7 +14,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Cover image — left column */}
       <Link
         to={`/shop/${product.slug}`}
-        className="relative shrink-0 w-40 sm:w-52 md:w-60 overflow-hidden"
+        className="relative shrink-0 w-36 sm:w-44 overflow-hidden"
       >
         <img
           src={product.coverImage}

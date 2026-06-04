@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { Client } from '@notionhq/client'
-import type { BlockObjectResponse, RichTextItemResponse } from '@notionhq/client/build/src/api-endpoints'
+interface RichTextItemResponse { plain_text: string }
+interface BlockObjectResponse { type: string; id: string; object: 'block' }
 
 // ─── Notion database IDs (created 2026-06-04, edit via Notion workspace) ───
 const NOTION_SERVICES_DB = '9b5ab30279ee406fa9de43de03098fb2'
@@ -210,7 +211,8 @@ export default async function handler(request: Request) {
   // Fire-and-forget: log to Notion without blocking the response
   if (notion) {
     const sessionId = new Date().toISOString().slice(0, 16).replace('T', ' ')
-    const lastUserMsg = messages.filter(m => m.role === 'user').at(-1)?.content ?? ''
+    const userMsgs = messages.filter(m => m.role === 'user')
+    const lastUserMsg = userMsgs[userMsgs.length - 1]?.content ?? ''
     logConversation(notion, sessionId, lastUserMsg, reply).catch(() => {})
   }
 

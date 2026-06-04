@@ -1,6 +1,4 @@
-import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { GoldBadge } from '../ui/GoldBadge'
 import { Button } from '../ui/Button'
 import type { Product } from '../../types/product'
@@ -10,37 +8,14 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  const rawX = useMotionValue(0)
-  const rawY = useMotionValue(0)
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 20 })
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 20 })
-
-  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = cardRef.current?.getBoundingClientRect()
-    if (!rect) return
-    rawX.set((e.clientX - rect.left) / rect.width - 0.5)
-    rawY.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-
-  function onMouseLeave() {
-    rawX.set(0)
-    rawY.set(0)
-  }
-
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      style={{ rotateX, rotateY, transformPerspective: 800 }}
-      whileHover={{ scale: 1.02 }}
-      transition={{ scale: { duration: 0.2 } }}
-      className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.20)] flex flex-col"
-    >
-      {/* Cover image */}
-      <Link to={`/shop/${product.slug}`} className="block overflow-hidden aspect-[4/3] relative">
+    <div className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.15)] transition-all duration-300 flex flex-row">
+
+      {/* Cover image — left column */}
+      <Link
+        to={`/shop/${product.slug}`}
+        className="relative shrink-0 w-40 sm:w-52 md:w-60 overflow-hidden"
+      >
         <img
           src={product.coverImage}
           alt={product.title}
@@ -53,27 +28,29 @@ export function ProductCard({ product }: ProductCardProps) {
           }}
         />
         {product.comingSoon && (
-          <span className="absolute top-3 right-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-navy)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-2.5 py-1 rounded-sm">
+          <span className="absolute top-3 left-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-navy)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-2.5 py-1 rounded-sm">
             Coming Soon
           </span>
         )}
       </Link>
 
-      {/* Content */}
-      <div className="p-6 flex flex-col gap-3 flex-1">
-        <GoldBadge label={product.category} />
+      {/* Content — right column */}
+      <div className="flex flex-col justify-between p-6 flex-1 gap-4 min-w-0">
+        <div className="flex flex-col gap-3">
+          <GoldBadge label={product.category} />
 
-        <Link to={`/shop/${product.slug}`}>
-          <h3 className="font-serif text-lg text-[var(--color-text)] leading-snug hover:text-[var(--color-gold)] transition-colors">
-            {product.title}
-          </h3>
-        </Link>
+          <Link to={`/shop/${product.slug}`}>
+            <h3 className="font-serif text-lg md:text-xl text-[var(--color-text)] leading-snug hover:text-[var(--color-gold)] transition-colors">
+              {product.title}
+            </h3>
+          </Link>
 
-        <p className="text-xs text-[var(--color-text-muted)] leading-relaxed flex-1">
-          {product.tagline}
-        </p>
+          <p className="text-xs text-[var(--color-text-muted)] leading-relaxed line-clamp-3">
+            {product.tagline}
+          </p>
+        </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-[var(--color-gold-muted)]">
+        <div className="flex items-center justify-between pt-3 border-t border-[var(--color-gold-muted)]">
           <span className="font-serif text-xl text-[var(--color-gold)]">
             {product.price === 0 ? 'Free' : `$${product.price}`}
           </span>
@@ -88,6 +65,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
       </div>
-    </motion.div>
+
+    </div>
   )
 }

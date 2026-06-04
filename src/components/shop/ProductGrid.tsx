@@ -17,7 +17,7 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div ref={revealRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children scroll-reveal">
+    <div ref={revealRef} className="flex flex-col gap-4 stagger-children scroll-reveal">
       {products.map(p => <ProductCard key={p.id} product={p} />)}
     </div>
   )

@@ -1,4 +1,5 @@
 import { ProductCard } from './ProductCard'
+import { useScrollReveal } from '../../hooks/useScrollReveal'
 import type { Product } from '../../types/product'
 
 interface ProductGridProps {
@@ -6,6 +7,7 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products }: ProductGridProps) {
+  const revealRef = useScrollReveal<HTMLDivElement>()
   if (products.length === 0) {
     return (
       <div className="text-center py-20">
@@ -15,7 +17,7 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div ref={revealRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children scroll-reveal">
       {products.map(p => <ProductCard key={p.id} product={p} />)}
     </div>
   )

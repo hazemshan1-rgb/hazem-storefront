@@ -80,6 +80,10 @@
     animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  .animate-page-in {
+    animation: fadeIn 0.4s ease-out both;
+  }
+
   .animation-delay-100  { animation-delay: 0.10s; }
   .animation-delay-200  { animation-delay: 0.20s; }
   .animation-delay-300  { animation-delay: 0.30s; }
@@ -148,6 +152,34 @@
   .card-hover:hover {
     transform: translateY(-5px);
     box-shadow: 0 16px 40px rgba(139, 108, 58, 0.13);
+  }
+  .card-hover:hover img {
+    transform: scale(1.05);
+  }
+  .card-hover img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* --- Premium Nav Link --- */
+  .nav-link-premium {
+    position: relative;
+  }
+  .nav-link-premium::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-gold-cta);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link-premium:hover::after,
+  .nav-link-premium.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   /* --- Gold pulse for CTA buttons --- */

@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { SEO } from './components/ui/SEO'
@@ -27,26 +27,45 @@ function PageLoader() {
   )
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
+function AnimatedRoutes() {
+  const location = useLocation()
+
+  return (
+    <div key={location.pathname} className="animate-page-in">
+      <Routes location={location}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:slug" element={<ProductDetailPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/library" element={<ResourcesPage />} />
+        <Route path="/consultation" element={<ConsultationPage />} />
+        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/case-studies" element={<CaseStudiesPage />} />
+        <Route path="/audit" element={<AuditPage />} />
+        <Route path="/book-consultation" element={<BookConsultationPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
+      </Routes>
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <SEO />
       <Navbar />
       <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/:slug" element={<ProductDetailPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/library" element={<ResourcesPage />} />
-          <Route path="/consultation" element={<ConsultationPage />} />
-          <Route path="/newsletter" element={<NewsletterPage />} />
-          <Route path="/courses" element={<CoursesPage />} />
-          <Route path="/case-studies" element={<CaseStudiesPage />} />
-          <Route path="/audit" element={<AuditPage />} />
-          <Route path="/book-consultation" element={<BookConsultationPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-        </Routes>
+        <AnimatedRoutes />
       </Suspense>
       <Footer />
     </BrowserRouter>

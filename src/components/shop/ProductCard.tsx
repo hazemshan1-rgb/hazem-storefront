@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.20)] hover:-translate-y-1 transition-all duration-300 flex flex-col">
+    <div className="card-hover group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden flex flex-col">
       {/* Cover image */}
       <Link to={`/shop/${product.slug}`} className="block overflow-hidden aspect-[4/3]">
         <img

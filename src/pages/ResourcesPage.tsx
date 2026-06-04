@@ -16,7 +16,7 @@ function ResourceCard({ title, description, url, category, free }: {
   free: boolean
 }) {
   return (
-    <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 flex flex-col gap-3 hover:border-[var(--color-gold)] hover:shadow-[0_4px_24px_rgba(139,108,58,0.12)] transition-all duration-300">
+    <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 flex flex-col gap-3 hover:border-[var(--color-gold)] hover:shadow-[0_16px_40px_rgba(139,108,58,0.13)] hover:-translate-y-1 transition-all duration-300">
       <div className="flex items-start justify-between gap-3">
         <GoldBadge label={category} />
         <span className={`text-[9px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-sm ${
@@ -51,6 +51,7 @@ export function ResourcesPage() {
   const [active, setActive] = useState<Filter>('All')
   const [query, setQuery] = useState('')
   const headerRef = useScrollReveal<HTMLElement>()
+  const gridRef = useScrollReveal<HTMLDivElement>()
 
   const filters: Filter[] = ['All', ...resourceCategories]
 
@@ -117,7 +118,7 @@ export function ResourcesPage() {
 
       {/* Grid */}
       <section className="max-w-6xl mx-auto px-6 pt-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children scroll-reveal">
           {filtered.map(r => (
             <ResourceCard key={r.url} {...r} />
           ))}

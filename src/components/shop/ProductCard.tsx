@@ -14,12 +14,12 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Cover image — left column */}
       <Link
         to={`/shop/${product.slug}`}
-        className="relative shrink-0 w-36 sm:w-44 overflow-hidden"
+        className="relative shrink-0 w-36 sm:w-44 self-stretch overflow-hidden min-h-[160px]"
       >
         <img
           src={product.coverImage}
           alt={product.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
           onError={e => {
             const img = e.currentTarget
@@ -27,8 +27,10 @@ export function ProductCard({ product }: ProductCardProps) {
             img.style.filter = 'grayscale(0.6)'
           }}
         />
+        {/* Gradient overlay so badge text is always legible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent pointer-events-none" />
         {product.comingSoon && (
-          <span className="absolute top-3 left-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-navy)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-2.5 py-1 rounded-sm">
+          <span className="absolute top-3 left-3 text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-navy)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-2.5 py-1 rounded-sm shadow-sm">
             Coming Soon
           </span>
         )}

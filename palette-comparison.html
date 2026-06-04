@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palette Comparison — Hazem Shannak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── SWITCHER UI ─────────────────────────────── */
+.switcher {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: #111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-bottom: 1px solid #333;
+}
+.switcher span {
+  color: #888;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-right: 8px;
+}
+.pal-btn {
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: transparent;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pal-btn:hover { border-color: #999; color: #fff; }
+.pal-btn.active { background: #fff; color: #111; border-color: #fff; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+/* ── PALETTE VARIABLES ─────────────────────────── */
+/* Palette A: Authority Navy — deep navy sections, light background, Bodoni+Jost */
+[data-palette="A"] {
+  --bg:           #F8FAFC;
+  --surface:      #0F172A;
+  --surface-2:    #1E293B;
+  --surface-card: #FFFFFF;
+  --gold:         #B07D2A;
+  --gold-bright:  #CA8A04;
+  --gold-muted:   rgba(176, 125, 42, 0.12);
+  --gold-border:  rgba(176, 125, 42, 0.30);
+  --text:         #0F172A;
+  --text-on-dark: #F1F5F9;
+  --text-muted:   #475569;
+  --text-muted-dark: #94A3B8;
+  --border:       #E2E8F0;
+  --border-dark:  rgba(148,163,184,0.2);
+  --serif: 'Bodoni Moda', Georgia, serif;
+  --sans:  'Jost', system-ui, sans-serif;
+  --navbar-bg: #0F172A;
+  --section-hero-bg: #0F172A;
+}
+
+/* Palette B: Warm Espresso — warm dark charcoal, champagne gold, Cormorant+Montserrat */
+[data-palette="B"] {
+  --bg:           #1C1917;
+  --surface:      #292524;
+  --surface-2:    #3D3936;
+  --surface-card: #252220;
+  --gold:         #C9A45A;
+  --gold-bright:  #DDB96A;
+  --gold-muted:   rgba(201, 164, 90, 0.12);
+  --gold-border:  rgba(201, 164, 90, 0.25);
+  --text:         #FAF7F2;
+  --text-on-dark: #FAF7F2;
+  --text-muted:   #B0A090;
+  --text-muted-dark: #B0A090;
+  --border:       rgba(201, 164, 90, 0.18);
+  --border-dark:  rgba(201, 164, 90, 0.18);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Montserrat', system-ui, sans-serif;
+  --navbar-bg: #141210;
+  --section-hero-bg: #141210;
+}
+
+/* Palette C: Slate Ink — mid-dark slate, pure contrast, premium editorial */
+[data-palette="C"] {
+  --bg:           #0F172A;
+  --surface:      #1E293B;
+  --surface-2:    #293548;
+  --surface-card: #1E2D40;
+  --gold:         #CA8A04;
+  --gold-bright:  #EAA820;
+  --gold-muted:   rgba(202, 138, 4, 0.12);
+  --gold-border:  rgba(202, 138, 4, 0.25);
+  --text:         #F1F5F9;
+  --text-on-dark: #F1F5F9;
+  --text-muted:   #94A3B8;
+  --text-muted-dark: #94A3B8;
+  --border:       rgba(148,163,184,0.15);
+  --border-dark:  rgba(148,163,184,0.15);
+  --serif: 'Bodoni Moda', Georgia, serif;
+  --sans:  'Jost', system-ui, sans-serif;
+  --navbar-bg: #0a1020;
+  --section-hero-bg: #0a1020;
+}
+
+/* ── BASE RESET ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  padding-top: 46px; /* switcher height */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3 { font-family: var(--serif); }
+
+/* ── NAVBAR ─────────────────────────────── */
+.navbar {
+  background: var(--navbar-bg);
+  padding: 0 40px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 46px;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+[data-palette="A"] .navbar { border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+.navbar-brand {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  letter-spacing: 0.02em;
+}
+.navbar-brand span {
+  color: var(--gold-bright);
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted-dark);
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-on-dark); }
+.btn-nav {
+  background: transparent;
+  border: 1px solid var(--gold-border);
+  color: var(--gold-bright);
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.btn-nav:hover {
+  background: var(--gold-bright);
+  color: #fff;
+}
+
+/* ── HERO ─────────────────────────────── */
+.hero {
+  background: var(--section-hero-bg);
+  padding: 80px 40px;
+  min-height: 600px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+[data-palette="A"] .hero-section {
+  background: var(--section-hero-bg);
+  padding: 0;
+}
+[data-palette="A"] .hero-section > .hero {
+  /* already has correct bg */
+}
+.hero-section {
+  background: var(--section-hero-bg);
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.hero-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--text-on-dark);
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.hero-lead {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-muted-dark);
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--gold-bright);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: var(--text-on-dark);
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--text-on-dark); }
+
+/* Hero right panel */
+.hero-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 32px;
+}
+
+[data-palette="A"] .hero-panel {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.stat-cell {
+  background: var(--surface-2);
+  padding: 20px;
+  text-align: center;
+}
+[data-palette="A"] .stat-cell { background: rgba(255,255,255,0.05); }
+.stat-number {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted-dark);
+  margin-top: 4px;
+  display: block;
+}
+.testimonial-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-muted-dark);
+  border-left: 2px solid var(--gold);
+  padding-left: 16px;
+}
+.testimonial-attr {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 12px;
+}
+
+/* ── TRUST STRIP ─────────────────────────────── */
+.trust-strip {
+  background: var(--surface-2);
+  padding: 20px 40px;
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+[data-palette="A"] .trust-strip {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+}
+
+.trust-item {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 24px;
+  text-align: center;
+}
+
+[data-palette="A"] .trust-item { color: #475569; }
+[data-palette="B"] .trust-item, [data-palette="C"] .trust-item { color: var(--text-muted-dark); }
+
+.trust-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-dark);
+}
+[data-palette="A"] .trust-divider { background: #E2E8F0; }
+
+.trust-item strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  letter-spacing: 0;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+/* ── SECTION WRAPPER ─────────────────────────────── */
+.section {
+  padding: 80px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* For palette A, products section needs special treatment */
+[data-palette="A"] .products-section {
+  background: var(--bg);
+}
+[data-palette="B"] .products-section,
+[data-palette="C"] .products-section {
+  background: var(--bg);
+}
+
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(1.875rem, 3vw, 2.625rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+[data-palette="A"] .products-wrapper .section-title { color: #0F172A; }
+[data-palette="A"] .products-wrapper .section-subtitle { color: #475569; }
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 540px;
+  margin-bottom: 48px;
+  line-height: 1.7;
+}
+[data-palette="B"] .section-subtitle, [data-palette="C"] .section-subtitle {
+  color: var(--text-muted-dark);
+}
+
+/* ── PRODUCT CARDS ─────────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.28s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+}
+
+[data-palette="A"] .card {
+  background: #FFFFFF;
+  border-color: #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px var(--gold-muted);
+}
+[data-palette="A"] .card:hover {
+  box-shadow: 0 20px 40px rgba(176,125,42,0.12);
+}
+
+.card-gold-line {
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+}
+
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  background: var(--surface-2);
+}
+[data-palette="A"] .card-img { background: #F1F5F9; }
+
+.card-img-placeholder {
+  width: 100%;
+  height: 180px;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+[data-palette="A"] .card-img-placeholder { background: #F1F5F9; }
+
+.card-img-icon {
+  opacity: 0.25;
+}
+[data-palette="A"] .card-img-icon { color: #334155; }
+[data-palette="B"] .card-img-icon, [data-palette="C"] .card-img-icon { color: var(--text-muted-dark); }
+
+.card-body {
+  padding: 24px;
+}
+
+.card-tag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+[data-palette="A"] .card-title { color: #0F172A; }
+[data-palette="B"] .card-title, [data-palette="C"] .card-title { color: var(--text-on-dark); }
+
+.card-desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+[data-palette="A"] .card-desc { color: #475569; }
+[data-palette="B"] .card-desc, [data-palette="C"] .card-desc { color: var(--text-muted-dark); }
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+[data-palette="A"] .card-footer { border-color: #E2E8F0; }
+[data-palette="B"] .card-footer, [data-palette="C"] .card-footer { border-color: var(--border-dark); }
+
+.card-price {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+.card-cta {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+  padding: 8px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: transparent;
+  cursor: pointer;
+}
+.card-cta:hover {
+  background: var(--gold-bright);
+  color: #fff;
+  border-color: var(--gold-bright);
+}
+
+/* ── CONSULTATION STRIP ─────────────────────────────── */
+.consult-strip {
+  padding: 64px 40px;
+}
+.consult-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 56px 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: center;
+}
+[data-palette="A"] .consult-inner {
+  background: #0F172A;
+  border-color: rgba(255,255,255,0.08);
+}
+.consult-inner h2 { color: var(--text-on-dark); }
+.consult-lead {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-muted-dark);
+  margin: 16px 0 0;
+  max-width: 500px;
+}
+.price-box {
+  text-align: center;
+  border: 1px solid var(--gold-border);
+  border-radius: 4px;
+  padding: 28px 36px;
+  min-width: 200px;
+}
+.price-from {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
+}
+.price-amount {
+  font-family: var(--serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  display: block;
+  line-height: 1;
+}
+.price-note {
+  font-size: 0.75rem;
+  color: var(--text-muted-dark);
+  display: block;
+  margin: 6px 0 20px;
+}
+
+/* ── FOOTER ─────────────────────────────── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border-dark);
+  padding: 48px 40px 32px;
+}
+[data-palette="A"] .footer {
+  background: #0F172A;
+  border-color: rgba(255,255,255,0.08);
+}
+.footer-grid {
+  max-width: 1200px;
+  margin: 0 auto 32px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin-bottom: 12px;
+}
+.footer-tagline {
+  font-size: 0.875rem;
+  color: var(--text-muted-dark);
+  line-height: 1.65;
+  max-width: 260px;
+}
+.footer-heading {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-links a {
+  text-decoration: none;
+  font-size: 0.875rem;
+  color: var(--text-muted-dark);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text-on-dark); }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-dark);
+  [data-palette="A"] & { border-color: rgba(255,255,255,0.08); }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-muted-dark);
+}
+.footer-gold {
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body data-palette="A">
+
+<!-- PALETTE SWITCHER -->
+<div class="switcher">
+  <span>Palette</span>
+  <button class="pal-btn active" onclick="setPalette('A', this)">
+    <span class="swatch" style="background:#CA8A04"></span>A — Authority Navy
+  </button>
+  <button class="pal-btn" onclick="setPalette('B', this)">
+    <span class="swatch" style="background:#C9A45A"></span>B — Warm Espresso
+  </button>
+  <button class="pal-btn" onclick="setPalette('C', this)">
+    <span class="swatch" style="background:#EAA820"></span>C — Slate Ink
+  </button>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">Hazem <span>Shannak</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Resources</a></li>
+    <li><a href="#">Case Studies</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <a href="#" class="btn-nav">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero-section">
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-label">Aquaculture Business Transformation</div>
+    <h1>Your farm should<br><em>outperform</em> every<br>benchmark in its class.</h1>
+    <p class="hero-lead">
+      30+ years across 9 countries turning underperforming aquaculture operations into high-yield, investment-ready enterprises. I work with operators doing $15K–$100K/month who want more than a consultant — they want results.
+    </p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Book a Strategy Call</a>
+      <a href="#" class="btn-secondary">View Resources</a>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-number">30+</span>
+        <span class="stat-label">Years Field Experience</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number">9</span>
+        <span class="stat-label">Countries Deployed</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number">FCR</span>
+        <span class="stat-label">Optimisation Focus</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number">$83K</span>
+        <span class="stat-label">Monthly Target</span>
+      </div>
+    </div>
+    <p class="testimonial-quote">"Hazem restructured our feeding protocol in 60 days. FCR dropped from 2.1 to 1.4. That's $180K back in our margin annually."</p>
+    <p class="testimonial-attr">— Farm Director, Saudi Arabia</p>
+  </div>
+</div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <strong>UAE</strong>Deployed
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>KSA</strong>Deployed
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>Egypt</strong>Deployed
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>India</strong>Deployed
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>Indonesia</strong>Deployed
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>5+ Species</strong>Expertise
+  </div>
+  <div class="trust-divider"></div>
+  <div class="trust-item">
+    <strong>IMTA</strong>Framework
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products-wrapper">
+<div class="section products-section">
+  <div class="section-label">Digital Resources</div>
+  <h2 class="section-title">Frameworks built in the field.</h2>
+  <p class="section-subtitle">Not theory — documented systems from decades of operational work across species, climates, and markets.</p>
+
+  <div class="cards-grid">
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-gold-line"></div>
+      <div class="card-img-placeholder">
+        <svg class="card-img-icon" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Ebook</div>
+        <h3 class="card-title">FCR Mastery: The Operator's Field Guide</h3>
+        <p class="card-desc">Practical feed conversion methodology tested across 9 countries. Includes species-specific benchmarks for vannamei, monodon, and tilapia.</p>
+        <div class="card-footer">
+          <span class="card-price">$47</span>
+          <a href="#" class="card-cta">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-gold-line"></div>
+      <div class="card-img-placeholder">
+        <svg class="card-img-icon" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2 2H5V5h14v14zm0-16H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">SOP Pack</div>
+        <h3 class="card-title">Biofloc System Setup &amp; Management SOPs</h3>
+        <p class="card-desc">17 step-by-step procedures covering tank preparation, microbial establishment, C:N ratio management, and crisis response protocols.</p>
+        <div class="card-footer">
+          <span class="card-price">$97</span>
+          <a href="#" class="card-cta">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-gold-line"></div>
+      <div class="card-img-placeholder">
+        <svg class="card-img-icon" width="48" height="48" fill="currentColor" viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.06 15.94 0 13.36 0c-1.3 0-2.51.52-3.38 1.44L9 2.9l-.98-1.46C7.15.52 5.94 0 4.64 0 2.06 0 0 2.06 0 4.64c0 .48.11.92.18 1.36H2C.9 6 0 6.9 0 8v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Toolkit</div>
+        <h3 class="card-title">Farm Profitability Audit Toolkit</h3>
+        <p class="card-desc">Complete diagnostic framework: cost-per-kg calculators, yield variance templates, feed cost analysis, and a 90-day improvement roadmap.</p>
+        <div class="card-footer">
+          <span class="card-price">$197</span>
+          <a href="#" class="card-cta">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CONSULTATION STRIP -->
+<div class="consult-strip">
+  <div class="consult-inner">
+    <div>
+      <div class="section-label">Strategy Session</div>
+      <h2 class="section-title" style="color:var(--text-on-dark)">One call. Clarity on your biggest constraint.</h2>
+      <p class="consult-lead">A 90-minute deep-dive into your operation. I'll identify the single bottleneck costing you the most — whether that's FCR, stocking density, feed cost, or management structure.</p>
+    </div>
+    <div>
+      <div class="price-box">
+        <span class="price-from">Starting from</span>
+        <span class="price-amount">$500</span>
+        <span class="price-note">Per strategy session</span>
+        <a href="#" class="btn-primary" style="display:block;text-align:center;">Book via Calendly</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Hazem Shannak</div>
+      <p class="footer-tagline">Turning underperforming aquaculture operations into high-yield, investment-ready enterprises.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Strategy Sessions</a></li>
+        <li><a href="#">90-Day Farm Audit</a></li>
+        <li><a href="#">IMTA Design</a></li>
+        <li><a href="#">Digital Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Case Studies</a></li>
+        <li><a href="#">Resources Library</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 Hazem Shannak. All rights reserved.</span>
+    <span class="footer-gold">Aquaculture · Strategy · Results</span>
+  </div>
+</footer>
+
+<script>
+function setPalette(p, btn) {
+  document.body.setAttribute('data-palette', p);
+  document.querySelectorAll('.pal-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

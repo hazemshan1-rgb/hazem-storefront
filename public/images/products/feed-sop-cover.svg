@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#8B6914" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+    <radialGradient id="vig2" cx="30%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.5"/>
+    </radialGradient>
+    <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="50%" stop-color="#CA8A04"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="#0F172A"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+  <rect width="800" height="600" fill="url(#vig2)"/>
+
+  <!-- Frame -->
+  <rect x="18" y="18" width="764" height="564" fill="none" stroke="#8B6914" stroke-width="0.6" opacity="0.35"/>
+  <rect x="26" y="26" width="748" height="548" fill="none" stroke="#8B6914" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Protocol table motif — right side -->
+  <!-- Header row -->
+  <rect x="460" y="140" width="280" height="36" fill="#CA8A04" opacity="0.08"/>
+  <rect x="460" y="140" width="280" height="36" fill="none" stroke="#CA8A04" stroke-width="0.6" opacity="0.4"/>
+  <text x="475" y="164" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" letter-spacing="2" opacity="0.7">TIME</text>
+  <text x="555" y="164" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" letter-spacing="2" opacity="0.7">PARAMETER</text>
+  <text x="690" y="164" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" letter-spacing="2" opacity="0.7">ACTION</text>
+  <!-- Data rows -->
+  <rect x="460" y="176" width="280" height="28" fill="none" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="475" y="196" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">06:00</text>
+  <text x="555" y="196" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">Feed Tray</text>
+  <text x="690" y="196" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" opacity="0.7">Check</text>
+  <rect x="460" y="204" width="280" height="28" fill="none" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="475" y="224" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">09:00</text>
+  <text x="555" y="224" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">Appetite Score</text>
+  <text x="690" y="224" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" opacity="0.7">Adjust</text>
+  <rect x="460" y="232" width="280" height="28" fill="none" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="475" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">12:00</text>
+  <text x="555" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">FCR Calc</text>
+  <text x="690" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" opacity="0.7">Record</text>
+  <rect x="460" y="260" width="280" height="28" fill="none" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="475" y="280" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">15:00</text>
+  <text x="555" y="280" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">Feed Tray</text>
+  <text x="690" y="280" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" opacity="0.7">Check</text>
+  <rect x="460" y="288" width="280" height="28" fill="none" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="475" y="308" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">18:00</text>
+  <text x="555" y="308" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569">End-of-Day Log</text>
+  <text x="690" y="308" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#CA8A04" opacity="0.7">Complete</text>
+  <!-- Continuation dots -->
+  <text x="590" y="345" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#8B6914" opacity="0.4" text-anchor="middle">· · ·</text>
+
+  <!-- Category label -->
+  <text x="60" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="10" fill="#CA8A04" letter-spacing="3" opacity="0.9">SOP PACK · OPERATIONS</text>
+  <rect x="60" y="58" width="165" height="1" fill="url(#gold2)" opacity="0.7"/>
+
+  <!-- Title -->
+  <text x="60" y="195" font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">Feed</text>
+  <text x="60" y="255" font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">Management</text>
+  <rect x="60" y="275" width="300" height="2" fill="url(#gold2)" opacity="0.8"/>
+  <text x="60" y="308" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-style="italic" fill="#94A3B8">SOP Pack</text>
+
+  <text x="60" y="360" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B">Daily, weekly &amp; cycle-end protocols</text>
+  <text x="60" y="380" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B">for farm supervisors.</text>
+
+  <rect x="60" y="420" width="80" height="30" rx="2" fill="none" stroke="#CA8A04" stroke-width="0.8" opacity="0.5"/>
+  <text x="100" y="440" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#CA8A04" text-anchor="middle" letter-spacing="1">$67</text>
+
+  <text x="60" y="540" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#94A3B8" letter-spacing="2" opacity="0.8">HAZEM SHANNAK</text>
+  <text x="60" y="556" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569" letter-spacing="1.5">30+ YEARS · 15 COUNTRIES</text>
+</svg>

@@ -3,7 +3,11 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { caseStudies } from '../data/caseStudies'
 
-const CHECKOUT_URL = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
+const CHECKOUT_URL  = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
+const CALENDLY_URL  = import.meta.env.VITE_CALENDLY_URL ?? ''
+// Prefer pay-then-book (LS → Calendly). Fall back to direct Calendly booking.
+const BOOKING_URL   = CHECKOUT_URL || CALENDLY_URL
+const BOOKING_LABEL = CHECKOUT_URL ? 'Pay $500 & Choose Your Time' : 'Book a Call — $500'
 
 const faqs = [
   {
@@ -92,7 +96,7 @@ export function ConsultationPage() {
             <p className="text-xs text-white/90">Book your diagnostic session.</p>
           </div>
           <a
-            href={CHECKOUT_URL || '#'}
+            href={BOOKING_URL || '#'}
             className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-5 py-2.5 rounded-sm hover:brightness-110 transition-all whitespace-nowrap"
           >
             Book Now — $500
@@ -214,32 +218,33 @@ export function ConsultationPage() {
                 ))}
               </ul>
 
-              {CHECKOUT_URL ? (
+              {BOOKING_URL ? (
                 <a
-                  href={CHECKOUT_URL}
+                  href={BOOKING_URL}
                   className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all"
                 >
-                  Pay $500 &amp; Choose Your Time
+                  {BOOKING_LABEL}
                 </a>
               ) : (
-                <div className="text-center p-4 border border-[rgba(255,255,255,0.12)] rounded-sm">
-                  <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed">
-                    Set{' '}
-                    <code className="text-[var(--color-gold-cta)] text-[10px]">VITE_CONSULTATION_CHECKOUT_URL</code>{' '}
-                    in Vercel to activate payment.
+                <a
+                  href="mailto:hazemshan1@gmail.com?subject=Consultation%20Booking%20Enquiry"
+                  className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all"
+                >
+                  Enquire by Email
+                </a>
+              )}
+
+              {CHECKOUT_URL && (
+                <div className="flex items-center justify-center gap-2 mt-5">
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                    <rect x="1" y="6" width="10" height="7" rx="1.5" stroke="var(--color-text-muted-dark)" strokeWidth="1.2"/>
+                    <path d="M3.5 6V4a2.5 2.5 0 015 0v2" stroke="var(--color-text-muted-dark)" strokeWidth="1.2" strokeLinecap="round"/>
+                  </svg>
+                  <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">
+                    Secure payment via Lemon Squeezy
                   </p>
                 </div>
               )}
-
-              <div className="flex items-center justify-center gap-2 mt-5">
-                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-                  <rect x="1" y="6" width="10" height="7" rx="1.5" stroke="var(--color-text-muted-dark)" strokeWidth="1.2"/>
-                  <path d="M3.5 6V4a2.5 2.5 0 015 0v2" stroke="var(--color-text-muted-dark)" strokeWidth="1.2" strokeLinecap="round"/>
-                </svg>
-                <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">
-                  Secure payment via Lemon Squeezy
-                </p>
-              </div>
             </div>
 
             <div className="mt-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-sm p-5">

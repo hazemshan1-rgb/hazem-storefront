@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="0.8" fill="#8B6914" opacity="0.18"/>
+    </pattern>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="50%" stop-color="#CA8A04"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect width="800" height="600" fill="#0F172A"/>
+  <rect width="800" height="600" fill="url(#dots)"/>
+  <rect width="800" height="600" fill="url(#vignette)"/>
+
+  <!-- Outer frame -->
+  <rect x="18" y="18" width="764" height="564" fill="none" stroke="#8B6914" stroke-width="0.6" opacity="0.35"/>
+  <rect x="26" y="26" width="748" height="548" fill="none" stroke="#8B6914" stroke-width="0.8" opacity="0.55"/>
+
+  <!-- IMTA motif — three interlocking orbital rings representing three trophic levels -->
+  <!-- Outer orbit (seaweed / inorganic extractive) -->
+  <circle cx="640" cy="300" r="175" fill="none" stroke="#8B6914" stroke-width="0.6" opacity="0.14"/>
+  <!-- Mid orbit (bivalves / organic extractive) -->
+  <circle cx="640" cy="300" r="118" fill="none" stroke="#CA8A04" stroke-width="0.7" opacity="0.20"/>
+  <!-- Inner orbit (shrimp / fed species) -->
+  <circle cx="640" cy="300" r="62" fill="none" stroke="#CA8A04" stroke-width="0.9" opacity="0.28"/>
+  <!-- Centre glow -->
+  <circle cx="640" cy="300" r="28" fill="#CA8A04" opacity="0.05"/>
+
+  <!-- Orbital nodes — three trophic levels represented as points -->
+  <!-- Top node: seaweed -->
+  <circle cx="640" cy="125" r="4" fill="#CA8A04" opacity="0.45"/>
+  <circle cx="640" cy="125" r="8" fill="none" stroke="#CA8A04" stroke-width="0.5" opacity="0.2"/>
+  <!-- Right node: bivalves -->
+  <circle cx="758" cy="300" r="3.5" fill="#CA8A04" opacity="0.38"/>
+  <circle cx="758" cy="300" r="7" fill="none" stroke="#CA8A04" stroke-width="0.5" opacity="0.18"/>
+  <!-- Bottom node: shrimp -->
+  <circle cx="640" cy="475" r="4" fill="#CA8A04" opacity="0.45"/>
+  <circle cx="640" cy="475" r="8" fill="none" stroke="#CA8A04" stroke-width="0.5" opacity="0.2"/>
+  <!-- Left node -->
+  <circle cx="522" cy="300" r="3" fill="#8B6914" opacity="0.35"/>
+
+  <!-- Connector arcs (dashed) suggesting flow between trophic levels -->
+  <line x1="640" y1="125" x2="758" y2="300" stroke="#CA8A04" stroke-width="0.4" stroke-dasharray="3,5" opacity="0.18"/>
+  <line x1="758" y1="300" x2="640" y2="475" stroke="#CA8A04" stroke-width="0.4" stroke-dasharray="3,5" opacity="0.18"/>
+  <line x1="640" y1="475" x2="522" y2="300" stroke="#8B6914" stroke-width="0.4" stroke-dasharray="3,5" opacity="0.14"/>
+  <line x1="522" y1="300" x2="640" y2="125" stroke="#8B6914" stroke-width="0.4" stroke-dasharray="3,5" opacity="0.14"/>
+
+  <!-- Top category label -->
+  <rect x="60" y="58" width="180" height="1" fill="url(#gold)" opacity="0.7"/>
+  <text x="60" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="10" fill="#CA8A04" letter-spacing="3" opacity="0.9">EBOOK · PRIMER</text>
+
+  <!-- Main title -->
+  <text x="60" y="185" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">The Shrimp</text>
+  <text x="60" y="247" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">IMTA Primer</text>
+
+  <!-- Gold rule under title -->
+  <rect x="60" y="270" width="320" height="2" fill="url(#gold)" opacity="0.8"/>
+
+  <!-- Subtitle -->
+  <text x="60" y="303" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-style="italic" fill="#94A3B8">Three Crops, One Pond, Better Margins</text>
+
+  <!-- Body lines -->
+  <text x="60" y="355" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.3">A short introduction to Integrated</text>
+  <text x="60" y="374" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.3">Multi-Trophic Aquaculture for the</text>
+  <text x="60" y="393" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B" letter-spacing="0.3">shrimp industry.</text>
+
+  <!-- Price badge -->
+  <rect x="60" y="430" width="90" height="30" rx="2" fill="#CA8A04" opacity="0.12"/>
+  <rect x="60" y="430" width="90" height="30" rx="2" fill="none" stroke="#CA8A04" stroke-width="0.8" opacity="0.5"/>
+  <text x="105" y="450" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#CA8A04" text-anchor="middle" letter-spacing="1">$27</text>
+
+  <!-- Author -->
+  <text x="60" y="540" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#94A3B8" letter-spacing="2" opacity="0.8">HAZEM SHANNAK</text>
+  <text x="60" y="556" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569" letter-spacing="1.5">30+ YEARS · 15 COUNTRIES</text>
+</svg>

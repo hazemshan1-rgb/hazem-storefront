@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <pattern id="dots5" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="0.7" fill="#8B6914" opacity="0.16"/>
+    </pattern>
+    <radialGradient id="vig5" cx="30%" cy="50%" r="72%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+    <linearGradient id="gold5" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="50%" stop-color="#CA8A04"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="#0F172A"/>
+  <rect width="800" height="600" fill="url(#dots5)"/>
+  <rect width="800" height="600" fill="url(#vig5)"/>
+
+  <!-- Frame -->
+  <rect x="18" y="18" width="764" height="564" fill="none" stroke="#8B6914" stroke-width="0.6" opacity="0.35"/>
+  <rect x="26" y="26" width="748" height="548" fill="none" stroke="#8B6914" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Spreadsheet/financial model motif — right side -->
+  <!-- Sheet shadow -->
+  <rect x="474" y="154" width="272" height="290" rx="2" fill="#0A1020" opacity="0.6"/>
+  <!-- Sheet -->
+  <rect x="470" y="150" width="272" height="290" rx="2" fill="#111827"/>
+  <rect x="470" y="150" width="272" height="290" rx="2" fill="none" stroke="#8B6914" stroke-width="0.6" opacity="0.4"/>
+  <!-- Column headers -->
+  <rect x="470" y="150" width="272" height="22" rx="2" fill="#1E293B"/>
+  <line x1="520" y1="150" x2="520" y2="172" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <line x1="590" y1="150" x2="590" y2="172" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <line x1="660" y1="150" x2="660" y2="172" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+  <text x="495" y="166" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#8B6914" text-anchor="middle" letter-spacing="0.5">METRIC</text>
+  <text x="555" y="166" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#8B6914" text-anchor="middle" letter-spacing="0.5">BASE</text>
+  <text x="625" y="166" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#8B6914" text-anchor="middle" letter-spacing="0.5">Y3</text>
+  <text x="700" y="166" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#CA8A04" text-anchor="middle" letter-spacing="0.5">EXIT</text>
+
+  <!-- Data rows -->
+  <!-- Row 1: Revenue -->
+  <line x1="470" y1="192" x2="742" y2="192" stroke="#8B6914" stroke-width="0.3" opacity="0.2"/>
+  <text x="480" y="188" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B">Revenue</text>
+  <text x="555" y="188" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">$420K</text>
+  <text x="625" y="188" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">$780K</text>
+  <text x="700" y="188" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#CA8A04" text-anchor="middle">$1.2M</text>
+  <!-- Row 2: EBITDA -->
+  <line x1="470" y1="210" x2="742" y2="210" stroke="#8B6914" stroke-width="0.3" opacity="0.2"/>
+  <text x="480" y="206" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B">EBITDA %</text>
+  <text x="555" y="206" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">12%</text>
+  <text x="625" y="206" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">22%</text>
+  <text x="700" y="206" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#CA8A04" text-anchor="middle">31%</text>
+  <!-- Row 3: Cost/kg -->
+  <line x1="470" y1="228" x2="742" y2="228" stroke="#8B6914" stroke-width="0.3" opacity="0.2"/>
+  <text x="480" y="224" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B">Cost/kg</text>
+  <text x="555" y="224" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">$3.80</text>
+  <text x="625" y="224" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">$3.20</text>
+  <text x="700" y="224" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#CA8A04" text-anchor="middle">$2.75</text>
+  <!-- Row 4: FCR -->
+  <line x1="470" y1="246" x2="742" y2="246" stroke="#8B6914" stroke-width="0.3" opacity="0.2"/>
+  <text x="480" y="242" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B">FCR</text>
+  <text x="555" y="242" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">2.0</text>
+  <text x="625" y="242" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#475569" text-anchor="middle">1.65</text>
+  <text x="700" y="242" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#CA8A04" text-anchor="middle">1.45</text>
+  <!-- Row 5: Valuation highlighted -->
+  <rect x="470" y="248" width="272" height="20" fill="#CA8A04" opacity="0.06"/>
+  <line x1="470" y1="268" x2="742" y2="268" stroke="#CA8A04" stroke-width="0.4" opacity="0.3"/>
+  <text x="480" y="262" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#94A3B8" font-weight="700">Valuation</text>
+  <text x="555" y="262" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">—</text>
+  <text x="625" y="262" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#64748B" text-anchor="middle">$700K</text>
+  <text x="700" y="262" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#CA8A04" text-anchor="middle" font-weight="700">$2.1M</text>
+
+  <!-- Separator -->
+  <line x1="470" y1="280" x2="742" y2="280" stroke="#8B6914" stroke-width="0.4" opacity="0.3"/>
+
+  <!-- Sensitivity analysis mini section -->
+  <text x="480" y="298" font-family="Arial, Helvetica, sans-serif" font-size="7.5" fill="#8B6914" letter-spacing="1.5" opacity="0.8">SENSITIVITY — FCR IMPACT</text>
+  <!-- Mini heat-map cells -->
+  <rect x="480" y="304" width="38" height="16" rx="1" fill="#14532D" opacity="0.5"/>
+  <text x="499" y="316" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#86EFAC" text-anchor="middle">+$94K</text>
+  <rect x="522" y="304" width="38" height="16" rx="1" fill="#166534" opacity="0.4"/>
+  <text x="541" y="316" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#86EFAC" text-anchor="middle">+$62K</text>
+  <rect x="564" y="304" width="38" height="16" rx="1" fill="#1E3A5F" opacity="0.4"/>
+  <text x="583" y="316" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#93C5FD" text-anchor="middle">base</text>
+  <rect x="606" y="304" width="38" height="16" rx="1" fill="#7C2D12" opacity="0.4"/>
+  <text x="625" y="316" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FCA5A5" text-anchor="middle">−$48K</text>
+  <rect x="648" y="304" width="38" height="16" rx="1" fill="#7F1D1D" opacity="0.5"/>
+  <text x="667" y="316" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FCA5A5" text-anchor="middle">−$81K</text>
+
+  <!-- Summary line at bottom of sheet -->
+  <rect x="470" y="332" width="272" height="24" rx="0" fill="#CA8A04" opacity="0.08"/>
+  <rect x="470" y="332" width="272" height="24" rx="0" fill="none" stroke="#CA8A04" stroke-width="0.5" opacity="0.3"/>
+  <text x="480" y="348" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#CA8A04" opacity="0.9">Investor-ready summary — 1 page</text>
+
+  <!-- Category -->
+  <text x="60" y="52" font-family="Georgia, 'Times New Roman', serif" font-size="10" fill="#CA8A04" letter-spacing="3" opacity="0.9">TOOLKIT · FINANCIAL MODEL</text>
+  <rect x="60" y="58" width="195" height="1" fill="url(#gold5)" opacity="0.7"/>
+
+  <!-- Title -->
+  <text x="60" y="190" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">Aquaculture</text>
+  <text x="60" y="242" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">Farm Financial</text>
+  <text x="60" y="294" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-weight="700" fill="#F1F5F9" letter-spacing="-0.5">Model</text>
+  <rect x="60" y="310" width="290" height="2" fill="url(#gold5)" opacity="0.8"/>
+
+  <text x="60" y="360" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B">The investor-grade spreadsheet</text>
+  <text x="60" y="380" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#64748B">built for every audit client.</text>
+
+  <rect x="60" y="420" width="90" height="30" rx="2" fill="none" stroke="#CA8A04" stroke-width="0.8" opacity="0.5"/>
+  <text x="105" y="440" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#CA8A04" text-anchor="middle" letter-spacing="1">$197</text>
+
+  <text x="60" y="540" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#94A3B8" letter-spacing="2" opacity="0.8">HAZEM SHANNAK</text>
+  <text x="60" y="556" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#475569" letter-spacing="1.5">30+ YEARS · 15 COUNTRIES</text>
+</svg>

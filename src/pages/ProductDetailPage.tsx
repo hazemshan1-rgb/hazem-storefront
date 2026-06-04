@@ -40,11 +40,21 @@ export function ProductDetailPage() {
             src={product.coverImage}
             alt={product.title}
             className="w-full h-full object-cover"
+            onError={e => {
+              const img = e.currentTarget
+              img.src = '/images/hero/aerial-ponds.jpg'
+              img.style.filter = 'grayscale(0.5)'
+            }}
           />
         </div>
 
         <div className="flex flex-col gap-5">
           <GoldBadge label={product.category} />
+          {product.comingSoon && (
+            <span className="inline-flex w-fit text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-surface)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-3 py-1.5 rounded-sm">
+              Coming Soon
+            </span>
+          )}
           <h1 className="font-serif text-3xl md:text-4xl text-[var(--color-text)] leading-tight">
             {product.title}
           </h1>
@@ -62,15 +72,35 @@ export function ProductDetailPage() {
           </ul>
 
           <div className="pt-4 border-t border-[var(--color-gold-muted)] flex items-center gap-6">
-            <span className="font-serif text-3xl text-[var(--color-gold)]">${product.price}</span>
-            <a href={product.checkoutUrl} className="lemonsqueezy-button flex-1">
-              <Button size="lg" className="w-full">Buy Now — ${product.price}</Button>
-            </a>
+            <span className="font-serif text-3xl text-[var(--color-gold)]">
+              {product.price === 0 ? 'Free' : `$${product.price}`}
+            </span>
+            {product.comingSoon ? (
+              <a
+                href="mailto:hazemshan1@gmail.com?subject=Notify%20Me%20When%20Available"
+                className="flex-1"
+              >
+                <Button size="lg" className="w-full">Notify Me When Available</Button>
+              </a>
+            ) : (
+              <a href={product.checkoutUrl} className="lemonsqueezy-button flex-1">
+                <Button size="lg" className="w-full">
+                  {product.price === 0 ? 'Get It Free' : `Buy Now — $${product.price}`}
+                </Button>
+              </a>
+            )}
           </div>
 
-          <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-            Secure checkout via Lemon Squeezy. Instant PDF delivery. 30-day money-back guarantee.
-          </p>
+          {product.price > 0 && !product.comingSoon && (
+            <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
+              Secure checkout via Lemon Squeezy. Instant PDF delivery. 30-day money-back guarantee.
+            </p>
+          )}
+          {product.price === 0 && (
+            <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
+              Enter your email and it arrives in your inbox immediately. No payment required.
+            </p>
+          )}
         </div>
       </div>
 

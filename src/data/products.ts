@@ -16,7 +16,7 @@ export const products: Product[] = [
       'Use the failure framework as a diagnostic checklist for your current system',
     ],
     price: 0,
-    coverImage: '/images/guides/biofloc-guide-cover.png',
+    coverImage: '/images/products/biofloc-guide-cover.svg',
     checkoutUrl: 'https://jumboshrimp.lemonsqueezy.com/checkout/buy/4b11048a-2b0a-4bd6-b7ce-0e6dc015aab0',
     featured: true,
   },

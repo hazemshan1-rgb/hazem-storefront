@@ -4,7 +4,6 @@ import { Hero } from '../components/home/Hero'
 import { LibraryFeature } from '../components/home/LibraryFeature'
 import { TrustStrip } from '../components/home/TrustStrip'
 import { Philosophy } from '../components/home/Philosophy'
-import { EmailCapture } from '../components/home/EmailCapture'
 import { ProfitabilityCalculator } from '../components/home/ProfitabilityCalculator'
 import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { BenchmarkPreview } from '../components/home/BenchmarkPreview'
@@ -109,7 +108,6 @@ export function HomePage() {
       <Philosophy />
       <ValuationTeaser />
       <ConsultationBanner />
-      <EmailCapture />
     </main>
   )
 }

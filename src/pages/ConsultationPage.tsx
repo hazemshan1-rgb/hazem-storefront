@@ -205,47 +205,10 @@ export function ConsultationPage() {
             </div>
           </div>
 
-          {/* Right — session options */}
-          <div id="options" className="sticky top-28 space-y-4">
+          {/* Right — session options (not sticky: both cards must be visible on load) */}
+          <div id="options" className="space-y-4">
 
-            {/* 30-min */}
-            <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-7">
-              <div className="flex items-start justify-between mb-1">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] font-semibold">Focus Session</p>
-                <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-2 py-0.5 rounded-sm">30 min</span>
-              </div>
-              <div className="flex items-end gap-2 mb-1">
-                <span className="font-serif text-4xl text-[var(--color-text)]">$250</span>
-              </div>
-              <p className="text-xs text-[var(--color-text-muted)] mb-5 leading-relaxed">
-                One specific question. One clear answer. One action. Best for operators who already understand their situation and need a sharp, experienced second opinion.
-              </p>
-              <ul className="space-y-2.5 mb-6">
-                {[
-                  'Targeted on a single problem or decision',
-                  'Written follow-up within 24 hours',
-                  'All time zones covered',
-                ].map(item => (
-                  <li key={item} className="flex items-start gap-3 text-xs text-[var(--color-text-muted)] leading-snug">
-                    {checkIcon}
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {url30 ? (
-                <a href={url30}
-                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-                  Book Focus Session — $250
-                </a>
-              ) : (
-                <a href="mailto:hazemshan1@gmail.com?subject=30-Minute%20Session%20Enquiry"
-                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-                  Enquire by Email
-                </a>
-              )}
-            </div>
-
-            {/* 60-min (featured) */}
+            {/* 60-min (featured) — first so it's above the fold */}
             <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-7">
               <div className="flex items-start justify-between mb-1">
                 <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold-cta)] font-semibold">Deep Dive</p>
@@ -282,7 +245,6 @@ export function ConsultationPage() {
                   Enquire by Email
                 </a>
               )}
-
               {CHECKOUT_60 && (
                 <div className="flex items-center justify-center gap-2 mt-4">
                   <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
@@ -291,6 +253,43 @@ export function ConsultationPage() {
                   </svg>
                   <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">Secure payment via Lemon Squeezy</p>
                 </div>
+              )}
+            </div>
+
+            {/* 30-min */}
+            <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-7">
+              <div className="flex items-start justify-between mb-1">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] font-semibold">Focus Session</p>
+                <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-2 py-0.5 rounded-sm">30 min</span>
+              </div>
+              <div className="flex items-end gap-2 mb-1">
+                <span className="font-serif text-4xl text-[var(--color-text)]">$250</span>
+              </div>
+              <p className="text-xs text-[var(--color-text-muted)] mb-5 leading-relaxed">
+                One specific question. One clear answer. One action. Best for operators who already understand their situation and need a sharp, experienced second opinion.
+              </p>
+              <ul className="space-y-2.5 mb-6">
+                {[
+                  'Targeted on a single problem or decision',
+                  'Written follow-up within 24 hours',
+                  'All time zones covered',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-3 text-xs text-[var(--color-text-muted)] leading-snug">
+                    {checkIcon}
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              {url30 ? (
+                <a href={url30}
+                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
+                  Book Focus Session — $250
+                </a>
+              ) : (
+                <a href="mailto:hazemshan1@gmail.com?subject=30-Minute%20Session%20Enquiry"
+                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
+                  Enquire by Email
+                </a>
               )}
             </div>
 

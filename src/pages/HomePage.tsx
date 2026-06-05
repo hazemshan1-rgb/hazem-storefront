@@ -4,12 +4,36 @@ import { Hero } from '../components/home/Hero'
 import { LibraryFeature } from '../components/home/LibraryFeature'
 import { TrustStrip } from '../components/home/TrustStrip'
 import { Philosophy } from '../components/home/Philosophy'
-import { ProfitabilityCalculator } from '../components/home/ProfitabilityCalculator'
-import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
-import { BenchmarkPreview } from '../components/home/BenchmarkPreview'
-import { ValuationTeaser } from '../components/home/ValuationTeaser'
 import { InactionClock } from '../components/home/InactionClock'
 import { SEO } from '../components/ui/SEO'
+
+function ToolsNav() {
+  return (
+    <section className="max-w-6xl mx-auto px-6 py-12">
+      <div className="flex items-center justify-between mb-6">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Free Diagnostic Tools</p>
+        <Link to="/tools" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
+          See all tools →
+        </Link>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        {[
+          { to: '/diagnostic',      label: 'Farm Score',      sub: '6 questions' },
+          { to: '/benchmark',       label: 'Benchmark',       sub: 'FCR · survival · $/kg' },
+          { to: '/valuation',       label: 'Valuation',       sub: 'Today vs potential' },
+          { to: '/symptom-checker', label: 'AI Symptom',      sub: 'Instant diagnosis' },
+          { to: '/ask',             label: 'Ask AI',          sub: 'Library assistant' },
+        ].map(t => (
+          <Link key={t.to} to={t.to}
+            className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
+            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t.label}</p>
+            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">{t.sub}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
+}
 
 function ConsultationBanner() {
   return (
@@ -61,34 +85,6 @@ function ConsultationBanner() {
   )
 }
 
-function ToolsNav() {
-  return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
-      <div className="flex items-center justify-between mb-6">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Free Diagnostic Tools</p>
-        <Link to="/tools" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
-          See all tools →
-        </Link>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {[
-          { to: '/diagnostic',      label: 'Farm Score',      sub: '6 questions' },
-          { to: '/benchmark',       label: 'Benchmark',       sub: 'FCR · survival · $/kg' },
-          { to: '/valuation',       label: 'Valuation',       sub: 'Today vs potential' },
-          { to: '/symptom-checker', label: 'AI Symptom',      sub: 'Instant diagnosis' },
-          { to: '/ask',             label: 'Ask AI',          sub: 'Library assistant' },
-        ].map(t => (
-          <Link key={t.to} to={t.to}
-            className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
-            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t.label}</p>
-            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">{t.sub}</p>
-          </Link>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 export function HomePage() {
   useLemonSqueezy()
   return (
@@ -99,14 +95,10 @@ export function HomePage() {
       />
       <Hero />
       <TrustStrip />
-      <DiagnosticTeaser />
-      <BenchmarkPreview />
       <InactionClock />
-      <ProfitabilityCalculator />
       <ToolsNav />
       <LibraryFeature />
       <Philosophy />
-      <ValuationTeaser />
       <ConsultationBanner />
     </main>
   )

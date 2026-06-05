@@ -54,10 +54,10 @@ export const products: Product[] = [
       'Know exactly what the first 90 days of conversion look like — day by day',
     ],
     price: 27,
-    coverImage: '/images/products/shrimp-imta-primer-cover.png',
-    checkoutUrl: '',
-    comingSoon: true,
-    featured: false,
+    coverImage: '/images/products/shrimp-imta-primer-cover.webp',
+    checkoutUrl: 'https://jumboshrimp.lemonsqueezy.com/checkout/buy/18152065-e1a3-4b08-b67a-2ee14f03db7f',
+    comingSoon: false,
+    featured: true,
   },
 
   {

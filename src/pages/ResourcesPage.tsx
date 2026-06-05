@@ -121,38 +121,39 @@ export function ResourcesPage() {
 
       {/* Filters & Search */}
       <div className="border-b border-[var(--color-gold-muted)] bg-[var(--color-surface)] sticky top-16 z-30">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row md:items-stretch">
-          {/* Tabs — relative wrapper for the right-fade overflow hint */}
-          <div className="flex-1 min-w-0 relative">
-            {/* Fade hint: tells users more tabs exist beyond the visible edge */}
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--color-surface)] to-transparent z-10" />
-          <div className="flex gap-0 overflow-x-auto no-scrollbar">
-            {filters.map(f => (
-              <button
-                key={f}
-                onClick={() => setActive(f)}
-                className={`shrink-0 text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
-                  active === f
-                    ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
-                    : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
+        <div className="max-w-6xl mx-auto px-6 flex items-stretch">
+          {/* Tabs — overflow-hidden on wrapper is critical: without it the inner
+              flex-row expands past the wrapper's width and slides behind the search box */}
+          <div className="flex-1 min-w-0 overflow-hidden relative">
+            {/* Right-edge fade hint */}
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[var(--color-surface)] to-transparent z-10" />
+            <div className="flex gap-0 overflow-x-auto no-scrollbar w-full">
+              {filters.map(f => (
+                <button
+                  key={f}
+                  onClick={() => setActive(f)}
+                  className={`shrink-0 text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
+                    active === f
+                      ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
+                      : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Search — shrink-0 prevents it being squeezed off-screen */}
-          <div className="shrink-0 flex items-center py-3 md:py-0 md:pl-4 md:border-l md:border-[var(--color-gold-muted)]">
-            <div className="relative w-full md:w-56">
+          {/* Search — always on the right, never squeezes the tab strip */}
+          <div className="shrink-0 flex items-center pl-4 border-l border-[var(--color-gold-muted)]">
+            <div className="relative w-32 sm:w-44 md:w-56">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={14} />
               <input
                 type="text"
-                placeholder="Search resources..."
+                placeholder="Search…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm pl-9 pr-4 py-2 text-xs text-[var(--color-text)] focus:outline-none focus:border-[var(--color-gold)]"
+                className="w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm pl-9 pr-3 py-2 text-xs text-[var(--color-text)] focus:outline-none focus:border-[var(--color-gold)]"
               />
             </div>
           </div>

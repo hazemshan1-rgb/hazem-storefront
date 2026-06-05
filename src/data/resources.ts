@@ -1,11 +1,11 @@
 export type ResourceCategory =
-  | 'Associations'
-  | 'Standards & Certification'
-  | 'Research & Science'
+  | 'IMTA & Regenerative Systems'
   | 'Market Intelligence'
+  | 'Standards & Certification'
+  | 'Associations'
+  | 'Research & Science'
   | 'News & Publications'
   | 'Technical Guides'
-  | 'IMTA & Regenerative Systems'
 
 export interface Resource {
   title: string
@@ -312,11 +312,11 @@ export const resources: Resource[] = [
 ]
 
 export const resourceCategories: ResourceCategory[] = [
-  'Associations',
-  'Standards & Certification',
-  'Research & Science',
+  'IMTA & Regenerative Systems',
   'Market Intelligence',
+  'Standards & Certification',
+  'Associations',
+  'Research & Science',
   'News & Publications',
   'Technical Guides',
-  'IMTA & Regenerative Systems',
 ]

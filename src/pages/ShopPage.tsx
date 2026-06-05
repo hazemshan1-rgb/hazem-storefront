@@ -1,9 +1,19 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { CategoryFilter } from '../components/shop/CategoryFilter'
 import { ProductGrid } from '../components/shop/ProductGrid'
 import { getByCategory } from '../data/products'
 import type { ProductCategory } from '../types/product'
+
+const VALID_CATEGORIES: ProductCategory[] = ['Ebook', 'SOP', 'Toolkit', 'Training']
+
+function parseCategoryParam(param: string | null): 'All' | ProductCategory {
+  if (param && VALID_CATEGORIES.includes(param as ProductCategory)) {
+    return param as ProductCategory
+  }
+  return 'All'
+}
 
 const upcomingCourses = [
   {
@@ -25,7 +35,10 @@ const upcomingCourses = [
 
 export function ShopPage() {
   useLemonSqueezy()
-  const [activeCategory, setActiveCategory] = useState<'All' | ProductCategory>('All')
+  const [searchParams] = useSearchParams()
+  const [activeCategory, setActiveCategory] = useState<'All' | ProductCategory>(
+    () => parseCategoryParam(searchParams.get('category'))
+  )
   const filtered = getByCategory(activeCategory)
 
   return (

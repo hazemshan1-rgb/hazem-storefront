@@ -175,7 +175,7 @@ export function Navbar() {
                     Browse Resources
                   </Button>
                   <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center">
-                    Book a Call — $500
+                    Book a Consultation
                   </Button>
                 </motion.div>
               </div>

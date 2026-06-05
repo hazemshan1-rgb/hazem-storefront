@@ -12,7 +12,7 @@ const stats: Stat[] = [
   { prefix: '',  value: 30,  suffix: '+',  label: 'Years in the Field' },
   { prefix: '',  value: 15,  suffix: '+',  label: 'Countries Deployed' },
   { prefix: '$', value: 50,  suffix: 'M+', label: 'Farm Value Advised' },
-  { prefix: '',  value: 500, suffix: '+',  label: 'Operators Trained' },
+  { prefix: '',  value: 1000, suffix: '+', label: 'Professionals Trained' },
 ]
 
 function useCounter(target: number, duration: number, active: boolean) {

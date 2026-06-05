@@ -18,8 +18,10 @@ function ResourceCard({ title, description, url, category, free }: {
   return (
     <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6 flex flex-col gap-3 hover:border-[var(--color-gold)] hover:shadow-[0_16px_40px_rgba(139,108,58,0.13)] hover:-translate-y-1 transition-all duration-300">
       <div className="flex items-start justify-between gap-3">
-        <GoldBadge label={category} />
-        <span className={`text-[9px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-sm ${
+        <span className="flex-1 min-w-0">
+          <GoldBadge label={category} />
+        </span>
+        <span className={`shrink-0 text-[9px] tracking-widest uppercase font-semibold px-2 py-0.5 rounded-sm ${
           free
             ? 'bg-green-50 text-green-700 border border-green-200'
             : 'bg-[var(--color-surface-2)] text-[var(--color-text-muted)] border border-[var(--color-gold-muted)]'
@@ -51,7 +53,6 @@ export function ResourcesPage() {
   const [active, setActive] = useState<Filter>('All')
   const [query, setQuery] = useState('')
   const headerRef = useScrollReveal<HTMLElement>()
-  const gridRef = useScrollReveal<HTMLDivElement>()
 
   const filters: Filter[] = ['All', ...resourceCategories]
 
@@ -65,7 +66,7 @@ export function ResourcesPage() {
   }, [active, query])
 
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+    <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-12 md:pb-24">
       <SEO
         title="Resources Library"
         description="A curated collection of the authoritative databases, journals, and technical guides that serious aquaculture operators actually use."
@@ -87,11 +88,11 @@ export function ResourcesPage() {
       {/* Free ebook lead magnet */}
       <section className="max-w-6xl mx-auto px-6 pb-10">
         <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm overflow-hidden flex flex-col md:flex-row items-stretch shadow-[0_0_40px_rgba(202,138,4,0.08)]">
-          <div className="w-full md:w-40 shrink-0 bg-[var(--color-navy-2)] flex items-center justify-center p-5">
+          <div className="w-full md:w-40 shrink-0 bg-[var(--color-navy-2)] flex items-center justify-center p-6 md:p-5">
             <img
               src="/images/products/farm-audit-thumbnail.png"
               alt="Aquaculture Profit Leak Audit — Free Ebook"
-              className="w-full max-w-[120px] md:max-w-none rounded-sm shadow-lg"
+              className="w-full max-w-[180px] md:max-w-none rounded-sm shadow-lg"
             />
           </div>
           <div className="flex flex-col justify-center px-7 py-7 gap-3 flex-1">
@@ -120,13 +121,17 @@ export function ResourcesPage() {
 
       {/* Filters & Search */}
       <div className="border-b border-[var(--color-gold-muted)] bg-[var(--color-surface)] sticky top-16 z-30">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex gap-0 overflow-x-auto w-full md:w-auto no-scrollbar">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row md:items-stretch">
+          {/* Tabs — relative wrapper for the right-fade overflow hint */}
+          <div className="flex-1 min-w-0 relative">
+            {/* Fade hint: tells users more tabs exist beyond the visible edge */}
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-[var(--color-surface)] to-transparent z-10" />
+          <div className="flex gap-0 overflow-x-auto no-scrollbar">
             {filters.map(f => (
               <button
                 key={f}
                 onClick={() => setActive(f)}
-                className={`text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
+                className={`shrink-0 text-[10px] tracking-widest uppercase font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap ${
                   active === f
                     ? 'border-[var(--color-gold)] text-[var(--color-gold)]'
                     : 'border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
@@ -136,23 +141,27 @@ export function ResourcesPage() {
               </button>
             ))}
           </div>
+          </div>
 
-          <div className="relative w-full md:w-64 pb-4 md:pb-0">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={14} />
-            <input
-              type="text"
-              placeholder="Search resources..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm pl-9 pr-4 py-2 text-xs text-[var(--color-text)] focus:outline-none focus:border-[var(--color-gold)]"
-            />
+          {/* Search — shrink-0 prevents it being squeezed off-screen */}
+          <div className="shrink-0 flex items-center py-3 md:py-0 md:pl-4 md:border-l md:border-[var(--color-gold-muted)]">
+            <div className="relative w-full md:w-56">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={14} />
+              <input
+                type="text"
+                placeholder="Search resources..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm pl-9 pr-4 py-2 text-xs text-[var(--color-text)] focus:outline-none focus:border-[var(--color-gold)]"
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Grid */}
       <section className="max-w-6xl mx-auto px-6 pt-10">
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children scroll-reveal">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map(r => (
             <ResourceCard key={r.url} {...r} />
           ))}
@@ -164,7 +173,7 @@ export function ResourcesPage() {
       </section>
 
       {/* CTA strip */}
-      <section className="max-w-6xl mx-auto px-6 mt-20">
+      <section className="max-w-6xl mx-auto px-6 mt-10 md:mt-20">
         <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Go Deeper</p>

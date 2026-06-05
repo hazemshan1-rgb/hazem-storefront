@@ -5,6 +5,7 @@ export type ResourceCategory =
   | 'Market Intelligence'
   | 'News & Publications'
   | 'Technical Guides'
+  | 'IMTA & Regenerative Systems'
 
 export interface Resource {
   title: string
@@ -250,6 +251,64 @@ export const resources: Resource[] = [
     category: 'Technical Guides',
     free: true,
   },
+
+  // ─── IMTA & Regenerative Systems ────────────────────────────────────────────
+  {
+    title: 'PubMed: IMTA Research Index',
+    description: 'The most direct route into peer-reviewed IMTA science. Hundreds of papers covering multi-species combination trials, nutrient cycling, economic modelling, and species selection across tropical and temperate systems. Filter by species pair, system type, or geography. Most open-access papers include full text.',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/?term=integrated+multi-trophic+aquaculture',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'Aquaculture Journal: IMTA Paper Archive',
+    description: "The world's most-cited aquaculture journal carries the deepest archive of IMTA trials — shrimp-seaweed combinations, fish-bivalve-macroalgae polyculture, and multi-species economic modelling. Individual papers are accessible; institutional subscription unlocks the full archive. Start with the review articles for a structured entry point.",
+    url: 'https://www.sciencedirect.com/search?qs=integrated+multi-trophic+aquaculture&pub=Aquaculture',
+    category: 'IMTA & Regenerative Systems',
+    free: false,
+  },
+  {
+    title: 'NOFIMA — Applied IMTA Research',
+    description: "Norway's leading food and aquaculture research institute runs one of the most rigorous applied IMTA programmes outside of academic journals — salmon-seaweed-mussel polyculture, nutrient recovery rates, and commercial upscaling studies. Their published outputs are the closest thing to field-tested IMTA engineering data.",
+    url: 'https://nofima.no/en',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'GreenWave — Regenerative Ocean Farming',
+    description: "The most visible commercial application of regenerative ocean farming. Bren Smith's 3D vertical model — combining seaweed, mussels, and oysters on a single water column — shares the same ecological logic underpinning the RSA framework: nutrient cycling, habitat restoration, and commercial yield from underutilised water space. Their open toolkit covers site design, species selection, and financing.",
+    url: 'https://www.greenwave.org',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'FAO: Ecosystem Approach to Aquaculture',
+    description: "FAO's technical framework for designing aquaculture systems that function within, rather than against, their surrounding ecosystems. The EAA principles are the scientific backbone for both IMTA and RSA system design — site selection, carrying capacity, waste assimilation, and biodiversity integration. The foundational read before building any integrated system.",
+    url: 'https://www.fao.org/aquaculture/en',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'FAO Blue Growth Initiative',
+    description: "FAO's framework for sustainable development of ocean and freshwater economies — covering aquaculture, small-scale fisheries, and coastal ecosystem management. Directly relevant to positioning IMTA and RSA systems within national food security and blue economy investment strategies. Essential context for client proposals and government engagement.",
+    url: 'https://www.fao.org/blue-growth/en',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'PubMed: Regenerative Aquaculture Research',
+    description: 'Over 100 peer-reviewed papers on restorative and regenerative approaches to marine and freshwater farming — habitat enhancement, carbon co-benefits, polyculture efficiency, and ecological restoration integrated with commercial production. The primary literature base underpinning RSA system design principles.',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/?term=regenerative+aquaculture',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
+  {
+    title: 'World Resources Institute — Sustainable Blue Foods',
+    description: "WRI's research programme on ocean and freshwater food production — life cycle assessments, greenhouse gas benchmarks, and land-use comparisons across all aquatic food systems. Provides the demand-side economic and environmental case for integrated and regenerative production models. Used by investors and policymakers to evaluate blue food investments.",
+    url: 'https://www.wri.org',
+    category: 'IMTA & Regenerative Systems',
+    free: true,
+  },
 ]
 
 export const resourceCategories: ResourceCategory[] = [
@@ -259,4 +318,5 @@ export const resourceCategories: ResourceCategory[] = [
   'Market Intelligence',
   'News & Publications',
   'Technical Guides',
+  'IMTA & Regenerative Systems',
 ]

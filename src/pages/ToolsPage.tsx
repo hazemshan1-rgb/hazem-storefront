@@ -222,6 +222,7 @@ export function ToolsPage() {
       <SEO
         title="Free Diagnostic Tools — Farm Score, Benchmark, Valuation & AI"
         description="Six free tools for aquaculture farm operators: Farm Health Diagnostic, Benchmark, Margin Recovery Calculator, Valuation Calculator, AI Symptom Checker, and Library AI Assistant."
+        url="/tools"
       />
 
       {/* Header */}

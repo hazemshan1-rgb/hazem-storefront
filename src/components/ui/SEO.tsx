@@ -1,40 +1,50 @@
 import { Helmet } from 'react-helmet-async';
 
+const BASE_URL = 'https://hazemshannak.com'
+
 interface SEOProps {
   title?: string;
   description?: string;
   image?: string;
   url?: string;
   type?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export function SEO({
-  title = 'Hazem Shannak — Aquaculture Resources',
-  description = 'Premium ebooks, SOPs, and toolkits from 30 years of aquaculture expertise. Turn your farm into a high-yield enterprise.',
+  title = 'Hazem Shannak — Aquaculture Systems & Profitability',
+  description = 'Turning aquaculture ventures into high-yield, investment-ready enterprises through field-tested frameworks and 30 years of expertise across 15 countries.',
   image = '/images/hero/hazem-studio.jpg',
-  url = 'https://hazemshannak.com',
+  url,
   type = 'website',
+  jsonLd,
 }: SEOProps) {
   const siteTitle = title.includes('Hazem Shannak') ? title : `${title} | Hazem Shannak`;
+  const canonical = url ? `${BASE_URL}${url}` : undefined;
+  const ogImage = image.startsWith('http') ? image : `${BASE_URL}${image}`;
 
   return (
     <Helmet>
-      {/* Standard metadata tags */}
       <title>{siteTitle}</title>
       <meta name="description" content={description} />
+      {canonical && <link rel="canonical" href={canonical} />}
 
-      {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={siteTitle} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:url" content={url} />
+      <meta property="og:image" content={ogImage} />
+      {canonical && <meta property="og:url" content={canonical} />}
 
-      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={siteTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={ogImage} />
+
+      {jsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+      )}
     </Helmet>
   );
 }

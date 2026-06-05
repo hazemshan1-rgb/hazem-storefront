@@ -68,8 +68,9 @@ export function ResourcesPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-12 md:pb-24">
       <SEO
-        title="Resources Library"
-        description="A curated collection of the authoritative databases, journals, and technical guides that serious aquaculture operators actually use."
+        title="Aquaculture Resources Library — Databases, Journals & Technical Guides"
+        description="A curated collection of the authoritative databases, journals, and technical guides that serious aquaculture operators actually use. IMTA, market intelligence, standards, and field research."
+        url="/library"
       />
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-10">

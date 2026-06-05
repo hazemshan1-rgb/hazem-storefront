@@ -4,6 +4,7 @@ import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { CategoryFilter } from '../components/shop/CategoryFilter'
 import { ProductGrid } from '../components/shop/ProductGrid'
 import { getByCategory } from '../data/products'
+import { SEO } from '../components/ui/SEO'
 import type { ProductCategory } from '../types/product'
 
 const VALID_CATEGORIES: ProductCategory[] = ['Ebook', 'SOP', 'Toolkit', 'Training']
@@ -43,6 +44,11 @@ export function ShopPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 pt-28 pb-20">
+      <SEO
+        title="Aquaculture Resources — Ebooks, SOPs & Toolkits"
+        description="Field-tested ebooks, SOPs, and toolkits for aquaculture operators. Biofloc guides, IMTA primers, profit audit frameworks, and waste-reduction strategies from 30 years of hands-on practice."
+        url="/shop"
+      />
       <div className="mb-12">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Knowledge Store</p>
         <h1 className="font-serif text-4xl text-[var(--color-text)]">All Resources</h1>

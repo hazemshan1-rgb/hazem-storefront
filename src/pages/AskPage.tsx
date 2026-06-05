@@ -70,6 +70,7 @@ export function AskPage() {
       <SEO
         title="Ask the Aquaculture AI — Library Knowledge Assistant"
         description="Ask any question about shrimp production, water quality, FCR, biofloc, disease, or farm economics. Powered by 30 years of field experience and a curated library of 35+ technical resources."
+        url="/ask"
       />
 
       {/* Header */}

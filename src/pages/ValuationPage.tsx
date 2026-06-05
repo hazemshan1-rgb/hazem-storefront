@@ -36,7 +36,8 @@ export function ValuationPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
       <SEO title="Farm Valuation Calculator — What Is Your Farm Worth?"
-        description="Enter your revenue, margin, and documentation status. See your farm's current valuation and its potential value after the 90-Day Transformation Programme." />
+        description="Enter your revenue, margin, and documentation status. See your farm's current valuation and its potential value after the 90-Day Transformation Programme."
+        url="/valuation" />
 
       <div className="max-w-4xl mx-auto px-6">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Valuation Tool</p>

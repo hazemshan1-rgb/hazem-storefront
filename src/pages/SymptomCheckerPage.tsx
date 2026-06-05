@@ -72,7 +72,8 @@ export function SymptomCheckerPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
       <SEO title="AI Farm Symptom Checker — Instant Aquaculture Diagnosis"
-        description="Describe what's going wrong with your operation. Get an instant AI diagnosis powered by 30 years of aquaculture expertise — root cause, diagnostic metric, and immediate action." />
+        description="Describe what's going wrong with your operation. Get an instant AI diagnosis powered by 30 years of aquaculture expertise — root cause, diagnostic metric, and immediate action."
+        url="/symptom-checker" />
 
       <div className="max-w-2xl mx-auto px-6">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">AI Diagnostic Tool</p>

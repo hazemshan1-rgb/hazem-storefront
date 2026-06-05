@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { SEO } from '../components/ui/SEO'
 
 const courses = [
   {
@@ -39,6 +40,11 @@ export function CoursesPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="Aquaculture Training Programmes — Shrimp, IMTA & Business"
+        description="Structured training programmes for aquaculture operators and investors — shrimp farm operations, aquaculture business fundamentals, and sustainable systems design. Joining the waitlist now."
+        url="/courses"
+      />
 
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">

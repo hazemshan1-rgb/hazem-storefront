@@ -1,11 +1,17 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { caseStudies } from '../data/caseStudies'
+import { SEO } from '../components/ui/SEO'
 
 export function CaseStudiesPage() {
   const headerRef = useScrollReveal<HTMLElement>()
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="Aquaculture Consulting Case Studies — Real Results"
+        description="Real aquaculture turnaround engagements — shrimp farm profit recovery, IMTA conversions, FCR improvements, and investor-ready restructuring. Numbers are real; clients are anonymised."
+        url="/case-studies"
+      />
 
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">

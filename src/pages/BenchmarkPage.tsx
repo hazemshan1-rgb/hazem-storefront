@@ -129,7 +129,8 @@ export function BenchmarkPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
       <SEO title="Benchmark My Farm — How Do You Compare?"
-        description="Enter your FCR, survival rate, and cost per kg. See exactly where your farm ranks against 50+ audited operations." />
+        description="Enter your FCR, survival rate, and cost per kg. See exactly where your farm ranks against 50+ audited operations."
+        url="/benchmark" />
 
       <div className="max-w-3xl mx-auto px-6">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Benchmark Tool</p>

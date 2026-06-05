@@ -84,6 +84,19 @@ export function HomePage() {
       <SEO
         title="Hazem Shannak — Aquaculture Systems & Profitability"
         description="Turning aquaculture ventures into high-yield, investment-ready enterprises through field-tested frameworks and 30 years of expertise."
+        url="/"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Hazem Shannak',
+          url: 'https://hazemshannak.com',
+          description: 'Aquaculture consulting, diagnostic tools, and knowledge products from 30 years of hands-on expertise.',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: 'https://hazemshannak.com/library?q={search_term_string}',
+            'query-input': 'required name=search_term_string',
+          },
+        }}
       />
       <Hero />
       <TrustStrip />

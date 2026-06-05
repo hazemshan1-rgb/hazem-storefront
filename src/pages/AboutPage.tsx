@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { caseStudies } from '../data/caseStudies'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { SEO } from '../components/ui/SEO'
 
 const stats = [
   { value: '30+',   label: 'Years on the ground' },
@@ -48,6 +49,28 @@ export function AboutPage() {
 
   return (
     <main className="max-w-5xl mx-auto px-6 pt-28 pb-20">
+      <SEO
+        title="About Hazem Shannak — Aquaculture Director & Business Growth Architect"
+        description="30 years of hands-on aquaculture expertise across 15 countries. Hazem Shannak turns underperforming farms into high-yield, investment-ready enterprises using IMTA, biofloc, and regenerative systems."
+        url="/about"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Hazem Shannak',
+          url: 'https://hazemshannak.com',
+          sameAs: ['https://www.linkedin.com/in/hazemhshannak'],
+          jobTitle: 'Director & Business Growth Architect',
+          description: '30+ years of hands-on aquaculture expertise across 15 countries — shrimp, IMTA, biofloc, regenerative systems, and aquaculture business transformation.',
+          knowsAbout: [
+            'Shrimp Aquaculture',
+            'Integrated Multi-Trophic Aquaculture',
+            'Biofloc Technology',
+            'Regenerative Seawater Agriculture',
+            'Aquaculture Business Development',
+            'Farm Operations Management',
+          ],
+        }}
+      />
       <p className="animate-fade-in-up text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">The Person Behind the Products</p>
       <h1 className="animate-fade-in-up animation-delay-100 font-serif text-4xl text-[var(--color-text)] mb-10">About Hazem</h1>
 

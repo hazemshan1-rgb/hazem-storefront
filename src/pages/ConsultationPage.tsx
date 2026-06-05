@@ -97,6 +97,7 @@ export function ConsultationPage() {
       <SEO
         title="Book an Advisory Session — Hazem Shannak"
         description="A focused working session on your aquaculture operation. 30 or 60 minutes. Written action plan within 24 hours. No retainer."
+        url="/consultation"
       />
 
       {/* Sticky CTA */}

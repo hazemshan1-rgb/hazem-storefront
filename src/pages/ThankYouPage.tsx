@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
+import { SEO } from '../components/ui/SEO'
 
 export function ThankYouPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
+      <SEO
+        title="Thank You — Your Order is Confirmed"
+        description="Your aquaculture resource is on its way. Check your inbox for the download link."
+        url="/thank-you"
+      />
       <div className="text-center max-w-md">
         <div className="w-16 h-16 rounded-full border border-[var(--color-gold)] flex items-center justify-center mx-auto mb-8">
           <span className="text-[var(--color-gold)] font-serif text-2xl">✓</span>

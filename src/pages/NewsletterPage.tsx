@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { articles, articleTags } from '../data/articles'
+import { SEO } from '../components/ui/SEO'
 import type { Article } from '../data/articles'
 
 function formatDate(iso: string): string {
@@ -67,6 +68,11 @@ export function NewsletterPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
+      <SEO
+        title="Aquaculture Insights — Articles & Field Analysis"
+        description="Practical aquaculture analysis from the field — IMTA economics, biofloc systems, farm profitability, and sustainable production frameworks. Written for operators and investors, not academics."
+        url="/newsletter"
+      />
 
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">

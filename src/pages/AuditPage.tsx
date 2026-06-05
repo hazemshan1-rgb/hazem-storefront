@@ -539,6 +539,7 @@ export function AuditPage() {
       <SEO
         title="The Aquaculture Operator's Value Ladder"
         description="Three tiers of consulting engagement — from a remote diagnostic audit to a full investor-ready enterprise program. Find your farm's hidden margin."
+        url="/audit"
       />
 
       {/* ── Sticky CTA ─────────────────────────────── */}

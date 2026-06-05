@@ -26,9 +26,26 @@ export function ProductDetailPage() {
     <main className="max-w-6xl mx-auto px-6 pt-28 pb-20">
       <SEO
         title={product.title}
-        description={product.tagline}
+        description={product.description}
         image={product.coverImage}
+        url={`/shop/${product.slug}`}
         type="product"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.title,
+          description: product.description,
+          image: `https://hazemshannak.com${product.coverImage}`,
+          url: `https://hazemshannak.com/shop/${product.slug}`,
+          brand: { '@type': 'Brand', name: 'Hazem Shannak' },
+          offers: {
+            '@type': 'Offer',
+            price: product.price,
+            priceCurrency: 'USD',
+            availability: 'https://schema.org/InStock',
+            url: product.checkoutUrl,
+          },
+        }}
       />
       <Link to="/shop" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors mb-8 block">
         ← All Resources

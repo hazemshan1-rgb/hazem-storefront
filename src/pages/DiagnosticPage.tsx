@@ -328,7 +328,8 @@ export function DiagnosticPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
       <SEO title="Farm Diagnostic Score — Get Your Farm Health Report"
-        description="Answer 6 questions and get a personalised Farm Health Score, estimated revenue leak, and specific action plan for your aquaculture operation." />
+        description="Answer 6 questions and get a personalised Farm Health Score, estimated revenue leak, and specific action plan for your aquaculture operation."
+        url="/diagnostic" />
 
       <div className="max-w-3xl mx-auto px-6">
 

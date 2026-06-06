@@ -769,6 +769,18 @@ export function AuditPage() {
             <p className="text-sm text-[var(--color-text-muted)] max-w-xl leading-relaxed">
               Send me a brief description of your operation and your audit score. I will tell you honestly which tier fits — or whether you should start with the free audit first.
             </p>
+            {/* Social proof */}
+            <div className="mt-5 flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {['/images/hero/hazem-at-ponds.jpg', '/images/hero/hazem-teaching.jpg', '/images/hero/hazem-consulting.jpg'].map((src, i) => (
+                  <img key={i} src={src} alt="" className="w-8 h-8 rounded-full border-2 border-[var(--color-surface)] object-cover" />
+                ))}
+              </div>
+              <div>
+                <p className="text-xs text-[var(--color-text)] font-medium">1,000+ professionals trained</p>
+                <p className="text-[10px] text-[var(--color-text-muted)]">Across 15 countries · $50M+ in farm value advised</p>
+              </div>
+            </div>
           </div>
           <div className="shrink-0 flex flex-col gap-3">
             <a

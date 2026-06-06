@@ -49,6 +49,18 @@ export function BookConsultationPage() {
           <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-lg mx-auto">
             Pick a date and time that works for you. You'll receive a confirmation email with the video call link immediately after booking.
           </p>
+          {/* Social proof */}
+          <div className="mt-6 inline-flex items-center gap-3">
+            <div className="flex -space-x-2">
+              {['/images/hero/hazem-at-ponds.jpg', '/images/hero/hazem-teaching.jpg', '/images/hero/hazem-consulting.jpg'].map((src, i) => (
+                <img key={i} src={src} alt="" className="w-8 h-8 rounded-full border-2 border-[var(--color-navy)] object-cover" />
+              ))}
+            </div>
+            <div className="text-left">
+              <p className="text-xs text-[var(--color-text-on-dark)] font-medium">1,000+ professionals trained</p>
+              <p className="text-[10px] text-[var(--color-text-muted-dark)]">Across 15 countries · $50M+ in farm value advised</p>
+            </div>
+          </div>
         </div>
       </section>
 

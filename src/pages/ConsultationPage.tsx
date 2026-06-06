@@ -209,6 +209,19 @@ export function ConsultationPage() {
           {/* Right — session options (not sticky: both cards must be visible on load) */}
           <div id="options" className="space-y-4">
 
+            {/* Social proof — above pricing */}
+            <div className="mb-2 flex items-center gap-3 px-1">
+              <div className="flex -space-x-2">
+                {['/images/hero/hazem-at-ponds.jpg', '/images/hero/hazem-teaching.jpg', '/images/hero/hazem-consulting.jpg'].map((src, i) => (
+                  <img key={i} src={src} alt="" className="w-8 h-8 rounded-full border-2 border-[var(--color-surface)] object-cover" />
+                ))}
+              </div>
+              <div>
+                <p className="text-xs text-[var(--color-text)] font-medium">1,000+ professionals trained</p>
+                <p className="text-[10px] text-[var(--color-text-muted)]">Across 15 countries · $50M+ in farm value advised</p>
+              </div>
+            </div>
+
             {/* 60-min (featured) — first so it's above the fold */}
             <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-7">
               <div className="flex items-start justify-between mb-1">

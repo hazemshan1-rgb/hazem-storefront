@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
+import { captureEmail } from '../lib/diagnosticPersistence'
+import { WaitlistForm } from '../components/ui/WaitlistForm'
 
 const courses = [
   {
+    slug: 'shrimp-farm-operations-masterclass',
     title: 'Shrimp Farm Operations Masterclass',
     description: 'A complete operational framework for vannamei and monodon farms — from stocking decisions and feed management to water quality intervention and harvest planning. Built on 30 years of field deployment across Southeast Asia and the Middle East.',
     modules: ['Carrying capacity and stocking density', 'FCR optimisation and feed strategy', 'Water quality systems and intervention timing', 'Disease risk management', 'Harvest planning and post-harvest handling'],
@@ -11,6 +14,7 @@ const courses = [
     format: 'Video + field reference materials',
   },
   {
+    slug: 'aquaculture-business-fundamentals',
     title: 'Aquaculture Business Fundamentals',
     description: 'For farm owners and investors who understand the biology but need to sharpen the business. Covers financial modelling, investor-readiness, cost structure, and strategic decision-making for aquaculture ventures at the $500K–$5M scale.',
     modules: ['Financial modelling for aquaculture', 'Cost drivers and margin leakage', 'Investor documentation and pitch preparation', 'Scaling decisions and capital allocation', 'Exit strategy and asset valuation'],
@@ -18,6 +22,7 @@ const courses = [
     format: 'Video + templates + case studies',
   },
   {
+    slug: 'sustainable-systems-design',
     title: 'Sustainable Systems Design',
     description: 'How to design, evaluate, and operate Integrated Multi-Trophic Aquaculture (IMTA), biofloc, and RAS systems. Covers the engineering logic, biological principles, and economic trade-offs that determine whether these systems work in the field.',
     modules: ['Biofloc management systems', 'RAS design and operational economics', 'IMTA species selection and stocking ratios', 'Waste-to-value conversion', 'Certification pathways and market positioning'],
@@ -35,6 +40,7 @@ export function CoursesPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim()) return
+    captureEmail(email.trim(), 'courses-header-waitlist')
     setSubmitted(true)
   }
 
@@ -127,6 +133,9 @@ export function CoursesPage() {
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)]">Format</span>
                   <span className="text-xs text-[var(--color-text)]">{course.format}</span>
+                </div>
+                <div className="pt-3">
+                  <WaitlistForm courseSlug={course.slug} courseTitle={course.title} compact />
                 </div>
               </div>
             </div>

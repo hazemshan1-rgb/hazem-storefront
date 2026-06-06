@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
+import { saveDiagnosticResult, captureEmail } from '../lib/diagnosticPersistence'
 import {
   QUESTIONS,
   CATEGORIES,
@@ -196,6 +197,8 @@ export function DiagnosticPage() {
               <ResultsScreen
                 result={scoreResult}
                 onRestart={() => setState(INIT)}
+                contextAnswers={state.contextAnswers as ContextAnswers}
+                answers={state.answers}
               />
             </Slide>
           )}
@@ -442,7 +445,24 @@ function QuestionScreen({
 
 // ── Results screen ────────────────────────────────────────────────────────────
 
-function ResultsScreen({ result, onRestart }: { result: ScoreResult; onRestart: () => void }) {
+function ResultsScreen({
+  result,
+  onRestart,
+  contextAnswers,
+  answers,
+}: {
+  result: ScoreResult
+  onRestart: () => void
+  contextAnswers: ContextAnswers
+  answers: DiagnosticAnswers
+}) {
+  const [email, setEmail]           = useState('')
+  const [emailSaved, setEmailSaved] = useState(false)
+
+  useEffect(() => {
+    saveDiagnosticResult(answers, contextAnswers, result)
+  }, [])
+
   const interp   = interpretScore(result.normalisedPct)
   const leakLow  = Math.round(result.totalLeakUsd * 0.7 / 1000) * 1000
   const leakHigh = Math.round(result.totalLeakUsd * 1.3 / 1000) * 1000
@@ -549,6 +569,45 @@ function ResultsScreen({ result, onRestart }: { result: ScoreResult; onRestart: 
           {interp.ctaLabel} →
         </Link>
       </div>
+
+      {/* Email capture — save results for future access */}
+      {!emailSaved ? (
+        <div className="bg-[rgba(255,255,255,0.04)] border border-white/10 rounded-sm p-6 mb-10">
+          <p className="text-sm text-[var(--color-text-on-dark)] mb-2 font-semibold">Save your results</p>
+          <p className="text-xs text-[var(--color-text-muted-dark)] mb-4 leading-relaxed">
+            Enter your email to access these results later and track your improvement over time.
+          </p>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+              if (!email) return
+              const r = await saveDiagnosticResult(answers, contextAnswers, result, email)
+              await captureEmail(email, 'diagnostic-results')
+              if (r.success) setEmailSaved(true)
+            }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+              className="flex-1 bg-[rgba(255,255,255,0.06)] border border-white/10 rounded-sm px-4 py-3 text-sm text-[var(--color-text-on-dark)] placeholder:text-[var(--color-text-muted-dark)] focus:outline-none focus:border-[var(--color-gold-cta)]"
+            />
+            <button
+              type="submit"
+              className="bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-5 py-3 text-[10px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all whitespace-nowrap cursor-pointer"
+            >
+              Save Results
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div className="bg-[rgba(20,184,166,0.08)] border border-[var(--color-teal-cta)]/30 rounded-sm p-5 mb-10 text-center">
+          <p className="text-sm text-[var(--color-teal-cta)]">Results saved! You can return anytime using that email.</p>
+        </div>
+      )}
 
       {/* Cross-links */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">

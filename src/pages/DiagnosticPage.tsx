@@ -295,7 +295,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 
         <button
           onClick={onStart}
-          className="inline-flex items-center gap-2 bg-[var(--color-gold-cta)] hover:bg-[var(--color-gold-cta-hover)] text-[var(--color-navy)] font-semibold px-8 py-4 rounded-sm transition-all duration-300 text-sm tracking-wide"
+          className="inline-flex items-center gap-2 bg-[var(--color-gold-cta)] hover:brightness-110 text-[var(--color-navy)] font-semibold px-8 py-4 rounded-sm transition-all duration-300 text-sm tracking-wide"
         >
           Start Diagnostic →
         </button>
@@ -386,7 +386,7 @@ function CategoryIntroScreen({
 
       <button
         onClick={onStart}
-        className="w-full bg-[var(--color-gold-cta)] hover:bg-[var(--color-gold-cta-hover)] text-[var(--color-navy)] font-semibold py-3.5 rounded-sm transition-all duration-300 text-sm tracking-wide"
+        className="w-full bg-[var(--color-gold-cta)] hover:brightness-110 text-[var(--color-navy)] font-semibold py-3.5 rounded-sm transition-all duration-300 text-sm tracking-wide"
       >
         Begin →
       </button>
@@ -544,7 +544,7 @@ function ResultsScreen({ result, onRestart }: { result: ScoreResult; onRestart: 
       <div className="text-center mb-10">
         <Link
           to={interp.ctaLink}
-          className="inline-flex items-center gap-2 bg-[var(--color-gold-cta)] hover:bg-[var(--color-gold-cta-hover)] text-[var(--color-navy)] font-semibold px-8 py-4 rounded-sm transition-all duration-300 text-sm tracking-wide"
+          className="inline-flex items-center gap-2 bg-[var(--color-gold-cta)] hover:brightness-110 text-[var(--color-navy)] font-semibold px-8 py-4 rounded-sm transition-all duration-300 text-sm tracking-wide"
         >
           {interp.ctaLabel} →
         </Link>

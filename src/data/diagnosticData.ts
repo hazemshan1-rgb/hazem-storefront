@@ -712,7 +712,7 @@ export function interpretScore(normalisedPct: number): Interpretation {
     colour: '#fbbf24',
     border: 'rgba(251,191,36,0.3)',
     description: '10–20% profit improvement is within reach. A focused session will identify your top 2 leaks and build a prioritised fix plan.',
-    ctaLabel: 'Book a 30-Min Focus Session — $250',
+    ctaLabel: 'Book a Consultation',
     ctaLink: '/consultation',
   }
   if (normalisedPct <= 65) return {
@@ -720,7 +720,7 @@ export function interpretScore(normalisedPct: number): Interpretation {
     colour: '#f97316',
     border: 'rgba(249,115,22,0.3)',
     description: 'You are losing 20–40% of potential profit. A Deep Dive session or Diagnostic Audit will locate and quantify every leak.',
-    ctaLabel: 'Book a 60-Min Deep Dive — $500',
+    ctaLabel: 'Book a Consultation',
     ctaLink: '/consultation',
   }
   return {

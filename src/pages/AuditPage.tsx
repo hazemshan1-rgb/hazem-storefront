@@ -729,14 +729,15 @@ export function AuditPage() {
               </p>
             </div>
             <a
-              href="/downloads/aquaculture-profit-leak-audit.pdf"
-              download
+              href="https://aquapreneurs.lemonsqueezy.com/checkout/buy/768e1015-4e35-4237-a4a7-c5fe0cd49785"
+              target="_blank"
+              rel="noopener noreferrer"
               className="gold-pulse inline-flex items-center gap-2 self-start text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-7 py-3 rounded-sm hover:brightness-110 transition-all"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Download Free — PDF
+              Get Free Copy — PDF
             </a>
           </div>
         </div>

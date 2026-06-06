@@ -16,8 +16,9 @@ export function Footer() {
             30 years turning aquaculture ventures into high-yield, investment-ready enterprises across 15 countries.
           </p>
           <a
-            href="/downloads/aquaculture-profit-leak-audit.pdf"
-            download
+            href="https://aquapreneurs.lemonsqueezy.com/checkout/buy/768e1015-4e35-4237-a4a7-c5fe0cd49785"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.15em] uppercase font-semibold text-[var(--color-gold-cta)] border border-[var(--color-gold-cta)] px-3 py-2 rounded-sm hover:bg-[rgba(202,138,4,0.1)] transition-all"
           >
             <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">

@@ -23,7 +23,7 @@ export function Hero() {
           loop
           playsInline
           poster="/images/hero/aerial-ponds.jpg"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
           onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none' }}
         >
           <source src="/videos/hero-loop.mp4" type="video/mp4" />
@@ -35,7 +35,7 @@ export function Hero() {
           style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/95 to-[var(--color-navy)]/80" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/85 to-[var(--color-navy)]/60" aria-hidden="true" />
       <RingTexture />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">

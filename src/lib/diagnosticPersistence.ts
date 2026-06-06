@@ -42,6 +42,23 @@ export async function saveDiagnosticResult(
   return { success: true, id: data?.id }
 }
 
+export async function updateDiagnosticEmail(
+  id: string,
+  email: string,
+): Promise<{ success: boolean }> {
+  const { error } = await supabase
+    .from('diagnostic_results')
+    .update({ email })
+    .eq('id', id)
+
+  if (error) {
+    console.error('Failed to update diagnostic email:', error)
+    return { success: false }
+  }
+
+  return { success: true }
+}
+
 export async function joinCourseWaitlist(
   email: string,
   courseSlug: string,

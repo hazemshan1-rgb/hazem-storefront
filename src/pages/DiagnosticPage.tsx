@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
-import { saveDiagnosticResult, captureEmail } from '../lib/diagnosticPersistence'
+import { saveDiagnosticResult, updateDiagnosticEmail } from '../lib/diagnosticPersistence'
 import {
   QUESTIONS,
   CATEGORIES,
@@ -458,9 +458,12 @@ function ResultsScreen({
 }) {
   const [email, setEmail]           = useState('')
   const [emailSaved, setEmailSaved] = useState(false)
+  const [savedId, setSavedId]       = useState<string | null>(null)
 
   useEffect(() => {
-    saveDiagnosticResult(answers, contextAnswers, result)
+    saveDiagnosticResult(answers, contextAnswers, result).then(r => {
+      if (r.id) setSavedId(r.id)
+    })
   }, [])
 
   const interp   = interpretScore(result.normalisedPct)
@@ -581,9 +584,15 @@ function ResultsScreen({
             onSubmit={async (e) => {
               e.preventDefault()
               if (!email) return
-              const r = await saveDiagnosticResult(answers, contextAnswers, result, email)
-              await captureEmail(email, 'diagnostic-results')
-              if (r.success) setEmailSaved(true)
+              let ok = false
+              if (savedId) {
+                const r = await updateDiagnosticEmail(savedId, email)
+                ok = r.success
+              } else {
+                const r = await saveDiagnosticResult(answers, contextAnswers, result, email)
+                ok = r.success
+              }
+              if (ok) setEmailSaved(true)
             }}
             className="flex flex-col sm:flex-row gap-3"
           >

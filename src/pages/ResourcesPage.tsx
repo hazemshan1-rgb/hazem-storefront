@@ -236,7 +236,7 @@ export function ResourcesPage() {
           The sources that matter in aquaculture
         </h1>
         <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
-          Curated from 30 years of field work across 15 countries. The databases, journals, standards bodies, and trade publications serious operators actually use — plus an AI trained on them.
+          The databases, journals, standards bodies, and trade publications serious operators actually use — plus an AI trained on them.
         </p>
         <p className="text-xs text-[var(--color-text-muted)] mt-4">
           {resources.length} resources · {resources.filter(r => r.free).length} free
@@ -286,31 +286,6 @@ export function ResourcesPage() {
 
         {/* ── Library tab ── */}
         <div style={{ display: tab === 'library' ? 'block' : 'none' }}>
-          {/* Free ebook lead magnet */}
-          <div className="pt-10 pb-6">
-            <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm overflow-hidden flex flex-col md:flex-row items-stretch shadow-[0_0_40px_rgba(202,138,4,0.08)]">
-              <div className="w-full md:w-40 shrink-0 bg-[var(--color-navy-2)] flex items-center justify-center p-6 md:p-5">
-                <img src="/images/products/farm-audit-thumbnail.png" alt="Aquaculture Profit Leak Audit — Free Ebook"
-                  className="w-full max-w-[180px] md:max-w-none rounded-sm shadow-lg" />
-              </div>
-              <div className="flex flex-col justify-center px-7 py-7 gap-3 flex-1">
-                <div>
-                  <p className="text-[9px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] font-semibold mb-1">Free Ebook · Download Now</p>
-                  <h2 className="font-serif text-xl md:text-2xl text-white leading-snug mb-2">Aquaculture Profit Leak Audit</h2>
-                  <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed max-w-xl">
-                    Maps every category of profit leak in a working aquaculture system — feed waste, invisible mortality, energy drag, SOP gaps — with the diagnostic metrics that reveal each one.
-                  </p>
-                </div>
-                <a href="/downloads/aquaculture-profit-leak-audit.pdf" download
-                  className="inline-flex items-center gap-2 self-start text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-6 py-2.5 rounded-sm hover:brightness-110 transition-all">
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Download Free — PDF
-                </a>
-              </div>
-            </div>
-          </div>
 
           {/* Grid */}
           <section className="pt-4">

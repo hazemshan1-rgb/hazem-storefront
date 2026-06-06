@@ -11,12 +11,30 @@ export function Hero() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-navy)]">
-      {/* Parallax background */}
+      {/* Parallax background — video loop with image fallback */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center opacity-15"
-        style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)', y: bgY }}
+        className="absolute inset-0 overflow-hidden"
+        style={{ y: bgY }}
         aria-hidden="true"
-      />
+      >
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero/aerial-ponds.jpg"
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none' }}
+        >
+          <source src="/videos/hero-loop.mp4" type="video/mp4" />
+          <source src="/videos/hero-loop.webm" type="video/webm" />
+        </video>
+        {/* Static fallback shown when no video file present */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-15"
+          style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
+        />
+      </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/95 to-[var(--color-navy)]/80" aria-hidden="true" />
       <RingTexture />
 

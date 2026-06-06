@@ -3,6 +3,8 @@ import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { Hero } from '../components/home/Hero'
 import { LibraryFeature } from '../components/home/LibraryFeature'
 import { TrustStrip } from '../components/home/TrustStrip'
+import { TrustLogos } from '../components/home/TrustLogos'
+import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { Philosophy } from '../components/home/Philosophy'
 import { InactionClock } from '../components/home/InactionClock'
 import { SEO } from '../components/ui/SEO'
@@ -100,6 +102,8 @@ export function HomePage() {
       />
       <Hero />
       <TrustStrip />
+      <TrustLogos />
+      <DiagnosticTeaser />
       <InactionClock />
       <ToolsNav />
       <LibraryFeature />

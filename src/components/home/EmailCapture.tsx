@@ -1,53 +1,8 @@
-import { useEffect } from 'react'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
-
-const FORM_BIOFLOC    = import.meta.env.VITE_CONVERTKIT_FORM_BIOFLOC    ?? ''
-const FORM_STRATEGIES = import.meta.env.VITE_CONVERTKIT_FORM_STRATEGIES ?? ''
-
-function ConvertKitForm({ formId }: { formId: string }) {
-  useEffect(() => {
-    if (!formId) return
-    const scriptId = `ck-${formId}`
-    if (document.getElementById(scriptId)) return
-    const script = document.createElement('script')
-    script.id = scriptId
-    script.src = `https://hazem-shannak.kit.com/${formId}/index.js`
-    script.async = true
-    document.body.appendChild(script)
-    return () => { document.getElementById(scriptId)?.remove() }
-  }, [formId])
-
-  if (formId) {
-    return <div data-uid={formId} />
-  }
-
-  return (
-    <form
-      className="flex flex-col sm:flex-row gap-3"
-      onSubmit={e => {
-        e.preventDefault()
-        alert('Set VITE_CONVERTKIT_FORM_BIOFLOC or VITE_CONVERTKIT_FORM_STRATEGIES in your .env to activate.')
-      }}
-    >
-      <input
-        type="email"
-        placeholder="your@email.com"
-        required
-        className="flex-1 bg-[var(--color-surface-2)] border border-[var(--color-border)] rounded-sm px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-gold)]"
-      />
-      <button
-        type="submit"
-        className="bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-5 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all whitespace-nowrap cursor-pointer"
-      >
-        Send It
-      </button>
-    </form>
-  )
-}
 
 const guides = [
   {
-    formId: FORM_BIOFLOC,
+    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/4b11048a-2b0a-4bd6-b7ce-0e6dc015aab0',
     tag: 'Free Guide · Biofloc',
     title: '10 Ways to Ruin a Biofloc System',
     body: 'The mistakes are documented. Most operators make the same five errors before they make the right call. This guide maps each failure mode — oxygen crashes, C:N imbalances, floc collapse — so you can see them before they cost you a cycle.',
@@ -56,7 +11,7 @@ const guides = [
     coverAlt: '10 Ways to Ruin a Biofloc System — guide cover',
   },
   {
-    formId: FORM_STRATEGIES,
+    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/a25dd731-2ff9-4bcf-87fc-d9c7faae0b62',
     tag: 'Free Guide · Sustainability',
     title: '7 Strategies for Waste-Free Shrimp Farming',
     body: 'Proven frameworks for reducing feed waste, managing effluent, and building an operation that survives tightening export regulations. Field-tested across Southeast Asia and the Middle East.',
@@ -79,7 +34,7 @@ export function EmailCapture() {
             Two guides. Download either — or both.
           </h2>
           <p className="text-sm text-[var(--color-text-muted-dark)] max-w-xl mx-auto leading-relaxed">
-            No newsletter padding. No recycled content. Working documents from the field — drop your email and they arrive in your inbox immediately.
+            No newsletter padding. No recycled content. Working documents from the field — free via Lemon Squeezy, delivered to your inbox immediately.
           </p>
         </div>
 
@@ -112,7 +67,14 @@ export function EmailCapture() {
                   <h3 className="font-serif text-xl text-[var(--color-text)] leading-snug mb-3">{guide.title}</h3>
                   <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{guide.body}</p>
                 </div>
-                <ConvertKitForm formId={guide.formId} />
+                <a
+                  href={guide.checkoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lemonsqueezy-button inline-flex items-center gap-2 self-start bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-6 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
+                >
+                  Get Free Copy →
+                </a>
               </div>
             </div>
           ))}

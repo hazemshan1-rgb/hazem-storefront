@@ -7,11 +7,10 @@ import { Button } from '../ui/Button'
 const links = [
   { to: '/',             label: 'Home' },
   { to: '/tools',        label: 'Tools' },
-  { to: '/ask',          label: 'Ask AI' },
   { to: '/audit',        label: 'Farm Audit' },
   { to: '/consultation', label: 'Consultation' },
   { to: '/shop',         label: 'Shop' },
-  { to: '/library',      label: 'Library' },
+  { to: '/library',      label: 'Library & AI' },
   { to: '/about',        label: 'About' },
 ]
 
@@ -171,8 +170,8 @@ export function Navbar() {
                   transition={{ delay: links.length * 0.04 + 0.04, duration: 0.2 }}
                   className="mt-6 flex flex-col gap-3"
                 >
-                  <Button as="link" to="/shop" size="lg" className="w-full justify-center">
-                    Browse Resources
+                  <Button as="link" to="/diagnostic" size="lg" className="w-full justify-center">
+                    Get My Farm Score
                   </Button>
                   <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center">
                     Book a Consultation

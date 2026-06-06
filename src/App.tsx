@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
@@ -23,7 +23,6 @@ const BenchmarkPage         = lazy(() => import('./pages/BenchmarkPage').then(m 
 const ValuationPage         = lazy(() => import('./pages/ValuationPage').then(m => ({ default: m.ValuationPage })))
 const SymptomCheckerPage    = lazy(() => import('./pages/SymptomCheckerPage').then(m => ({ default: m.SymptomCheckerPage })))
 const ToolsPage             = lazy(() => import('./pages/ToolsPage').then(m => ({ default: m.ToolsPage })))
-const AskPage               = lazy(() => import('./pages/AskPage').then(m => ({ default: m.AskPage })))
 
 function PageLoader() {
   return (
@@ -80,7 +79,7 @@ function AnimatedRoutes() {
             <Route path="/valuation"          element={<ValuationPage />} />
             <Route path="/symptom-checker"    element={<SymptomCheckerPage />} />
             <Route path="/tools"              element={<ToolsPage />} />
-            <Route path="/ask"                element={<AskPage />} />
+            <Route path="/ask"                element={<Navigate to="/library?tab=ai" replace />} />
           </Routes>
         </Suspense>
       </motion.div>

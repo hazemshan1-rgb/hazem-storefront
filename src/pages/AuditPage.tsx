@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
@@ -557,22 +558,34 @@ export function AuditPage() {
 
       {/* ── Hero ───────────────────────────────────── */}
       <section ref={heroRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-4xl mb-12">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Consulting Engagements</p>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight mb-6">
-            From Diagnosis<br className="hidden md:block" /> to Transformation<br className="hidden md:block" /> to Exit.
-          </h1>
+          <div className="flex items-start justify-between gap-8 mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight flex-1">
+              From Diagnosis<br className="hidden md:block" /> to Transformation<br className="hidden md:block" /> to Exit.
+            </h1>
+            <a
+              href="#free-ebook"
+              className="shrink-0 self-start mt-1 hidden sm:inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase font-semibold border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] px-4 py-2 rounded-sm hover:bg-[rgba(202,138,4,0.08)] transition-all"
+            >
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Not sure which tier? Read the free guide first
+            </a>
+          </div>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
             You do not need every tier. You need the tier that matches where your farm is bleeding. Start at the bottom. Move up only when you cannot fix it yourself.
           </p>
+          {/* Mobile fallback for the "not sure" link */}
           <a
             href="#free-ebook"
-            className="inline-flex items-center gap-2 mt-6 self-start text-[10px] tracking-[0.2em] uppercase font-semibold border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] px-4 py-2 rounded-sm hover:bg-[rgba(202,138,4,0.08)] transition-all"
+            className="sm:hidden inline-flex items-center gap-2 mt-5 text-[10px] tracking-[0.2em] uppercase font-semibold border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] px-4 py-2 rounded-sm hover:bg-[rgba(202,138,4,0.08)] transition-all"
           >
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Not sure which tier? Read the free audit guide first
+            Not sure which tier? Read the free guide first
           </a>
         </div>
 
@@ -738,6 +751,25 @@ export function AuditPage() {
               Download Free — PDF
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ── Free diagnostic tools cross-nav ────────── */}
+      <section className="max-w-6xl mx-auto px-6 py-12 border-b border-[var(--color-gold-muted)]">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">Not ready for an audit? Start here — all free</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { to: '/diagnostic',      label: 'Farm Diagnostic',    sub: '6 questions · health score' },
+            { to: '/benchmark',       label: 'Benchmark Tool',     sub: 'FCR · survival · $/kg · DO' },
+            { to: '/valuation',       label: 'Valuation Calc',     sub: 'What is your farm worth?' },
+            { to: '/symptom-checker', label: 'AI Symptom Check',   sub: 'Describe a problem, get a diagnosis' },
+          ].map(l => (
+            <Link key={l.to} to={l.to}
+              className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
+              <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{l.label}</p>
+              <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">{l.sub}</p>
+            </Link>
+          ))}
         </div>
       </section>
 

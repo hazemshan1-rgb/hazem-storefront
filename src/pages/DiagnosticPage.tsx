@@ -127,7 +127,7 @@ export function DiagnosticPage() {
       <SEO
         title="Shrimp Farm Profit Leak Diagnostic — Free Tool"
         description="34-question species-weighted diagnostic across 8 categories. Identify exactly where your shrimp farm is losing money."
-        canonical="https://www.jumboaquaculture.com/diagnostic"
+        url="/diagnostic"
       />
 
       <div className="min-h-screen bg-[var(--color-navy)] text-[var(--color-text-on-dark)] flex flex-col">

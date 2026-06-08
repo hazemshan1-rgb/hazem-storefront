@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const footerLink = 'text-xs text-[var(--color-text-muted-dark)] hover:text-white transition-colors'
 
 export function Footer() {
+  const { t } = useTranslation()
+
   return (
     <footer className="border-t border-[rgba(255,255,255,0.08)] bg-[var(--color-navy)] mt-24">
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -13,7 +16,7 @@ export function Footer() {
             Hazem Shannak
           </p>
           <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed mb-5">
-            30 years turning aquaculture ventures into high-yield, investment-ready enterprises across 15 countries.
+            {t('footer.tagline')}
           </p>
           <a
             href="https://aquapreneurs.lemonsqueezy.com/checkout/buy/768e1015-4e35-4237-a4a7-c5fe0cd49785"
@@ -24,66 +27,66 @@ export function Footer() {
             <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Free Audit Guide
+            {t('footer.freeAudit')}
           </a>
         </div>
 
         {/* Diagnose */}
         <div>
-          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">Diagnose Your Farm</p>
+          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">{t('footer.diagnose')}</p>
           <div className="flex flex-col gap-2.5">
-            <Link to="/tools"            className={footerLink}>All Diagnostic Tools</Link>
-            <Link to="/diagnostic"       className={footerLink}>Farm Diagnostic Scorecard</Link>
-            <Link to="/benchmark"        className={footerLink}>Benchmark Calculator</Link>
-            <Link to="/valuation"        className={footerLink}>Farm Valuation Tool</Link>
-            <Link to="/symptom-checker"  className={footerLink}>Symptom Checker</Link>
-            <Link to="/ask"              className={footerLink}>AI Library Assistant</Link>
+            <Link to="/tools"            className={footerLink}>{t('footer.allTools')}</Link>
+            <Link to="/diagnostic"       className={footerLink}>{t('footer.diagnostic')}</Link>
+            <Link to="/benchmark"        className={footerLink}>{t('footer.benchmark')}</Link>
+            <Link to="/valuation"        className={footerLink}>{t('footer.valuation')}</Link>
+            <Link to="/symptom-checker"  className={footerLink}>{t('footer.symptomChecker')}</Link>
+            <Link to="/ask"              className={footerLink}>{t('footer.aiAssistant')}</Link>
           </div>
         </div>
 
         {/* Work with Hazem */}
         <div>
-          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">Work with Hazem</p>
+          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">{t('footer.workWithMe')}</p>
           <div className="flex flex-col gap-2.5">
-            <Link to="/audit"          className={footerLink}>Farm Audit Programme</Link>
-            <Link to="/consultation"   className={footerLink}>Book a Consultation</Link>
-            <Link to="/courses"        className={footerLink}>Courses</Link>
-            <Link to="/case-studies"   className={footerLink}>Case Studies</Link>
+            <Link to="/audit"          className={footerLink}>{t('footer.farmAudit')}</Link>
+            <Link to="/consultation"   className={footerLink}>{t('footer.bookConsultation')}</Link>
+            <Link to="/courses"        className={footerLink}>{t('footer.courses')}</Link>
+            <Link to="/case-studies"   className={footerLink}>{t('footer.caseStudies')}</Link>
           </div>
 
-          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4 mt-7">Products</p>
+          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4 mt-7">{t('footer.products')}</p>
           <div className="flex flex-col gap-2.5">
-            <Link to="/shop"                   className={footerLink}>All Products</Link>
-            <Link to="/shop?category=Ebook"    className={footerLink}>Ebooks</Link>
-            <Link to="/shop?category=SOP"      className={footerLink}>SOPs</Link>
-            <Link to="/shop?category=Toolkit"  className={footerLink}>Toolkits</Link>
+            <Link to="/shop"                   className={footerLink}>{t('footer.allProducts')}</Link>
+            <Link to="/shop?category=Ebook"    className={footerLink}>{t('footer.ebooks')}</Link>
+            <Link to="/shop?category=SOP"      className={footerLink}>{t('footer.sops')}</Link>
+            <Link to="/shop?category=Toolkit"  className={footerLink}>{t('footer.toolkits')}</Link>
           </div>
         </div>
 
         {/* Connect */}
         <div>
-          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">Connect</p>
+          <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">{t('footer.connect')}</p>
           <div className="flex flex-col gap-2.5">
-            <Link to="/about"       className={footerLink}>About Hazem</Link>
-            <Link to="/library"     className={footerLink}>Resources Library</Link>
-            <Link to="/newsletter"  className={footerLink}>Newsletter</Link>
+            <Link to="/about"       className={footerLink}>{t('footer.aboutHazem')}</Link>
+            <Link to="/library"     className={footerLink}>{t('footer.resourcesLibrary')}</Link>
+            <Link to="/newsletter"  className={footerLink}>{t('footer.newsletter')}</Link>
             <a
               href="https://www.linkedin.com/in/hazemhshannak"
               target="_blank"
               rel="noopener noreferrer"
               className={footerLink}
             >
-              LinkedIn ↗
+              {t('footer.linkedin')}
             </a>
           </div>
 
           <div className="mt-7 border border-[rgba(255,255,255,0.08)] rounded-sm p-4">
-            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-2">Not sure where to start?</p>
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-2">{t('footer.notSureWhere')}</p>
             <Link
               to="/diagnostic"
               className="block text-center text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-4 py-2.5 rounded-sm hover:brightness-110 transition-all"
             >
-              Take the Scorecard
+              {t('footer.takeScorecard')}
             </Link>
           </div>
         </div>
@@ -92,10 +95,10 @@ export function Footer() {
 
       <div className="border-t border-[rgba(255,255,255,0.06)] max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">
-          © {new Date().getFullYear()} Hazem Shannak. All rights reserved.
+          {t('footer.rights', { year: new Date().getFullYear() })}
         </p>
         <p className="text-[10px] text-[var(--color-text-muted-dark)]">
-          Aquaculture consulting · Business growth · Farm audits
+          {t('footer.descriptor')}
         </p>
       </div>
     </footer>

@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { getBySlug, products } from '../data/products'
 import { GoldBadge } from '../components/ui/GoldBadge'
@@ -7,6 +8,7 @@ import { SEO } from '../components/ui/SEO'
 import { Check, ArrowRight } from 'lucide-react'
 
 export function ProductDetailPage() {
+  const { t } = useTranslation()
   useLemonSqueezy()
   const { slug } = useParams<{ slug: string }>()
   const product = slug ? getBySlug(slug) : undefined
@@ -14,19 +16,25 @@ export function ProductDetailPage() {
   if (!product) {
     return (
       <main className="max-w-6xl mx-auto px-6 pt-28 pb-20 text-center">
-        <h1 className="font-serif text-3xl text-[var(--color-text)] mb-4">Product not found</h1>
-        <Link to="/shop" className="text-sm text-[var(--color-gold)] hover:underline">← Back to shop</Link>
+        <h1 className="font-serif text-3xl text-[var(--color-text)] mb-4">{t('notFound.headline')}</h1>
+        <Link to="/shop" className="text-sm text-[var(--color-gold)] hover:underline">
+          {t('productDetail.backToShop')}
+        </Link>
       </main>
     )
   }
+
+  const title = t(`products.${product.slug}.title`, { defaultValue: product.title })
+  const description = t(`products.${product.slug}.description`, { defaultValue: product.description })
+  const benefits = (t(`products.${product.slug}.benefits`, { returnObjects: true, defaultValue: product.benefits }) as string[])
 
   const nextProducts = products.filter(p => p.id !== product.id).slice(0, 2)
 
   return (
     <main className="max-w-6xl mx-auto px-6 pt-28 pb-20">
       <SEO
-        title={product.title}
-        description={product.description}
+        title={title}
+        description={description}
         image={product.coverImage}
         url={`/shop/${product.slug}`}
         type="product"
@@ -48,14 +56,14 @@ export function ProductDetailPage() {
         }}
       />
       <Link to="/shop" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors mb-8 block">
-        ← All Resources
+        {t('productDetail.backToShop')}
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
         <div className="aspect-[4/3] rounded-sm overflow-hidden">
           <img
             src={product.coverImage}
-            alt={product.title}
+            alt={title}
             className="w-full h-full object-cover"
             onError={e => {
               const img = e.currentTarget
@@ -69,19 +77,19 @@ export function ProductDetailPage() {
           <GoldBadge label={product.category} />
           {product.comingSoon && (
             <span className="inline-flex w-fit text-[9px] tracking-[0.2em] uppercase font-semibold bg-[var(--color-surface)] text-[var(--color-gold)] border border-[var(--color-gold-muted)] px-3 py-1.5 rounded-sm">
-              Coming Soon
+              {t('productDetail.comingSoon')}
             </span>
           )}
           <h1 className="font-serif text-3xl md:text-4xl text-[var(--color-text)] leading-tight">
-            {product.title}
+            {title}
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
-            {product.description}
+            {description}
           </p>
 
           <ul className="space-y-2">
-            {product.benefits.map(b => (
-              <li key={b} className="flex items-start gap-2 text-xs text-[var(--color-text-muted)]">
+            {Array.isArray(benefits) && benefits.map((b, i) => (
+              <li key={i} className="flex items-start gap-2 text-xs text-[var(--color-text-muted)]">
                 <Check size={14} className="text-[var(--color-gold)] mt-0.5 shrink-0" />
                 {b}
               </li>
@@ -90,19 +98,18 @@ export function ProductDetailPage() {
 
           <div className="pt-4 border-t border-[var(--color-gold-muted)] flex items-center gap-6">
             <span className="font-serif text-3xl text-[var(--color-gold)]">
-              {product.price === 0 ? 'Free' : `$${product.price}`}
+              {product.price === 0 ? t('productDetail.free') : `$${product.price}`}
             </span>
             {product.comingSoon ? (
-              <a
-                href="mailto:hazemshan1@gmail.com?subject=Notify%20Me%20When%20Available"
-                className="flex-1"
-              >
-                <Button size="lg" className="w-full">Notify Me When Available</Button>
+              <a href="mailto:hazemshan1@gmail.com?subject=Notify%20Me%20When%20Available" className="flex-1">
+                <Button size="lg" className="w-full">{t('productDetail.notifyMe')}</Button>
               </a>
             ) : (
               <a href={product.checkoutUrl} className="lemonsqueezy-button flex-1">
                 <Button size="lg" className="w-full">
-                  {product.price === 0 ? 'Get It Free' : `Buy Now — $${product.price}`}
+                  {product.price === 0
+                    ? t('productDetail.getFree')
+                    : t('productDetail.buyNow', { price: product.price })}
                 </Button>
               </a>
             )}
@@ -110,12 +117,12 @@ export function ProductDetailPage() {
 
           {product.price > 0 && !product.comingSoon && (
             <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-              Secure checkout via Lemon Squeezy. Instant PDF delivery. 30-day money-back guarantee.
+              {t('productDetail.secureCheckout')}
             </p>
           )}
           {product.price === 0 && (
             <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-              Enter your email and it arrives in your inbox immediately. No payment required.
+              {t('productDetail.freeDelivery')}
             </p>
           )}
         </div>
@@ -123,22 +130,30 @@ export function ProductDetailPage() {
 
       {/* Recommended Next Step */}
       <div className="mt-24 pt-16 border-t border-[var(--color-gold-muted)]">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">Recommended Next Step</p>
-        <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">Complement your knowledge</h2>
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">
+          {t('productDetail.nextStepEyebrow')}
+        </p>
+        <h2 className="font-serif text-2xl text-[var(--color-text)] mb-10">
+          {t('productDetail.nextStepTitle')}
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {nextProducts.map(p => (
             <Link key={p.id} to={`/shop/${p.slug}`} className="group block bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-all">
               <div className="flex flex-col sm:flex-row h-full">
                 <div className="sm:w-1/3 aspect-square sm:aspect-auto">
-                  <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover" />
+                  <img src={p.coverImage} alt={t(`products.${p.slug}.title`, { defaultValue: p.title })} className="w-full h-full object-cover" />
                 </div>
                 <div className="sm:w-2/3 p-6 flex flex-col justify-center">
                   <GoldBadge label={p.category} />
-                  <h3 className="font-serif text-lg text-[var(--color-text)] mt-3 group-hover:text-[var(--color-gold)] transition-colors">{p.title}</h3>
-                  <p className="text-xs text-[var(--color-text-muted)] mt-2 line-clamp-2">{p.tagline}</p>
+                  <h3 className="font-serif text-lg text-[var(--color-text)] mt-3 group-hover:text-[var(--color-gold)] transition-colors">
+                    {t(`products.${p.slug}.title`, { defaultValue: p.title })}
+                  </h3>
+                  <p className="text-xs text-[var(--color-text-muted)] mt-2 line-clamp-2">
+                    {t(`products.${p.slug}.tagline`, { defaultValue: p.tagline })}
+                  </p>
                   <div className="mt-4 flex items-center gap-2 text-[10px] tracking-widest uppercase font-semibold text-[var(--color-gold)]">
-                    View Resource <ArrowRight size={12} />
+                    {t('productDetail.viewResource')} <ArrowRight size={12} />
                   </div>
                 </div>
               </div>

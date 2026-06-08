@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { ProductCard } from './ProductCard'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 import type { Product } from '../../types/product'
@@ -7,11 +8,12 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products }: ProductGridProps) {
+  const { t } = useTranslation()
   const revealRef = useScrollReveal<HTMLDivElement>()
   if (products.length === 0) {
     return (
       <div className="text-center py-20">
-        <p className="text-[var(--color-text-muted)] text-sm">No products in this category yet. Check back soon.</p>
+        <p className="text-[var(--color-text-muted)] text-sm">{t('shop.emptyCategory')}</p>
       </div>
     )
   }

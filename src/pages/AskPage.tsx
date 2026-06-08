@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
 
@@ -17,6 +18,7 @@ const STARTERS = [
 let msgCount = 0
 
 export function AskPage() {
+  const { t } = useTranslation()
   const [messages, setMessages]   = useState<Message[]>([])
   const [input,    setInput]      = useState('')
   const [loading,  setLoading]    = useState(false)
@@ -65,6 +67,12 @@ export function AskPage() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSubmit(e as unknown as React.FormEvent) }
   }
 
+  const followUps = [
+    t('ask.followUp1'),
+    t('ask.followUp2'),
+    t('ask.followUp3'),
+  ]
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] flex flex-col pt-16">
       <SEO
@@ -78,16 +86,15 @@ export function AskPage() {
         <div className="max-w-3xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-1">AI Library Assistant</p>
-              <h1 className="font-serif text-xl text-[var(--color-text)]">Ask anything about aquaculture</h1>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-1">{t('ask.eyebrow')}</p>
+              <h1 className="font-serif text-xl text-[var(--color-text)]">{t('ask.headline')}</h1>
             </div>
             <Link to="/library" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors hidden sm:block">
-              Browse Library →
+              {t('ask.browseLibrary')}
             </Link>
           </div>
           <p className="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed">
-            Draws on 35 curated technical resources and 30 years of field experience across vannamei, monodon, and freshwater prawn systems.
-            Ask about water quality, FCR, disease, biofloc, farm economics, or certifications.
+            {t('ask.description')}
           </p>
         </div>
       </div>
@@ -99,7 +106,7 @@ export function AskPage() {
           {/* Empty state */}
           {messages.length === 0 && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
-              <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-4">Suggested questions</p>
+              <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-4">{t('ask.suggestedQuestions')}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {STARTERS.map(s => (
                   <button key={s} onClick={() => send(s)}
@@ -161,14 +168,14 @@ export function AskPage() {
               className="p-4 bg-red-50 border border-red-200 rounded-sm text-sm text-red-700">
               {error}
               {error.includes('ANTHROPIC') && (
-                <p className="text-xs text-red-500 mt-1">Add ANTHROPIC_API_KEY to your Vercel environment variables.</p>
+                <p className="text-xs text-red-500 mt-1">{t('ask.apiKeyError')}</p>
               )}
             </motion.div>
           )}
 
           {messages.length > 0 && !loading && (
             <div className="flex flex-wrap gap-2 mt-2">
-              {['Tell me more', 'What resource covers this?', 'How does this apply to biofloc?'].map(f => (
+              {followUps.map(f => (
                 <button key={f} onClick={() => send(f)}
                   className="text-[10px] text-[var(--color-text-muted)] border border-[var(--color-border)] hover:border-[var(--color-gold-muted)] rounded-sm px-3 py-1.5 transition-all">
                   {f}
@@ -190,16 +197,16 @@ export function AskPage() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
-              placeholder="Ask about water quality, FCR, disease, biofloc, farm economics…"
+              placeholder={t('ask.placeholder')}
               rows={2}
               className="flex-1 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-sm px-4 py-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-gold)] resize-none leading-relaxed"
             />
             <button type="submit" disabled={loading || input.trim().length < 3}
               className="shrink-0 bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-5 py-3 text-[10px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
-              Ask
+              {t('ask.sendBtn')}
             </button>
           </form>
-          <p className="text-[9px] text-[var(--color-text-muted)] mt-2">Press Enter to send · Shift+Enter for new line</p>
+          <p className="text-[9px] text-[var(--color-text-muted)] mt-2">{t('ask.pressEnter')}</p>
         </div>
       </div>
     </main>

@@ -1,19 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
-
-interface Stat {
-  prefix: string
-  value: number
-  suffix: string
-  label: string
-}
-
-const stats: Stat[] = [
-  { prefix: '',  value: 30,  suffix: '+',  label: 'Years in the Field' },
-  { prefix: '',  value: 15,  suffix: '+',  label: 'Countries Deployed' },
-  { prefix: '$', value: 50,  suffix: 'M+', label: 'Farm Value Advised' },
-  { prefix: '',  value: 1000, suffix: '+', label: 'Professionals Trained' },
-]
+import { useTranslation } from 'react-i18next'
 
 function useCounter(target: number, duration: number, active: boolean) {
   const [count, setCount] = useState(0)
@@ -36,30 +23,46 @@ function useCounter(target: number, duration: number, active: boolean) {
   return count
 }
 
-function StatItem({ stat, active }: { stat: Stat; active: boolean }) {
-  const count = useCounter(stat.value, 1400, active)
+interface StatItemProps {
+  value: number
+  prefix: string
+  suffix: string
+  label: string
+  active: boolean
+}
+
+function StatItem({ value, prefix, suffix, label, active }: StatItemProps) {
+  const count = useCounter(value, 1400, active)
   return (
     <div className="flex flex-col gap-1">
       <span className="font-serif text-4xl text-[var(--color-gold)]">
-        {stat.prefix}{count}{stat.suffix}
+        {prefix}{count}{suffix}
       </span>
       <span className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)]">
-        {stat.label}
+        {label}
       </span>
     </div>
   )
 }
 
 export function TrustStrip() {
+  const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  const stats = [
+    { prefix: '', value: 30,   suffix: '+',  label: t('trust.yearsLabel') },
+    { prefix: '', value: 15,   suffix: '+',  label: t('trust.countriesLabel') },
+    { prefix: '$', value: 50,  suffix: 'M+', label: t('trust.farmValueLabel') },
+    { prefix: '', value: 1000, suffix: '+',  label: t('trust.professionalsLabel') },
+  ]
 
   return (
     <section ref={ref} className="border-y border-[var(--color-gold-muted)] bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map(stat => (
-            <StatItem key={stat.label} stat={stat} active={isInView} />
+            <StatItem key={stat.label} {...stat} active={isInView} />
           ))}
         </div>
       </div>

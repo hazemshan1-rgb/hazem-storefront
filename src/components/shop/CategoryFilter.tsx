@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import type { ProductCategory } from '../../types/product'
 
-const categories: Array<'All' | ProductCategory> = ['All', 'Ebook', 'SOP', 'Toolkit', 'Training']
+const CATEGORY_VALUES: Array<'All' | ProductCategory> = ['All', 'Ebook', 'SOP', 'Toolkit', 'Training']
 
 interface CategoryFilterProps {
   active: 'All' | ProductCategory
@@ -8,9 +9,14 @@ interface CategoryFilterProps {
 }
 
 export function CategoryFilter({ active, onChange }: CategoryFilterProps) {
+  const { t } = useTranslation()
+
+  const label = (cat: 'All' | ProductCategory) =>
+    cat === 'All' ? t('shop.filterAll') : t(`shop.categories.${cat}`, { defaultValue: cat })
+
   return (
     <div className="flex flex-wrap gap-2 mb-8">
-      {categories.map(cat => (
+      {CATEGORY_VALUES.map(cat => (
         <button
           key={cat}
           onClick={() => onChange(cat)}
@@ -20,7 +26,7 @@ export function CategoryFilter({ active, onChange }: CategoryFilterProps) {
               : 'border-[var(--color-gold-muted)] text-[var(--color-text-muted)] hover:border-[var(--color-gold)] hover:text-[var(--color-text)]'
           }`}
         >
-          {cat}
+          {label(cat)}
         </button>
       ))}
     </div>

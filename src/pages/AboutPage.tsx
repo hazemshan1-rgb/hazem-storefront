@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { caseStudies } from '../data/caseStudies'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 
 const stats = [
-  { value: '30+',   label: 'Years on the ground' },
-  { value: '15+',   label: 'Countries deployed' },
-  { value: '500+',  label: 'Acres under advisory' },
-  { value: '1000+', label: 'Professionals trained' },
+  { value: '30+',   labelKey: 'about.stat1Label' },
+  { value: '15+',   labelKey: 'about.stat2Label' },
+  { value: '500+',  labelKey: 'about.stat3Label' },
+  { value: '1000+', labelKey: 'about.stat4Label' },
 ]
 
 const expertise = [
@@ -41,6 +42,7 @@ const memberships = [
 ]
 
 export function AboutPage() {
+  const { t } = useTranslation()
   const bioRef     = useScrollReveal<HTMLDivElement>()
   const statsRef   = useScrollReveal<HTMLDivElement>()
   const caseRef    = useScrollReveal<HTMLDivElement>()
@@ -71,31 +73,25 @@ export function AboutPage() {
           ],
         }}
       />
-      <p className="animate-fade-in-up text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">The Person Behind the Products</p>
-      <h1 className="animate-fade-in-up animation-delay-100 font-serif text-4xl text-[var(--color-text)] mb-10">About Hazem</h1>
+      <p className="animate-fade-in-up text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('about.eyebrow')}</p>
+      <h1 className="animate-fade-in-up animation-delay-100 font-serif text-4xl text-[var(--color-text)] mb-10">{t('about.headline')}</h1>
 
       {/* Primary bio block */}
       <div ref={bioRef} className="scroll-reveal grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
         <div className="md:col-span-1">
           <img
             src="/images/hero/hazem-studio.jpg"
-            alt="Hazem Shannak — Aquaculture Consultant"
+            alt={t('about.imgAlt')}
             className="w-full aspect-[4/5] object-cover object-top rounded-sm border border-[var(--color-gold-muted)]"
           />
         </div>
         <div className="md:col-span-2 space-y-4 text-sm text-[var(--color-text-muted)] leading-relaxed">
-          <p>
-            I have spent 30 years making aquaculture ventures work — not on paper, but on the ground. Shrimp ponds in Southeast Asia. Tilapia systems in the Middle East and Africa. Integrated multi-trophic farms that produce more with less. I have walked into operations that were bleeding money and left them profitable.
-          </p>
-          <p>
-            My frameworks — the Blue Living Systems Framework, Integrated Multi-Trophic Aquaculture (IMTA), and Regenerative Seawater Agriculture (RSA) — are not academic constructs. They are working models built from thousands of hours of farm observation, failure analysis, and system redesign.
-          </p>
-          <p>
-            The resources I sell are the distilled version of what I teach my highest-paying consulting clients. The same tools. The same frameworks. At a price that makes them accessible to operators who cannot yet afford to bring me on-site.
-          </p>
+          <p>{t('about.bio1')}</p>
+          <p>{t('about.bio2')}</p>
+          <p>{t('about.bio3')}</p>
           <p className="text-xs text-[var(--color-text-muted)]">
-            <span className="text-[var(--color-text)]">Based:</span> Kafr ElSheikh, Egypt &amp; Kuala Lumpur, Malaysia &nbsp;·&nbsp;
-            <span className="text-[var(--color-text)]">Languages:</span> Arabic (native) · English (fluent) · Thai (working)
+            <span className="text-[var(--color-text)]">{t('about.basedLabel')}:</span> {t('about.basedValue')} &nbsp;·&nbsp;
+            <span className="text-[var(--color-text)]">{t('about.languagesLabel')}:</span> {t('about.languagesValue')}
           </p>
           <a
             href="https://www.linkedin.com/in/hazemhshannak"
@@ -103,7 +99,7 @@ export function AboutPage() {
             rel="noopener noreferrer"
             className="inline-block text-[var(--color-gold)] text-xs tracking-widest uppercase hover:underline mt-2"
           >
-            Connect on LinkedIn →
+            {t('about.linkedinCta')}
           </a>
         </div>
       </div>
@@ -111,9 +107,9 @@ export function AboutPage() {
       {/* By-the-numbers strip */}
       <div ref={statsRef} className="scroll-reveal grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--color-gold-muted)] border border-[var(--color-gold-muted)] rounded-sm mb-16 overflow-hidden">
         {stats.map(s => (
-          <div key={s.label} className="bg-[var(--color-surface)] px-6 py-7 text-center">
+          <div key={s.labelKey} className="bg-[var(--color-surface)] px-6 py-7 text-center">
             <p className="font-serif text-4xl text-[var(--color-gold)] mb-1">{s.value}</p>
-            <p className="text-[10px] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">{s.label}</p>
+            <p className="text-[10px] tracking-[0.25em] uppercase text-[var(--color-text-muted)]">{t(s.labelKey)}</p>
           </div>
         ))}
       </div>
@@ -121,9 +117,9 @@ export function AboutPage() {
       {/* Case studies */}
       <div ref={caseRef} className="scroll-reveal mb-16">
         <div className="flex items-end justify-between mb-6">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Field Results</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">{t('about.fieldResults')}</p>
           <Link to="/case-studies" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
-            View all →
+            {t('about.viewAll')}
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -142,7 +138,7 @@ export function AboutPage() {
                 to="/case-studies"
                 className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] hover:underline mt-auto"
               >
-                Read full case →
+                {t('about.readFull')}
               </Link>
             </div>
           ))}
@@ -151,7 +147,7 @@ export function AboutPage() {
 
       {/* Expertise areas */}
       <div ref={expertRef} className="scroll-reveal mb-16">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">Areas of Expertise</p>
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">{t('about.expertiseLabel')}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {expertise.map(area => (
             <div key={area} className="flex items-start gap-3 py-3 border-b border-[var(--color-gold-muted)]">
@@ -164,9 +160,8 @@ export function AboutPage() {
 
       {/* Credentials & Memberships */}
       <div ref={credRef} className="scroll-reveal grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Certifications */}
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">Certifications</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">{t('about.certificationsLabel')}</p>
           <ul className="space-y-3">
             {certifications.map(c => (
               <li key={c.title} className="flex items-start justify-between gap-4 border-b border-[var(--color-gold-muted)] pb-3">
@@ -176,14 +171,13 @@ export function AboutPage() {
             ))}
           </ul>
           <p className="text-[10px] text-[var(--color-text-muted)] mt-4 leading-relaxed">
-            B.Sc. Agricultural Engineering — Animal Production &amp; Husbandry<br />
-            <span className="text-[var(--color-text)]">University of Jordan</span>, 1989–1993
+            {t('about.degree')}<br />
+            <span className="text-[var(--color-text)]">{t('about.university')}</span>, {t('about.universityYears')}
           </p>
         </div>
 
-        {/* Memberships */}
         <div>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">Professional Memberships</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">{t('about.membershipsLabel')}</p>
           <ul className="space-y-3">
             {memberships.map(m => (
               <li key={m.abbr} className="flex items-start gap-4 border-b border-[var(--color-gold-muted)] pb-3">

@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/Button'
 import { RingTexture } from '../ui/RingTexture'
 
 export function Hero() {
+  const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
@@ -29,7 +31,6 @@ export function Hero() {
           <source src="/videos/hero-loop.mp4" type="video/mp4" />
           <source src="/videos/hero-loop.webm" type="video/webm" />
         </video>
-        {/* Static fallback shown when no video file present */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-15"
           style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
@@ -50,7 +51,7 @@ export function Hero() {
               <div className="absolute inset-0 rounded-sm border border-[var(--color-gold)] translate-x-1.5 translate-y-1.5 opacity-60" />
               <img
                 src="/images/hero/hazem-studio.jpg"
-                alt="Hazem Shannak — aquaculture consultant"
+                alt={t('hero.imgAlt')}
                 className="relative z-10 w-full h-full object-cover object-top rounded-sm"
               />
               {/* Gold accent bar — animated draw */}
@@ -66,20 +67,20 @@ export function Hero() {
           {/* Right — headline */}
           <div className="order-1 md:order-2 flex flex-col gap-6">
             <p className="text-[10px] tracking-[0.3em] uppercase font-semibold gold-shimmer animate-fade-in-up">
-              Aquaculture · Systems · Profitability
+              {t('hero.eyebrow')}
             </p>
 
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-on-dark)] leading-tight animate-fade-in-up animation-delay-100">
-              Most farms fail for reasons their operators never identify.
+              {t('hero.headline')}
             </h1>
 
             <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
-              After 30 years across 15 countries, the pattern is clear: it's rarely the biology. Feed conversion leaks, management blind spots, mis-timed interventions — these cost operators entire seasons, silently. These resources give you the frameworks to find those failures before they compound into something irreversible.
+              {t('hero.body')}
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-400">
-              <Button as="link" to="/diagnostic" size="lg">Get My Farm Score →</Button>
-              <Button as="link" to="/shop" variant="secondary" size="lg">Browse Resources</Button>
+              <Button as="link" to="/diagnostic" size="lg">{t('hero.ctaPrimary')}</Button>
+              <Button as="link" to="/shop" variant="secondary" size="lg">{t('hero.ctaSecondary')}</Button>
             </div>
 
             <Link
@@ -87,7 +88,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 self-start text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors duration-300 animate-fade-in-up animation-delay-400 group"
             >
               <span className="w-1 h-1 rounded-full bg-[var(--color-gold-cta)] opacity-70 group-hover:opacity-100 transition-opacity" />
-              Claim your free field guides →
+              {t('hero.ctaTertiary')}
             </Link>
           </div>
 

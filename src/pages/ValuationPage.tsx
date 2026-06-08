@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
 
@@ -18,20 +19,37 @@ function fmt(n: number): string {
 }
 
 const multipleFactors = [
-  { key: 'years',     label: 'Years in Operation',       options: [{ value: 'under3', label: 'Under 3 yrs', delta: 0 }, { value: '3to7', label: '3 – 7 yrs', delta: 0.8 }, { value: 'over7', label: '7+ yrs', delta: 1.5 }] },
-  { key: 'docs',      label: 'Financial Documentation',  options: [{ value: 'none', label: 'No records', delta: 0 }, { value: 'basic', label: 'Basic records', delta: 0.3 }, { value: 'full', label: 'Full P&L / cost-per-kg', delta: 0.7 }] },
-  { key: 'species',   label: 'Production Model',         options: [{ value: 'single', label: 'Single species', delta: 0 }, { value: 'mixed', label: 'Multiple species', delta: 0.2 }, { value: 'imta', label: 'IMTA / integrated system', delta: 0.4 }] },
-  { key: 'certified', label: 'Certifications',           options: [{ value: 'none', label: 'None', delta: 0 }, { value: 'local', label: 'Local/national', delta: 0.15 }, { value: 'international', label: 'ASC / BAP / GlobalGAP', delta: 0.35 }] },
+  { key: 'years',     labelKey: 'valuation.factorYearsLabel', options: [
+    { value: 'under3', labelKey: 'valuation.factorYears1', delta: 0   },
+    { value: '3to7',   labelKey: 'valuation.factorYears2', delta: 0.8 },
+    { value: 'over7',  labelKey: 'valuation.factorYears3', delta: 1.5 },
+  ]},
+  { key: 'docs',      labelKey: 'valuation.factorDocsLabel', options: [
+    { value: 'none',  labelKey: 'valuation.factorDocs1', delta: 0   },
+    { value: 'basic', labelKey: 'valuation.factorDocs2', delta: 0.3 },
+    { value: 'full',  labelKey: 'valuation.factorDocs3', delta: 0.7 },
+  ]},
+  { key: 'species',   labelKey: 'valuation.factorSpeciesLabel', options: [
+    { value: 'single', labelKey: 'valuation.factorSpecies1', delta: 0   },
+    { value: 'mixed',  labelKey: 'valuation.factorSpecies2', delta: 0.2 },
+    { value: 'imta',   labelKey: 'valuation.factorSpecies3', delta: 0.4 },
+  ]},
+  { key: 'certified', labelKey: 'valuation.factorCertLabel', options: [
+    { value: 'none',          labelKey: 'valuation.factorCert1', delta: 0    },
+    { value: 'local',         labelKey: 'valuation.factorCert2', delta: 0.15 },
+    { value: 'international', labelKey: 'valuation.factorCert3', delta: 0.35 },
+  ]},
 ]
 
 export function ValuationPage() {
-  const [revenue,  setRevenue]  = useState(500_000)
-  const [margin,   setMargin]   = useState(14)
-  const [years,    setYears]    = useState('3to7')
-  const [docs,     setDocs]     = useState('basic')
-  const [species,  setSpecies]  = useState('single')
-  const [certified, setCertified] = useState('none')
-  const [revealed, setRevealed] = useState(false)
+  const { t } = useTranslation()
+  const [revenue,    setRevenue]    = useState(500_000)
+  const [margin,     setMargin]     = useState(14)
+  const [years,      setYears]      = useState('3to7')
+  const [docs,       setDocs]       = useState('basic')
+  const [species,    setSpecies]    = useState('single')
+  const [certified,  setCertified]  = useState('none')
+  const [revealed,   setRevealed]   = useState(false)
 
   const ebitda      = revenue * (margin / 100)
   const multiple    = getMultiple(years, docs, species, certified)
@@ -53,18 +71,17 @@ export function ValuationPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
-      <SEO title="Farm Valuation Calculator — What Is Your Farm Worth?"
-        description="Enter your revenue, margin, documentation, species model, and certifications. See your farm's current investor valuation and its potential value after the 90-Day Transformation Programme."
+      <SEO title={t('valuation.seoTitle')}
+        description={t('valuation.seoDesc')}
         url="/valuation" />
 
       <div className="max-w-4xl mx-auto px-6">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Valuation Tool</p>
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('valuation.eyebrow')}</p>
         <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-4">
-          What is your farm worth?
+          {t('valuation.headline')}
         </h1>
         <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-xl">
-          Six inputs. See your current investor valuation and the value the 90-Day Transformation Programme would unlock.
-          Based on the same EBITDA-multiple methodology used in Tier 3 due diligence work.
+          {t('valuation.body')}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -72,7 +89,7 @@ export function ValuationPage() {
           <div className="space-y-8">
             {/* Revenue slider */}
             <div>
-              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3 font-semibold">Annual Revenue (USD)</label>
+              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3 font-semibold">{t('valuation.labelRevenue')}</label>
               <input type="range" min={50000} max={5000000} step={25000} value={revenue}
                 onChange={e => setRevenue(Number(e.target.value))} className="w-full accent-[var(--color-gold)]" />
               <div className="flex justify-between mt-1">
@@ -83,7 +100,7 @@ export function ValuationPage() {
 
             {/* Margin slider */}
             <div>
-              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3 font-semibold">Current Net Margin (%)</label>
+              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3 font-semibold">{t('valuation.labelMargin')}</label>
               <input type="range" min={2} max={40} step={1} value={margin}
                 onChange={e => setMargin(Number(e.target.value))} className="w-full accent-[var(--color-gold)]" />
               <div className="flex justify-between mt-1">
@@ -96,8 +113,8 @@ export function ValuationPage() {
             {multipleFactors.map(factor => (
               <div key={factor.key}>
                 <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3 font-semibold">
-                  {factor.label}
-                  <span className="ml-2 normal-case font-normal text-[var(--color-text-muted)] opacity-70">— affects valuation multiple</span>
+                  {t(factor.labelKey)}
+                  <span className="ml-2 normal-case font-normal text-[var(--color-text-muted)] opacity-70">— {t('valuation.affectsMultiple')}</span>
                 </label>
                 <div className={`grid gap-2 ${factor.options.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
                   {factor.options.map(o => (
@@ -107,8 +124,12 @@ export function ValuationPage() {
                           ? 'border-[var(--color-gold-cta)] bg-[var(--color-gold-cta)]/8 text-[var(--color-text)] font-semibold'
                           : 'border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-gold)]'
                       }`}>
-                      <span className="block">{o.label}</span>
-                      {o.delta > 0 && <span className="block text-[9px] text-[var(--color-gold)] mt-0.5">+{o.delta.toFixed(2)}× multiple</span>}
+                      <span className="block">{t(o.labelKey)}</span>
+                      {o.delta > 0 && (
+                        <span className="block text-[9px] text-[var(--color-gold)] mt-0.5">
+                          +{o.delta.toFixed(2)}× {t('valuation.multipleLabel')}
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -120,49 +141,49 @@ export function ValuationPage() {
           <div className="flex flex-col gap-5">
             {/* Current */}
             <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6">
-              <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-4">Your Farm Today</p>
+              <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-4">{t('valuation.cardCurrentTitle')}</p>
               <div className="space-y-3 mb-5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-muted)]">EBITDA</span>
+                  <span className="text-[var(--color-text-muted)]">{t('valuation.ebitdaLabel')}</span>
                   <span className="text-[var(--color-text)] font-semibold">{fmt(ebitda)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-muted)]">Valuation multiple</span>
+                  <span className="text-[var(--color-text-muted)]">{t('valuation.multipleRowLabel')}</span>
                   <span className="text-[var(--color-text)] font-semibold">{multiple.toFixed(2)}×</span>
                 </div>
                 <div className="h-px bg-[var(--color-gold-muted)]" />
                 <div className="flex justify-between">
-                  <span className="text-sm text-[var(--color-text-muted)]">Estimated value</span>
+                  <span className="text-sm text-[var(--color-text-muted)]">{t('valuation.estimatedValueLabel')}</span>
                   <motion.span key={currentVal} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                     className="font-serif text-2xl text-[var(--color-text)]">{fmt(currentVal)}</motion.span>
                 </div>
               </div>
               <p className="text-[10px] text-[var(--color-text-muted)] leading-relaxed">
-                At {multiple.toFixed(2)}× EBITDA — based on documentation, tenure, species model, and certification profile.
+                {t('valuation.cardCurrentNote', { multiple: multiple.toFixed(2) })}
               </p>
             </div>
 
             {/* Post-programme */}
             <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-6">
-              <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-4">After the 90-Day Programme</p>
+              <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-4">{t('valuation.cardPostTitle')}</p>
               <div className="space-y-3 mb-5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-muted-dark)]">EBITDA (+10pp margin)</span>
+                  <span className="text-[var(--color-text-muted-dark)]">{t('valuation.ebitdaPostLabel')}</span>
                   <span className="text-[var(--color-text-on-dark)] font-semibold">{fmt(postEbitda)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-[var(--color-text-muted-dark)]">Multiple (better docs)</span>
+                  <span className="text-[var(--color-text-muted-dark)]">{t('valuation.multiplePostLabel')}</span>
                   <span className="text-[var(--color-text-on-dark)] font-semibold">{postMultiple.toFixed(2)}×</span>
                 </div>
                 <div className="h-px bg-[rgba(255,255,255,0.08)]" />
                 <div className="flex justify-between">
-                  <span className="text-sm text-[var(--color-text-muted-dark)]">Estimated value</span>
+                  <span className="text-sm text-[var(--color-text-muted-dark)]">{t('valuation.estimatedValueLabel')}</span>
                   <motion.span key={postVal} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                     className="font-serif text-2xl text-[var(--color-text-on-dark)]">{fmt(postVal)}</motion.span>
                 </div>
               </div>
               <div className="flex items-center justify-between pt-4 border-t border-[rgba(255,255,255,0.08)]">
-                <span className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)]">Value uplift</span>
+                <span className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)]">{t('valuation.valueUpliftLabel')}</span>
                 <motion.span key={uplift} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   className="font-serif text-3xl text-[var(--color-gold-cta)]">+{fmt(uplift)}</motion.span>
               </div>
@@ -172,21 +193,21 @@ export function ValuationPage() {
             {!revealed ? (
               <button onClick={() => setRevealed(true)}
                 className="w-full bg-[var(--color-gold-cta)] text-[var(--color-navy)] py-4 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
-                See How to Get There →
+                {t('valuation.ctaReveal')}
               </button>
             ) : (
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                 className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-5 space-y-3">
                 <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-                  The {fmt(uplift)} uplift assumes a guaranteed 10-percentage-point margin improvement (Tier 2 guarantee) plus improved documentation commanding a higher multiple in investor conversations.
+                  {t('valuation.revealedText', { uplift: fmt(uplift) })}
                 </p>
                 <Link to="/audit"
                   className="block text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] py-3.5 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
-                  See the 90-Day Programme →
+                  {t('valuation.seeProgrammeBtn')}
                 </Link>
                 <Link to="/consultation"
                   className="block text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] py-3 text-[10px] tracking-widest uppercase rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-                  Talk it through first — Book a $500 Session
+                  {t('valuation.talkFirstBtn')}
                 </Link>
               </motion.div>
             )}
@@ -194,22 +215,20 @@ export function ValuationPage() {
         </div>
 
         <p className="text-[10px] text-[var(--color-text-muted)] mt-8 mb-10 leading-relaxed max-w-xl">
-          Indicative only. Actual valuations depend on verified financials, market conditions, buyer profile, and asset quality.
-          The 10pp margin improvement reflects the Tier 2 contractual guarantee, not a projection.
-          IMTA and international certification multiples are based on Hazem's deal exposure across the Middle East and Southeast Asia.
+          {t('valuation.disclaimer')}
         </p>
 
         {/* Cross-links */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { to: '/diagnostic',      label: 'Farm Diagnostic',      sub: 'Get your full health score first' },
-            { to: '/benchmark',       label: 'Benchmark My Farm',    sub: 'See how your metrics compare' },
-            { to: '/symptom-checker', label: 'AI Symptom Checker',   sub: 'Describe a specific problem for a free diagnosis' },
+            { to: '/diagnostic',      labelKey: 'valuation.crossLink1Label', subKey: 'valuation.crossLink1Sub' },
+            { to: '/benchmark',       labelKey: 'valuation.crossLink2Label', subKey: 'valuation.crossLink2Sub' },
+            { to: '/symptom-checker', labelKey: 'valuation.crossLink3Label', subKey: 'valuation.crossLink3Sub' },
           ].map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">
-              <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{l.label}</p>
-              <p className="text-xs text-[var(--color-text-muted)] leading-snug">{l.sub}</p>
+              <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t(l.labelKey)}</p>
+              <p className="text-xs text-[var(--color-text-muted)] leading-snug">{t(l.subKey)}</p>
             </Link>
           ))}
         </div>

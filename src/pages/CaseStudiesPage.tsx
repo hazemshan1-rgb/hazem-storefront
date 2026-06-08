@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { caseStudies } from '../data/caseStudies'
 import { SEO } from '../components/ui/SEO'
 
 export function CaseStudiesPage() {
+  const { t } = useTranslation()
   const headerRef = useScrollReveal<HTMLElement>()
 
   return (
@@ -16,12 +18,12 @@ export function CaseStudiesPage() {
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">
         <div className="max-w-2xl">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Field Results</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('caseStudies.eyebrow')}</p>
           <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-6">
-            Problems diagnosed. Margins recovered.
+            {t('caseStudies.headline')}
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-xl">
-            These are representative engagements from the past decade. Client names and locations are anonymised at request. The numbers are real.
+            {t('caseStudies.body')}
           </p>
         </div>
       </section>
@@ -35,16 +37,16 @@ export function CaseStudiesPage() {
               {/* Sidebar */}
               <div className="lg:col-span-3 flex flex-col gap-6">
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-1">Case {i + 1}</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-1">{t('caseStudies.caseLabel', { n: i + 1 })}</p>
                   <p className="font-serif text-lg text-[var(--color-text)] leading-snug">{cs.client}</p>
                 </div>
                 <div className="flex flex-col gap-3 text-xs text-[var(--color-text-muted)]">
                   <div>
-                    <span className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] block mb-0.5">Region</span>
+                    <span className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] block mb-0.5">{t('caseStudies.region')}</span>
                     {cs.region}
                   </div>
                   <div>
-                    <span className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] block mb-0.5">Species</span>
+                    <span className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] block mb-0.5">{t('caseStudies.species')}</span>
                     {cs.species}
                   </div>
                 </div>
@@ -57,12 +59,12 @@ export function CaseStudiesPage() {
               {/* Body */}
               <div className="lg:col-span-9 flex flex-col gap-6">
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-3">The Challenge</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-3">{t('caseStudies.theChallenge')}</p>
                   <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{cs.challenge}</p>
                 </div>
 
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-3">What We Did</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-3">{t('caseStudies.whatWeDid')}</p>
                   <ul className="space-y-2">
                     {cs.intervention.map(item => (
                       <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text-muted)] leading-relaxed">
@@ -74,7 +76,7 @@ export function CaseStudiesPage() {
                 </div>
 
                 <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-5">
-                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-2">Outcome</p>
+                  <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] mb-2">{t('caseStudies.outcomeLabel')}</p>
                   <p className="text-sm text-[var(--color-text)] leading-relaxed">{cs.outcome}</p>
                 </div>
               </div>
@@ -88,14 +90,14 @@ export function CaseStudiesPage() {
       <section className="max-w-6xl mx-auto px-6 mt-4">
         <div className="border border-[var(--color-gold-muted)] rounded-sm p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="font-serif text-xl text-[var(--color-text)] mb-2">Recognise your operation in one of these?</p>
-            <p className="text-xs text-[var(--color-text-muted)]">Book a session and we will work through the diagnosis together.</p>
+            <p className="font-serif text-xl text-[var(--color-text)] mb-2">{t('caseStudies.ctaTitle')}</p>
+            <p className="text-xs text-[var(--color-text-muted)]">{t('caseStudies.ctaBody')}</p>
           </div>
           <a
             href="/consultation"
             className="shrink-0 text-xs tracking-widest uppercase font-semibold text-[var(--color-bg)] bg-[var(--color-gold)] px-6 py-3 rounded-sm hover:opacity-90 transition-opacity"
           >
-            Book a consultation →
+            {t('caseStudies.ctaBtn')}
           </a>
         </div>
       </section>

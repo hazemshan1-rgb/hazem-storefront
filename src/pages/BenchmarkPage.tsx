@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
 
-// Benchmark data from 50+ audited farms
 const BENCHMARKS = {
-  fcr:            { p25: 1.42, p50: 1.65,  p75: 1.87,  label: 'Feed Conversion Ratio',         lower: 0.8,  upper: 3.0,    step: 0.05, unit: '',  lowerIsBetter: true  },
-  survival:       { p25: 64,   p50: 74,    p75: 82,    label: 'Survival Rate (%)',              lower: 20,   upper: 100,    step: 1,    unit: '%', lowerIsBetter: false },
-  costPerKg:      { p25: 2.65, p50: 3.20,  p75: 3.85,  label: 'Cost Per Kg (USD)',              lower: 1.0,  upper: 8.0,    step: 0.05, unit: '$', lowerIsBetter: true  },
-  stockingDensity:{ p25: 42,   p50: 65,    p75: 90,    label: 'Stocking Density (PL/m²)',       lower: 5,    upper: 200,    step: 1,    unit: '',  lowerIsBetter: false },
-  morningDO:      { p25: 4.8,  p50: 5.6,   p75: 6.4,   label: 'Morning DO (mg/L)',              lower: 2.0,  upper: 9.0,    step: 0.1,  unit: '',  lowerIsBetter: false },
-  energyCostPct:  { p25: 11,   p50: 17,    p75: 25,    label: 'Energy Cost (% of Revenue)',     lower: 3,    upper: 50,     step: 1,    unit: '%', lowerIsBetter: true  },
+  fcr:            { labelKey: 'benchmark.metricFcr',            p25: 1.42, p50: 1.65,  p75: 1.87,  lower: 0.8,  upper: 3.0,    step: 0.05, unit: '',  lowerIsBetter: true  },
+  survival:       { labelKey: 'benchmark.metricSurvival',       p25: 64,   p50: 74,    p75: 82,    lower: 20,   upper: 100,    step: 1,    unit: '%', lowerIsBetter: false },
+  costPerKg:      { labelKey: 'benchmark.metricCostPerKg',      p25: 2.65, p50: 3.20,  p75: 3.85,  lower: 1.0,  upper: 8.0,    step: 0.05, unit: '$', lowerIsBetter: true  },
+  stockingDensity:{ labelKey: 'benchmark.metricStockingDensity',p25: 42,   p50: 65,    p75: 90,    lower: 5,    upper: 200,    step: 1,    unit: '',  lowerIsBetter: false },
+  morningDO:      { labelKey: 'benchmark.metricMorningDO',      p25: 4.8,  p50: 5.6,   p75: 6.4,   lower: 2.0,  upper: 9.0,    step: 0.1,  unit: '',  lowerIsBetter: false },
+  energyCostPct:  { labelKey: 'benchmark.metricEnergyCostPct',  p25: 11,   p50: 17,    p75: 25,    lower: 3,    upper: 50,     step: 1,    unit: '%', lowerIsBetter: true  },
 }
 
 type MetricKey = keyof typeof BENCHMARKS
@@ -37,31 +37,37 @@ function getPercentile(value: number, p25: number, p50: number, p75: number, low
   return 5 + (value / p25) * 30
 }
 
-function statusFor(pct: number): { label: string; colour: string } {
-  if (pct >= 75) return { label: 'Excellent',     colour: '#22c55e' }
-  if (pct >= 55) return { label: 'Above Average', colour: '#84cc16' }
-  if (pct >= 40) return { label: 'Average',       colour: '#CA8A04' }
-  if (pct >= 25) return { label: 'Below Average', colour: '#f97316' }
-  return             { label: 'Critical Gap',  colour: '#ef4444' }
+function statusFor(pct: number): { labelKey: string; colour: string } {
+  if (pct >= 75) return { labelKey: 'benchmark.statusExcellent', colour: '#22c55e' }
+  if (pct >= 55) return { labelKey: 'benchmark.statusAboveAvg',  colour: '#84cc16' }
+  if (pct >= 40) return { labelKey: 'benchmark.statusAverage',   colour: '#CA8A04' }
+  if (pct >= 25) return { labelKey: 'benchmark.statusBelowAvg',  colour: '#f97316' }
+  return             { labelKey: 'benchmark.statusCritical',  colour: '#ef4444' }
 }
 
-function productFor(key: MetricKey): { link: string; label: string } {
-  if (key === 'fcr')             return { link: '/shop/fcr-optimisation-toolkit',    label: 'FCR Optimisation Toolkit — $97' }
-  if (key === 'survival')        return { link: '/shop/water-quality-aeration-sop',  label: 'Water Quality SOP — $47' }
-  if (key === 'morningDO')       return { link: '/shop/water-quality-aeration-sop',  label: 'Water Quality & Aeration SOP — $47' }
-  if (key === 'energyCostPct')   return { link: '/consultation',                     label: 'Energy Audit Consultation — $500' }
-  if (key === 'stockingDensity') return { link: '/diagnostic',                       label: 'Full Farm Diagnostic — Free' }
-  return                                { link: '/consultation',                     label: 'Book a Consultation — $500' }
+function productFor(key: MetricKey): { link: string; labelKey: string } {
+  if (key === 'fcr')             return { link: '/shop/fcr-optimisation-toolkit',   labelKey: 'benchmark.productFcrLabel' }
+  if (key === 'survival')        return { link: '/shop/water-quality-aeration-sop', labelKey: 'benchmark.productSurvivalLabel' }
+  if (key === 'morningDO')       return { link: '/shop/water-quality-aeration-sop', labelKey: 'benchmark.productDoLabel' }
+  if (key === 'energyCostPct')   return { link: '/consultation',                    labelKey: 'benchmark.productEnergyLabel' }
+  if (key === 'stockingDensity') return { link: '/diagnostic',                      labelKey: 'benchmark.productDensityLabel' }
+  return                                { link: '/consultation',                    labelKey: 'benchmark.productDefaultLabel' }
 }
+
+const METRIC_GROUPS: { labelKey: string; keys: MetricKey[] }[] = [
+  { labelKey: 'benchmark.groupProduction', keys: ['fcr', 'survival', 'stockingDensity'] },
+  { labelKey: 'benchmark.groupCost',       keys: ['costPerKg', 'energyCostPct', 'morningDO'] },
+]
 
 function BenchmarkBar({ metricKey, value, onChange }: {
   metricKey: MetricKey
   value: number
   onChange: (v: number) => void
 }) {
+  const { t } = useTranslation()
   const bm = BENCHMARKS[metricKey]
   const pct = Math.min(95, Math.max(5, getPercentile(value, bm.p25, bm.p50, bm.p75, bm.lowerIsBetter)))
-  const { label: status, colour } = statusFor(pct)
+  const { labelKey: statusKey, colour } = statusFor(pct)
   const range = bm.upper - bm.lower
   const p25pos = ((bm.p25 - bm.lower) / range) * 100
   const p50pos = ((bm.p50 - bm.lower) / range) * 100
@@ -78,7 +84,7 @@ function BenchmarkBar({ metricKey, value, onChange }: {
     <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-6">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-1">{bm.label}</p>
+          <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-1">{t(bm.labelKey)}</p>
           <div className="flex items-baseline gap-2">
             <span className="font-serif text-3xl text-[var(--color-text)]">
               {bm.unit === '$' ? '$' : ''}{displayVal}{bm.unit === '%' ? '%' : ''}
@@ -86,8 +92,8 @@ function BenchmarkBar({ metricKey, value, onChange }: {
           </div>
         </div>
         <div className="text-right">
-          <span className="text-xs font-semibold" style={{ color: colour }}>{status}</span>
-          <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">Top {Math.round(100 - pct)}%</p>
+          <span className="text-xs font-semibold" style={{ color: colour }}>{t(statusKey)}</span>
+          <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">{t('benchmark.topPercentile', { pct: Math.round(100 - pct) })}</p>
         </div>
       </div>
 
@@ -99,10 +105,14 @@ function BenchmarkBar({ metricKey, value, onChange }: {
             : 'linear-gradient(to right, #ef4444, #f97316, #CA8A04, #84cc16, #22c55e)',
           opacity: 0.25,
         }} />
-        {[{ pos: p25pos, label: 'P25' }, { pos: p50pos, label: 'Avg' }, { pos: p75pos, label: 'P75' }].map(m => (
-          <div key={m.label}>
+        {[
+          { pos: p25pos, labelKey: 'benchmark.p25Label' },
+          { pos: p50pos, labelKey: 'benchmark.p50Label' },
+          { pos: p75pos, labelKey: 'benchmark.p75Label' },
+        ].map(m => (
+          <div key={m.labelKey}>
             <div className="absolute top-0 bottom-0 w-px bg-[var(--color-gold-muted)]" style={{ left: `${m.pos}%` }} />
-            <span className="absolute text-[8px] text-[var(--color-text-muted)] -translate-x-1/2 hidden sm:block" style={{ left: `${m.pos}%`, top: '-18px' }}>{m.label}</span>
+            <span className="absolute text-[8px] text-[var(--color-text-muted)] -translate-x-1/2 hidden sm:block" style={{ left: `${m.pos}%`, top: '-18px' }}>{t(m.labelKey)}</span>
           </div>
         ))}
         <motion.div
@@ -124,12 +134,8 @@ function BenchmarkBar({ metricKey, value, onChange }: {
   )
 }
 
-const METRIC_GROUPS: { label: string; keys: MetricKey[] }[] = [
-  { label: 'Production Efficiency',  keys: ['fcr', 'survival', 'stockingDensity'] },
-  { label: 'Cost & Resource Health', keys: ['costPerKg', 'energyCostPct', 'morningDO'] },
-]
-
 export function BenchmarkPage() {
+  const { t } = useTranslation()
   const [values, setValues] = useState<MetricInputs>({
     fcr: 1.9, survival: 72, costPerKg: 3.5,
     stockingDensity: 60, morningDO: 5.2, energyCostPct: 18,
@@ -149,24 +155,36 @@ export function BenchmarkPage() {
   const product = productFor(weakestKey)
   const overallPct = Math.round(Object.values(percentiles).reduce((a, b) => a + b, 0) / 6)
 
+  const overallMsg = overallPct >= 70
+    ? t('benchmark.overallAbove')
+    : overallPct >= 50
+    ? t('benchmark.overallNear')
+    : t('benchmark.overallBelow')
+
+  const crossLinks = [
+    { to: '/diagnostic',      labelKey: 'benchmark.crossLink1Label', subKey: 'benchmark.crossLink1Sub' },
+    { to: '/valuation',       labelKey: 'benchmark.crossLink2Label', subKey: 'benchmark.crossLink2Sub' },
+    { to: '/symptom-checker', labelKey: 'benchmark.crossLink3Label', subKey: 'benchmark.crossLink3Sub' },
+  ]
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
-      <SEO title="Benchmark My Farm — How Do You Compare?"
-        description="Enter your FCR, survival rate, cost per kg, stocking density, DO, and energy cost. See exactly where your farm ranks against 50+ audited operations."
+      <SEO title={t('benchmark.seoTitle')}
+        description={t('benchmark.seoDesc')}
         url="/benchmark" />
 
       <div className="max-w-3xl mx-auto px-6">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Benchmark Tool</p>
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('benchmark.eyebrow')}</p>
         <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-4">
-          How does your farm compare?
+          {t('benchmark.headline')}
         </h1>
         <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-xl">
-          Move the sliders to match your current metrics. See in real time where you rank against the 50+ farms in our audit database.
+          {t('benchmark.body')}
         </p>
 
         {METRIC_GROUPS.map(group => (
-          <div key={group.label} className="mb-10">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{group.label}</p>
+          <div key={group.labelKey} className="mb-10">
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t(group.labelKey)}</p>
             <div className="space-y-5">
               {group.keys.map(key => (
                 <BenchmarkBar key={key} metricKey={key} value={values[key]}
@@ -180,32 +198,30 @@ export function BenchmarkPage() {
         <motion.div layout className="bg-[var(--color-navy)] border border-[var(--color-gold-muted)] rounded-sm p-8 mb-8">
           <div className="flex items-start justify-between gap-6 mb-6">
             <div>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-2">Overall Standing</p>
-              <p className="font-serif text-2xl text-[var(--color-text-on-dark)]">
-                {overallPct >= 70 ? 'Your farm is performing above the industry median.'
-                  : overallPct >= 50 ? 'Your farm is tracking near the industry average.'
-                  : 'Your farm is underperforming the benchmark on key metrics.'}
-              </p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-2">{t('benchmark.overallStanding')}</p>
+              <p className="font-serif text-2xl text-[var(--color-text-on-dark)]">{overallMsg}</p>
             </div>
             <div className="shrink-0 text-center">
               <p className="font-serif text-5xl text-[var(--color-gold-cta)]">{Math.round(overallPct)}</p>
-              <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)]">Percentile</p>
+              <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)]">{t('benchmark.percentileLabel')}</p>
             </div>
           </div>
 
           {!shown ? (
             <button onClick={() => setShown(true)}
               className="text-[11px] tracking-widest uppercase font-semibold text-[var(--color-gold-cta)] border border-[var(--color-gold-cta)] px-6 py-3 rounded-sm hover:bg-[var(--color-gold-cta)] hover:text-[var(--color-navy)] transition-all">
-              Show Recommendation →
+              {t('benchmark.showRecommendation')}
             </button>
           ) : (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <p className="text-xs text-[var(--color-text-muted-dark)] mb-4">
-                Your weakest metric is <strong>{BENCHMARKS[weakestKey].label.toLowerCase()}</strong>. This is where the highest-ROI intervention lives.
+                {t('benchmark.weakestMetricPre')}
+                <strong>{t(BENCHMARKS[weakestKey].labelKey).toLowerCase()}</strong>
+                {t('benchmark.weakestMetricPost')}
               </p>
               <Link to={product.link}
                 className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-8 py-3.5 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
-                {product.label} →
+                {t(product.labelKey)} →
               </Link>
             </motion.div>
           )}
@@ -213,15 +229,11 @@ export function BenchmarkPage() {
 
         {/* Cross-links */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { to: '/diagnostic',      label: 'Full Farm Diagnostic',  sub: 'Get a complete score across 5 dimensions' },
-            { to: '/valuation',       label: 'Farm Valuation',        sub: "What is your farm worth to an investor?" },
-            { to: '/symptom-checker', label: 'AI Symptom Checker',    sub: 'Describe a specific problem for a free diagnosis' },
-          ].map(l => (
+          {crossLinks.map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">
-              <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{l.label}</p>
-              <p className="text-xs text-[var(--color-text-muted)] leading-snug">{l.sub}</p>
+              <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t(l.labelKey)}</p>
+              <p className="text-xs text-[var(--color-text-muted)] leading-snug">{t(l.subKey)}</p>
             </Link>
           ))}
         </div>

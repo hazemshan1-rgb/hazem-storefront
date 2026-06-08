@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { Hero } from '../components/home/Hero'
 import { LibraryFeature } from '../components/home/LibraryFeature'
@@ -10,26 +11,36 @@ import { InactionClock } from '../components/home/InactionClock'
 import { SEO } from '../components/ui/SEO'
 
 function ToolsNav() {
+  const { t } = useTranslation()
+
+  const tools = [
+    { to: '/diagnostic',      labelKey: 'toolsNav.farmScore',  subKey: 'toolsNav.farmScoreSub'  },
+    { to: '/benchmark',       labelKey: 'toolsNav.benchmark',  subKey: 'toolsNav.benchmarkSub'  },
+    { to: '/valuation',       labelKey: 'toolsNav.valuation',  subKey: 'toolsNav.valuationSub'  },
+    { to: '/symptom-checker', labelKey: 'toolsNav.aiSymptom',  subKey: 'toolsNav.aiSymptomSub'  },
+    { to: '/ask',             labelKey: 'toolsNav.askAI',      subKey: 'toolsNav.askAISub'      },
+  ]
+
   return (
     <section className="max-w-6xl mx-auto px-6 py-12">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">Free Diagnostic Tools</p>
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">
+          {t('toolsNav.eyebrow')}
+        </p>
         <Link to="/tools" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
-          See all tools →
+          {t('toolsNav.seeAll')}
         </Link>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {[
-          { to: '/diagnostic',      label: 'Farm Score',      sub: '6 questions' },
-          { to: '/benchmark',       label: 'Benchmark',       sub: 'FCR · survival · $/kg' },
-          { to: '/valuation',       label: 'Valuation',       sub: 'Today vs potential' },
-          { to: '/symptom-checker', label: 'AI Symptom',      sub: 'Instant diagnosis' },
-          { to: '/ask',             label: 'Ask AI',          sub: 'Library assistant' },
-        ].map(t => (
-          <Link key={t.to} to={t.to}
+        {tools.map(tool => (
+          <Link key={tool.to} to={tool.to}
             className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
-            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t.label}</p>
-            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">{t.sub}</p>
+            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
+              {t(tool.labelKey)}
+            </p>
+            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
+              {t(tool.subKey)}
+            </p>
           </Link>
         ))}
       </div>
@@ -38,38 +49,40 @@ function ToolsNav() {
 }
 
 function ConsultationBanner() {
+  const { t } = useTranslation()
+
   return (
     <section className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">
-              Advisory Session
+              {t('consultationBanner.eyebrow')}
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-[var(--color-text-on-dark)] leading-tight mb-5">
-              If the guides are the map, this is someone who reads it with you.
+              {t('consultationBanner.headline')}
             </h2>
             <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed">
-              Bring your most pressing operational or investment question. One focused session, a specific action
-              in writing within 24 hours, and nothing to sign beyond the booking.
-              Used by farm operators and investors across the Middle East, Southeast Asia, and Africa.
+              {t('consultationBanner.body')}
             </p>
           </div>
 
           <div className="flex flex-col gap-5 md:items-end">
             <ul className="space-y-2 md:text-right">
-              {['Focused on your specific operation', 'Written action summary within 24 hrs', 'No retainer. No upsell.'].map(item => (
-                <li key={item} className="text-xs text-[var(--color-text-muted-dark)]">{item}</li>
+              {(['bullet1', 'bullet2', 'bullet3'] as const).map(key => (
+                <li key={key} className="text-xs text-[var(--color-text-muted-dark)]">
+                  {t(`consultationBanner.${key}`)}
+                </li>
               ))}
             </ul>
             <div className="flex flex-col sm:flex-row gap-3 md:flex-col md:items-end">
               <Link to="/consultation"
                 className="inline-block text-[11px] font-semibold tracking-widest uppercase text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-4 rounded-sm hover:brightness-110 transition-all text-center">
-                See Session Options →
+                {t('consultationBanner.ctaSee')}
               </Link>
               <Link to="/audit"
                 className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors text-center">
-                Want a full transformation? See the 90-Day Farm Programme →
+                {t('consultationBanner.ctaProgram')}
               </Link>
             </div>
           </div>

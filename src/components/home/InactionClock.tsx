@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 // Model: intensive commercial pond ≈ $100K annual revenue, 40% efficiency gap
 // Breakdown: FCR overspend 15% + invisible mortality 12% + disease risk amortised 8%
@@ -14,6 +15,7 @@ function fmt(n: number) {
 }
 
 export function InactionClock() {
+  const { t } = useTranslation()
   const ref     = useRef<HTMLElement>(null)
   const inView  = useInView(ref, { once: true, margin: '-80px' })
   const [elapsed, setElapsed] = useState(0)
@@ -38,6 +40,13 @@ export function InactionClock() {
   const annual     = ratePerSec * 86400 * 365
   const daily      = ratePerSec * 86400
 
+  const breakdown = [
+    { label: t('inactionClock.annualLeak'),  value: fmt(annual),            highlight: true  },
+    { label: t('inactionClock.monthlyLeak'), value: fmt(monthly),           highlight: false },
+    { label: t('inactionClock.dailyLeak'),   value: fmt(daily),             highlight: false },
+    { label: t('inactionClock.perHour'),     value: fmt(ratePerSec * 3600), highlight: false },
+  ]
+
   return (
     <section ref={ref} className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.06)]">
       <div className="max-w-6xl mx-auto px-6 py-12">
@@ -45,9 +54,11 @@ export function InactionClock() {
 
           {/* Pond selector */}
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">Cost of Inaction</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">
+              {t('inactionClock.eyebrow')}
+            </p>
             <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mb-2 font-semibold">
-              Number of ponds
+              {t('inactionClock.pondsLabel')}
             </label>
             <input
               type="range" min={1} max={50} step={1} value={ponds}
@@ -56,21 +67,18 @@ export function InactionClock() {
             />
             <div className="flex justify-between">
               <span className="font-serif text-2xl text-[var(--color-text-on-dark)]">{ponds}</span>
-              <span className="text-[10px] text-[var(--color-text-muted-dark)] self-end">ponds</span>
+              <span className="text-[10px] text-[var(--color-text-muted-dark)] self-end">
+                {t('inactionClock.pondsUnit')}
+              </span>
             </div>
             <p className="text-[10px] text-[var(--color-text-muted-dark)] mt-2 leading-relaxed">
-              Based on 40% efficiency gap: FCR waste, invisible mortality, disease risk, and energy losses vs benchmark.
+              {t('inactionClock.note')}
             </p>
           </div>
 
           {/* Breakdown */}
           <div className="grid grid-cols-2 gap-3">
-            {[
-              { label: 'Annual leak',  value: fmt(annual),               highlight: true  },
-              { label: 'Monthly leak', value: fmt(monthly),              highlight: false },
-              { label: 'Daily leak',   value: fmt(daily),                highlight: false },
-              { label: 'Per hour',     value: fmt(ratePerSec * 3600),    highlight: false },
-            ].map(({ label, value, highlight }) => (
+            {breakdown.map(({ label, value, highlight }) => (
               <div
                 key={label}
                 className={`rounded-sm p-4 text-center border ${
@@ -92,16 +100,16 @@ export function InactionClock() {
           {/* Live counter */}
           <div className="text-center">
             <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mb-3">
-              Lost since this page opened
+              {t('inactionClock.pageCounter')}
             </p>
             <p className="font-serif text-5xl md:text-6xl text-[#ef4444] tabular-nums">
               {fmt(session)}
             </p>
             <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mt-2">
-              on your {ponds}-pond operation
+              {t('inactionClock.pondCounter', { ponds })}
             </p>
             <p className="text-[9px] text-[var(--color-text-muted-dark)] mt-4">
-              {(elapsed).toFixed(0)}s on this page
+              {t('inactionClock.secondsOnPage', { n: Math.floor(elapsed) })}
             </p>
           </div>
 

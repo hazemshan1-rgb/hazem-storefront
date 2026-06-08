@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { articles, articleTags } from '../data/articles'
 import { SEO } from '../components/ui/SEO'
@@ -9,9 +10,9 @@ function formatDate(iso: string): string {
 }
 
 function ArticleCard({ article }: { article: Article }) {
+  const { t } = useTranslation()
   return (
     <article className="card-hover flex flex-col bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] transition-colors group">
-      {/* Cover image */}
       <div className="relative h-48 overflow-hidden shrink-0">
         <img
           src={article.image}
@@ -27,7 +28,6 @@ function ArticleCard({ article }: { article: Article }) {
         )}
       </div>
 
-      {/* Content */}
       <div className="flex flex-col gap-3 p-5 flex-1">
         <time className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)]">
           {formatDate(article.date)}
@@ -47,7 +47,7 @@ function ArticleCard({ article }: { article: Article }) {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-[10px] tracking-widest uppercase text-[var(--color-gold)] hover:underline mt-auto pt-1"
         >
-          Read on LinkedIn
+          {t('newsletter.readOnLinkedIn')}
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
             <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -58,6 +58,7 @@ function ArticleCard({ article }: { article: Article }) {
 }
 
 export function NewsletterPage() {
+  const { t } = useTranslation()
   const headerRef = useScrollReveal<HTMLElement>()
   const gridRef = useScrollReveal<HTMLDivElement>()
   const [activeTag, setActiveTag] = useState('All')
@@ -77,12 +78,12 @@ export function NewsletterPage() {
       {/* Header */}
       <section ref={headerRef} className="scroll-reveal max-w-6xl mx-auto px-6 pt-12 pb-16 border-b border-[var(--color-gold-muted)]">
         <div className="max-w-2xl">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">LinkedIn Newsletter</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('newsletter.eyebrow')}</p>
           <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-6">
-            Aquaculture: The Last Frontier
+            {t('newsletter.headline')}
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-xl">
-            A newsletter on aquaculture business, sustainability, and systems thinking — written from 30 years of field experience across 15 countries. No theory without practice. No opinion without evidence.
+            {t('newsletter.body')}
           </p>
           <a
             href="https://www.linkedin.com/newsletters/aquaculture-the-last-frontier-6927281798808776705/"
@@ -90,7 +91,7 @@ export function NewsletterPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold text-[var(--color-bg)] bg-[var(--color-gold)] px-5 py-2.5 rounded-sm hover:opacity-90 transition-opacity"
           >
-            Subscribe on LinkedIn
+            {t('newsletter.subscribeCta')}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M1 11L11 1M11 1H4M11 1V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -126,7 +127,7 @@ export function NewsletterPage() {
         </div>
 
         {filtered.length === 0 && (
-          <p className="text-sm text-[var(--color-text-muted)] py-12 text-center">No articles in this category yet.</p>
+          <p className="text-sm text-[var(--color-text-muted)] py-12 text-center">{t('newsletter.noArticles')}</p>
         )}
       </section>
 
@@ -134,8 +135,8 @@ export function NewsletterPage() {
       <section className="max-w-6xl mx-auto px-6 mt-20">
         <div className="border border-[var(--color-gold-muted)] rounded-sm p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="font-serif text-xl text-[var(--color-text)] mb-2">Get new articles in your feed</p>
-            <p className="text-xs text-[var(--color-text-muted)]">Published when there is something worth saying. Not on a schedule.</p>
+            <p className="font-serif text-xl text-[var(--color-text)] mb-2">{t('newsletter.ctaTitle')}</p>
+            <p className="text-xs text-[var(--color-text-muted)]">{t('newsletter.ctaBody')}</p>
           </div>
           <a
             href="https://www.linkedin.com/newsletters/aquaculture-the-last-frontier-6927281798808776705/"
@@ -143,7 +144,7 @@ export function NewsletterPage() {
             rel="noopener noreferrer"
             className="shrink-0 text-xs tracking-widest uppercase font-semibold text-[var(--color-bg)] bg-[var(--color-gold)] px-6 py-3 rounded-sm hover:opacity-90 transition-opacity"
           >
-            Follow the Newsletter →
+            {t('newsletter.ctaBtn')}
           </a>
         </div>
       </section>

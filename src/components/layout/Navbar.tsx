@@ -2,29 +2,29 @@ import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/Button'
-
-const links = [
-  { to: '/',             label: 'Home' },
-  { to: '/tools',        label: 'Tools' },
-  { to: '/audit',        label: 'Farm Audit' },
-  { to: '/consultation', label: 'Consultation' },
-  { to: '/shop',         label: 'Shop' },
-  { to: '/library',      label: 'Library & AI' },
-  { to: '/about',        label: 'About' },
-]
+import { useLanguage } from '../../hooks/useLanguage'
 
 export function Navbar() {
+  const { t } = useTranslation()
+  const { toggle, isArabic } = useLanguage()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
 
-  // Close on navigation
-  useEffect(() => {
-    setOpen(false)
-  }, [location.pathname])
+  const links = [
+    { to: '/',             label: t('nav.home') },
+    { to: '/tools',        label: t('nav.tools') },
+    { to: '/audit',        label: t('nav.audit') },
+    { to: '/consultation', label: t('nav.consultation') },
+    { to: '/shop',         label: t('nav.shop') },
+    { to: '/library',      label: t('nav.library') },
+    { to: '/about',        label: t('nav.about') },
+  ]
 
-  // Lock body scroll when open
+  useEffect(() => { setOpen(false) }, [location.pathname])
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
@@ -80,13 +80,22 @@ export function Navbar() {
                 {l.label}
               </NavLink>
             ))}
+
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              className="text-xs tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors border border-[rgba(255,255,255,0.12)] hover:border-[var(--color-gold-cta)] px-2.5 py-1 rounded-sm"
+              aria-label={isArabic ? 'Switch to English' : 'التبديل إلى العربية'}
+            >
+              {t('nav.lang')}
+            </button>
           </nav>
 
           {/* Mobile toggle */}
           <button
             className="md:hidden text-[var(--color-text-muted-dark)] hover:text-[var(--color-text-on-dark)] p-2 -mr-2"
             onClick={() => setOpen(o => !o)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={open}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -127,7 +136,7 @@ export function Navbar() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="fixed top-16 left-0 right-0 z-50 md:hidden bg-[var(--color-navy)] border-b border-[rgba(255,255,255,0.08)] shadow-2xl"
-              aria-label="Mobile navigation"
+              aria-label={t('nav.mobileNav')}
             >
               <div className="px-6 pt-6 pb-8 flex flex-col">
                 {/* Nav links */}
@@ -161,20 +170,34 @@ export function Navbar() {
                       </NavLink>
                     </motion.div>
                   ))}
+
+                  {/* Language toggle row */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: links.length * 0.04, duration: 0.18 }}
+                  >
+                    <button
+                      onClick={toggle}
+                      className="flex items-center justify-between w-full py-4 text-sm tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors"
+                    >
+                      {t('nav.lang')}
+                    </button>
+                  </motion.div>
                 </div>
 
                 {/* CTA buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: links.length * 0.04 + 0.04, duration: 0.2 }}
+                  transition={{ delay: links.length * 0.04 + 0.08, duration: 0.2 }}
                   className="mt-6 flex flex-col gap-3"
                 >
                   <Button as="link" to="/diagnostic" size="lg" className="w-full justify-center">
-                    Get My Farm Score
+                    {t('nav.cta.farmScore')}
                   </Button>
                   <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center">
-                    Book a Consultation
+                    {t('nav.cta.book')}
                   </Button>
                 </motion.div>
               </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 function fmt(n: number): string {
@@ -9,6 +10,7 @@ function fmt(n: number): string {
 }
 
 export function ValuationTeaser() {
+  const { t } = useTranslation()
   const ref = useScrollReveal<HTMLElement>()
   const [revenue, setRevenue] = useState(500_000)
 
@@ -25,28 +27,30 @@ export function ValuationTeaser() {
 
           {/* Left — copy */}
           <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">Farm Valuation Tool</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">
+              {t('valuationTeaser.eyebrow')}
+            </p>
             <h2 className="font-serif text-3xl md:text-4xl text-[var(--color-text)] leading-tight mb-5">
-              What would your farm sell for today — and after the programme?
+              {t('valuationTeaser.headline')}
             </h2>
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
-              Move the slider to your revenue. The tool calculates your current investor valuation and the
-              value the 90-Day Transformation Programme would unlock — using the same EBITDA-multiple
-              methodology Hazem uses in Tier 3 due diligence.
+              {t('valuationTeaser.body1')}
             </p>
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-8">
-              The full tool includes margin, documentation quality, and years in operation.
+              {t('valuationTeaser.body2')}
             </p>
             <Link to="/valuation"
               className="inline-block border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] px-8 py-4 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-              Open Full Valuation Calculator →
+              {t('valuationTeaser.cta')}
             </Link>
           </div>
 
           {/* Right — live cards */}
           <div>
             <div className="mb-5">
-              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-2 font-semibold">Annual Revenue</label>
+              <label className="block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-2 font-semibold">
+                {t('valuationTeaser.revenueLabel')}
+              </label>
               <input type="range" min={50000} max={3000000} step={25000} value={revenue}
                 onChange={e => setRevenue(Number(e.target.value))} className="w-full accent-[var(--color-gold)] mb-1" />
               <span className="font-serif text-sm text-[var(--color-text)]">{fmt(revenue)}</span>
@@ -54,21 +58,31 @@ export function ValuationTeaser() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm p-5">
-                <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3">Today</p>
+                <p className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] mb-3">
+                  {t('valuationTeaser.todayLabel')}
+                </p>
                 <motion.p key={currentVal} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   className="font-serif text-2xl text-[var(--color-text)]">{fmt(currentVal)}</motion.p>
-                <p className="text-[9px] text-[var(--color-text-muted)] mt-1">at 14% margin · 3.8×</p>
+                <p className="text-[9px] text-[var(--color-text-muted)] mt-1">
+                  {t('valuationTeaser.todayNote')}
+                </p>
               </div>
               <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-5">
-                <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-3">After Programme</p>
+                <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-3">
+                  {t('valuationTeaser.postProgrammeLabel')}
+                </p>
                 <motion.p key={postVal} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                   className="font-serif text-2xl text-[var(--color-text-on-dark)]">{fmt(postVal)}</motion.p>
-                <p className="text-[9px] text-[var(--color-text-muted-dark)] mt-1">at 24% margin · 4.55×</p>
+                <p className="text-[9px] text-[var(--color-text-muted-dark)] mt-1">
+                  {t('valuationTeaser.postNote')}
+                </p>
               </div>
             </div>
 
             <div className="mt-3 flex items-center justify-between px-1">
-              <span className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest">Uplift</span>
+              <span className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest">
+                {t('valuationTeaser.upliftLabel')}
+              </span>
               <motion.span key={uplift} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 className="font-serif text-xl text-[var(--color-gold-cta)]">+{fmt(uplift)}</motion.span>
             </div>

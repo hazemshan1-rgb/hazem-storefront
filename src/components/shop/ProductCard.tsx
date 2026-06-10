@@ -65,7 +65,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <Button size="sm" variant="secondary">{t('productDetail.notifyMe')}</Button>
             </Link>
           ) : (
-            <a href={product.checkoutUrl} className="lemonsqueezy-button">
+            <a href={product.checkoutUrl} target="_blank" rel="noopener noreferrer">
               <Button size="sm">{product.price === 0 ? t('shop.getIt') : t('shop.buyNow')}</Button>
             </a>
           )}

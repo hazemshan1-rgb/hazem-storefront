@@ -4,11 +4,9 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/Button'
-import { useLanguage } from '../../hooks/useLanguage'
 
 export function Navbar() {
   const { t } = useTranslation()
-  const { toggle, isArabic } = useLanguage()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
@@ -81,14 +79,6 @@ export function Navbar() {
               </NavLink>
             ))}
 
-            {/* Language toggle */}
-            <button
-              onClick={toggle}
-              className="text-xs tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors border border-[rgba(255,255,255,0.12)] hover:border-[var(--color-gold-cta)] px-2.5 py-1 rounded-sm"
-              aria-label={isArabic ? 'Switch to English' : 'التبديل إلى العربية'}
-            >
-              {t('nav.lang')}
-            </button>
           </nav>
 
           {/* Mobile toggle */}
@@ -171,19 +161,6 @@ export function Navbar() {
                     </motion.div>
                   ))}
 
-                  {/* Language toggle row */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: links.length * 0.04, duration: 0.18 }}
-                  >
-                    <button
-                      onClick={toggle}
-                      className="flex items-center justify-between w-full py-4 text-sm tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors"
-                    >
-                      {t('nav.lang')}
-                    </button>
-                  </motion.div>
                 </div>
 
                 {/* CTA buttons */}

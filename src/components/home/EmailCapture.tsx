@@ -3,7 +3,7 @@ import { useScrollReveal } from '../../hooks/useScrollReveal'
 
 const GUIDES = [
   {
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/4b11048a-2b0a-4bd6-b7ce-0e6dc015aab0',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/zbhut',
     tagKey: 'emailCapture.guide1Tag',
     titleKey: 'products.free-biofloc-guide.title',
     bodyKey: 'products.free-biofloc-guide.description',
@@ -12,7 +12,7 @@ const GUIDES = [
     coverAltKey: 'products.free-biofloc-guide.title',
   },
   {
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/a25dd731-2ff9-4bcf-87fc-d9c7faae0b62',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/qhfbbp',
     tagKey: 'emailCapture.guide2Tag',
     titleKey: 'products.free-7-strategies.title',
     bodyKey: 'products.free-7-strategies.description',
@@ -81,7 +81,7 @@ export function EmailCapture() {
                   href={guide.checkoutUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="lemonsqueezy-button inline-flex items-center gap-2 self-start bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-6 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
+                  className="inline-flex items-center gap-2 self-start bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-6 py-3 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all"
                 >
                   {t('emailCapture.getCopy')}
                 </a>

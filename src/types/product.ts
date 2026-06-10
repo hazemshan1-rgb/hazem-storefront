@@ -1,4 +1,5 @@
 export type ProductCategory = 'Ebook' | 'SOP' | 'Toolkit' | 'Training'
+export type ShopFilter = 'All' | 'Free' | ProductCategory
 
 export interface Product {
   id: string

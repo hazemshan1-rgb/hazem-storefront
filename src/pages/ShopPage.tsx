@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { CategoryFilter } from '../components/shop/CategoryFilter'
 import { ProductGrid } from '../components/shop/ProductGrid'
-import { getByCategory } from '../data/products'
+import { getFiltered } from '../data/products'
 import { SEO } from '../components/ui/SEO'
-import type { ProductCategory } from '../types/product'
+import type { ShopFilter } from '../types/product'
 
-const VALID_CATEGORIES: ProductCategory[] = ['Ebook', 'SOP', 'Toolkit', 'Training']
+const VALID_FILTERS: ShopFilter[] = ['All', 'Free', 'Ebook', 'SOP', 'Toolkit', 'Training']
 
-function parseCategoryParam(param: string | null): 'All' | ProductCategory {
-  if (param && VALID_CATEGORIES.includes(param as ProductCategory)) {
-    return param as ProductCategory
+function parseFilterParam(param: string | null): ShopFilter {
+  if (param && VALID_FILTERS.includes(param as ShopFilter)) {
+    return param as ShopFilter
   }
   return 'All'
 }
@@ -21,10 +21,10 @@ export function ShopPage() {
   const { t } = useTranslation()
   useLemonSqueezy()
   const [searchParams] = useSearchParams()
-  const [activeCategory, setActiveCategory] = useState<'All' | ProductCategory>(
-    () => parseCategoryParam(searchParams.get('category'))
+  const [activeFilter, setActiveFilter] = useState<ShopFilter>(
+    () => parseFilterParam(searchParams.get('category'))
   )
-  const filtered = getByCategory(activeCategory)
+  const filtered = getFiltered(activeFilter)
 
   const courses = [
     { titleKey: 'shop.course1Title', descKey: 'shop.course1Desc', levelKey: 'shop.course1Level' },
@@ -45,7 +45,7 @@ export function ShopPage() {
         </p>
         <h1 className="font-serif text-4xl text-[var(--color-text)]">{t('shop.allResources')}</h1>
       </div>
-      <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
+      <CategoryFilter active={activeFilter} onChange={setActiveFilter} />
       <ProductGrid products={filtered} />
 
       {/* Upcoming training */}

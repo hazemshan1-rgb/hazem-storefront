@@ -105,7 +105,7 @@ export function ProductDetailPage() {
                 <Button size="lg" className="w-full">{t('productDetail.notifyMe')}</Button>
               </a>
             ) : (
-              <a href={product.checkoutUrl} className="lemonsqueezy-button flex-1">
+              <a href={product.checkoutUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
                 <Button size="lg" className="w-full">
                   {product.price === 0
                     ? t('productDetail.getFree')

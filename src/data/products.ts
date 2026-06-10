@@ -1,4 +1,4 @@
-import type { Product, ProductCategory } from '../types/product'
+import type { Product, ProductCategory, ShopFilter } from '../types/product'
 
 export const products: Product[] = [
   // ─── Free lead magnets ───────────────────────────────────────────────────
@@ -17,7 +17,7 @@ export const products: Product[] = [
     ],
     price: 0,
     coverImage: '/images/products/biofloc-guide-cover.png',
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/4b11048a-2b0a-4bd6-b7ce-0e6dc015aab0',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/zbhut',
     featured: true,
   },
   {
@@ -35,7 +35,7 @@ export const products: Product[] = [
     ],
     price: 0,
     coverImage: '/images/products/farm-audit-thumbnail.png',
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/768e1015-4e35-4237-a4a7-c5fe0cd49785',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/cmcftu',
     featured: true,
   },
 
@@ -55,7 +55,7 @@ export const products: Product[] = [
     ],
     price: 27,
     coverImage: '/images/products/shrimp-imta-primer-cover.webp',
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/18152065-e1a3-4b08-b67a-2ee14f03db7f',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/tgtqs',
     comingSoon: false,
     featured: true,
   },
@@ -75,7 +75,7 @@ export const products: Product[] = [
     ],
     price: 0,
     coverImage: '/images/guides/7-strategies-cover.png',
-    checkoutUrl: 'https://aquapreneurs.lemonsqueezy.com/checkout/buy/a25dd731-2ff9-4bcf-87fc-d9c7faae0b62',
+    checkoutUrl: 'https://hazemshan.gumroad.com/l/qhfbbp',
     featured: true,
   },
 
@@ -88,3 +88,9 @@ export const getBySlug = (slug: string): Product | undefined =>
 
 export const getByCategory = (category: ProductCategory | 'All'): Product[] =>
   category === 'All' ? products : products.filter(p => p.category === category)
+
+export const getFiltered = (filter: ShopFilter): Product[] => {
+  if (filter === 'All') return products
+  if (filter === 'Free') return products.filter(p => p.price === 0)
+  return products.filter(p => p.category === filter)
+}

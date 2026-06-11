@@ -23,6 +23,8 @@ const BenchmarkPage         = lazy(() => import('./pages/BenchmarkPage').then(m 
 const ValuationPage         = lazy(() => import('./pages/ValuationPage').then(m => ({ default: m.ValuationPage })))
 const SymptomCheckerPage    = lazy(() => import('./pages/SymptomCheckerPage').then(m => ({ default: m.SymptomCheckerPage })))
 const ToolsPage             = lazy(() => import('./pages/ToolsPage').then(m => ({ default: m.ToolsPage })))
+const FeedCalculatorPage    = lazy(() => import('./pages/FeedCalculatorPage').then(m => ({ default: m.FeedCalculatorPage })))
+const BioflocCalculatorPage = lazy(() => import('./pages/BioflocCalculatorPage').then(m => ({ default: m.BioflocCalculatorPage })))
 
 function PageLoader() {
   return (
@@ -79,6 +81,8 @@ function AnimatedRoutes() {
             <Route path="/valuation"          element={<ValuationPage />} />
             <Route path="/symptom-checker"    element={<SymptomCheckerPage />} />
             <Route path="/tools"              element={<ToolsPage />} />
+            <Route path="/tools/feed-calculator"    element={<FeedCalculatorPage />} />
+            <Route path="/tools/biofloc-calculator" element={<BioflocCalculatorPage />} />
             <Route path="/ask"                element={<Navigate to="/library?tab=ai" replace />} />
           </Routes>
         </Suspense>

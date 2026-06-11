@@ -418,6 +418,56 @@ export function ToolsPage() {
         </div>
       </section>
 
+      {/* 7. Calculation Tools */}
+      <section className="border-b border-[var(--color-gold-muted)]">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-8">Free Calculators</p>
+          <motion.div variants={container} initial="initial" animate="animate"
+            className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <motion.div variants={fadeUp}>
+              <Link to="/tools/feed-calculator"
+                className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
+                <div className="p-6 sm:p-8 flex flex-col h-full">
+                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
+                    Aquaculture
+                  </span>
+                  <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
+                    Shrimp Feed Calculator
+                  </h2>
+                  <p className="text-[10px] text-[var(--color-text-muted)] mb-4">L. Vannamei · P. Monodon · Intensive ponds</p>
+                  <p className="text-sm leading-relaxed text-[var(--color-text-muted)] flex-1 mb-6">
+                    Enter ABW, pH, temperature, and stocking parameters. Get a daily feed target (kg), per-meal dose, and a full coefficient audit — biomass estimate included.
+                  </p>
+                  <span className="self-start text-[10px] tracking-widest uppercase font-semibold px-5 py-2.5 rounded-sm transition-all border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] group-hover:border-[var(--color-gold)] group-hover:text-[var(--color-gold)]">
+                    Open Calculator
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <Link to="/tools/biofloc-calculator"
+                className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
+                <div className="p-6 sm:p-8 flex flex-col h-full">
+                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
+                    Biofloc
+                  </span>
+                  <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
+                    Biofloc C:N Calculator
+                  </h2>
+                  <p className="text-[10px] text-[var(--color-text-muted)] mb-4">Carbon dose · TAN correction · Application schedule</p>
+                  <p className="text-sm leading-relaxed text-[var(--color-text-muted)] flex-1 mb-6">
+                    Enter pond volume, daily feed, TAN level, and carbon source. Get precise carbon dose (kg), NH₃ toxicity reading, system risk level, and a timed application schedule.
+                  </p>
+                  <span className="self-start text-[10px] tracking-widest uppercase font-semibold px-5 py-2.5 rounded-sm transition-all border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] group-hover:border-[var(--color-gold)] group-hover:text-[var(--color-gold)]">
+                    Open Calculator
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer CTA */}
       <div className="max-w-5xl mx-auto px-6 mt-12">
         <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm">

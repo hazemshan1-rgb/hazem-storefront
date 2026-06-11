@@ -78,6 +78,14 @@ export function Footer() {
             >
               {t('footer.linkedin')}
             </a>
+            <a
+              href="https://www.skool.com/the-aquapreneur-inner-circle-5684"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={footerLink}
+            >
+              {t('footer.community', { defaultValue: 'Community' })}
+            </a>
           </div>
 
           <div className="mt-7 border border-[rgba(255,255,255,0.08)] rounded-sm p-4">

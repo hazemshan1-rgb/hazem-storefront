@@ -78,7 +78,14 @@ export function Navbar() {
                 {l.label}
               </NavLink>
             ))}
-
+            <a
+              href="https://www.skool.com/the-aquapreneur-inner-circle-5684"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs tracking-widest uppercase transition-colors text-[var(--color-gold-cta)] hover:text-[var(--color-gold-cta)]/80"
+            >
+              {t('nav.community', { defaultValue: 'Community' })}
+            </a>
           </nav>
 
           {/* Mobile toggle */}
@@ -162,6 +169,22 @@ export function Navbar() {
                   ))}
 
                 </div>
+
+                {/* Community external link */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: links.length * 0.04, duration: 0.18 }}
+                >
+                  <a
+                    href="https://www.skool.com/the-aquapreneur-inner-circle-5684"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between py-4 text-sm tracking-widest uppercase text-[var(--color-gold-cta)]"
+                  >
+                    <span>{t('nav.community', { defaultValue: 'Community' })}</span>
+                  </a>
+                </motion.div>
 
                 {/* CTA buttons */}
                 <motion.div

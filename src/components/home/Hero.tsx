@@ -25,7 +25,7 @@ export function Hero() {
           loop
           playsInline
           poster="/images/hero/aerial-ponds.jpg"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
           onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none' }}
         >
           <source src="/videos/hero-loop.mp4" type="video/mp4" />

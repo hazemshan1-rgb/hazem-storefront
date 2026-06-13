@@ -2,9 +2,20 @@ import { products } from '../src/data/products';
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-const PRODUCT_LIST = products.map(p =>
-  `- ${p.title}: ${p.tagline} (Price: $${p.price}) | Link: /shop/${p.slug}`
-).join('\n');
+// We wrap this in a helper to avoid top-level issues if products is undefined
+function getProductContext() {
+  try {
+    if (!products || !Array.isArray(products)) return 'No product data available.';
+    return products.map(p =>
+      `- ${p.title}: ${p.tagline} (Price: $${p.price}) | Link: /shop/${p.slug}`
+    ).join('\n');
+  } catch (e) {
+    console.error('Error generating product list:', e);
+    return 'No product data available.';
+  }
+}
+
+const PRODUCT_LIST = getProductContext();
 
 const SYSTEM_PROMPT = `You are AquaAssist, Hazem Shannak's premium AI aquaculture expert.
 Hazem has 30+ years of hands-on experience in shrimp farming, biofloc technology (BFT), Moringa-based feeds, and sustainable aquaculture across Malaysia, Thailand, Saudi Arabia, and the Philippines.

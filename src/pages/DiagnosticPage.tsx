@@ -606,15 +606,11 @@ function ResultsScreen({
             onSubmit={async (e) => {
               e.preventDefault()
               if (!email) return
-              let ok = false
-              if (savedId) {
-                const r = await updateDiagnosticEmail(savedId, email)
-                ok = r.success
-              } else {
-                const r = await saveDiagnosticResult(answers, contextAnswers, result, email)
-                ok = r.success
-              }
-              if (ok) setEmailSaved(true)
+              const { success } = savedId
+                ? await updateDiagnosticEmail(savedId, email)
+                : await saveDiagnosticResult(answers, contextAnswers, result, email)
+
+              if (success) setEmailSaved(true)
             }}
             className="flex flex-col sm:flex-row gap-3"
           >

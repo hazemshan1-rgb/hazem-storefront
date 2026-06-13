@@ -63,9 +63,12 @@ const AquaAssistBot: React.FC = () => {
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to get response');
-
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to get response');
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -75,12 +78,13 @@ const AquaAssistBot: React.FC = () => {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Chat Error:', error);
+      const errorMsg = error instanceof Error ? error.message : "I'm having trouble connecting right now.";
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
+          content: `Sorry! ${errorMsg} Please check your connection or API configuration.`,
         },
       ]);
     } finally {

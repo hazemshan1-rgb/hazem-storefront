@@ -93,8 +93,16 @@ export default async function handler(request: Request) {
       }),
     });
 
+    if (!groqRes.ok) {
+      const errorText = await groqRes.text();
+      console.error('Groq Library-AI Error:', errorText);
+      throw new Error(`Groq API error: ${groqRes.status}`);
+    }
+
     const data = await groqRes.json();
-    const reply = data.choices[0].message.content;
+    const reply = data.choices[0]?.message?.content;
+
+    if (!reply) throw new Error('Empty response from AI');
 
     return new Response(JSON.stringify({ reply }), {
       headers: {
@@ -102,9 +110,13 @@ export default async function handler(request: Request) {
         'Access-Control-Allow-Origin': '*',
       },
     });
-  } catch {
+  } catch (error) {
+    console.error('Library-AI Handler Error:', error);
     return new Response(
-      JSON.stringify({ error: 'AI service unavailable' }),
+      JSON.stringify({
+        error: error instanceof Error ? error.message : 'AI service unavailable',
+        details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

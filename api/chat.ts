@@ -96,12 +96,22 @@ export default async function handler(request: Request) {
     });
 
     if (!groqRes.ok) {
-      const errorData = await groqRes.json();
-      throw new Error(errorData?.error?.message || 'Groq API error');
+      const errorText = await groqRes.text();
+      console.error('Groq API Error Response:', errorText);
+      let errorMsg = 'Groq API error';
+      try {
+        const errorJson = JSON.parse(errorText);
+        errorMsg = errorJson?.error?.message || errorMsg;
+      } catch {
+        errorMsg = `API Error ${groqRes.status}: ${errorText.substring(0, 100)}`;
+      }
+      throw new Error(errorMsg);
     }
 
     const data = await groqRes.json();
-    const reply = data.choices[0].message.content;
+    const reply = data.choices[0]?.message?.content;
+
+    if (!reply) throw new Error('Empty response from AI');
 
     return new Response(JSON.stringify({ reply }), {
       headers: {
@@ -110,9 +120,12 @@ export default async function handler(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Groq Handler Error:', error);
+    console.error('AquaAssist Chat Error:', error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'AI service unavailable' }),
+      JSON.stringify({
+        error: error instanceof Error ? error.message : 'AI service unavailable',
+        details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

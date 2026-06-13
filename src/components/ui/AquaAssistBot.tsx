@@ -205,6 +205,7 @@ const AquaAssistBot: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
+        aria-label={isOpen ? "Close AquaAssist AI" : "Open AquaAssist AI"}
         className="w-14 h-14 rounded-full bg-[var(--color-navy)] border-2 border-[var(--color-gold)] shadow-xl flex items-center justify-center text-[var(--color-gold)] pointer-events-auto transition-shadow hover:shadow-[0_0_20px_rgba(184,146,84,0.4)]"
       >
         <AnimatePresence mode="wait">

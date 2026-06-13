@@ -606,7 +606,7 @@ function ResultsScreen({
             onSubmit={async (e) => {
               e.preventDefault()
               if (!email) return
-              let ok = false
+              let ok: boolean
               if (savedId) {
                 const r = await updateDiagnosticEmail(savedId, email)
                 ok = r.success

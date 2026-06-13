@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { SEO } from './components/ui/SEO'
+import AquaAssistBot from './components/ui/AquaAssistBot'
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
@@ -99,6 +100,7 @@ export default function App() {
       <Navbar />
       <AnimatedRoutes />
       <Footer />
+      <AquaAssistBot />
     </BrowserRouter>
   )
 }

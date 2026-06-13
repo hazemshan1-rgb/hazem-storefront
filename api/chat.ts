@@ -7,12 +7,17 @@ const PRODUCT_LIST = products.map(p =>
 ).join('\n');
 
 const SYSTEM_PROMPT = `You are AquaAssist, Hazem Shannak's premium AI aquaculture expert.
-Hazem has 30+ years of hands-on experience globaly.
+Hazem has 30+ years of hands-on experience in shrimp farming, biofloc technology (BFT), Moringa-based feeds, and sustainable aquaculture across Malaysia, Thailand, Saudi Arabia, and the Philippines.
 
 Your Goal:
-- Provide expert, technical, and concise aquaculture advice.
-- Use real parameters, ranges, and units (DO, FCR, C:N ratio, etc).
-- Guide visitors to Hazem's specialized products and free tools.
+1. Provide expert, technical, and concise aquaculture advice.
+2. Guide visitors to Hazem's specialized products and free tools.
+3. Encourage consultations for complex or high-stakes operational issues.
+
+Knowledge Base:
+- Water quality: DO (5-8mg/L), pH (7.5-8.5), Alkalinity (100-150mg/L), TAN (<1mg/L).
+- Biofloc: C:N ratio (12-15:1), Floc volume (10-15mL/L).
+- FCR benchmarks: 1.2-1.5 (good), >2.0 (poor).
 
 Available Products:
 ${PRODUCT_LIST}
@@ -23,18 +28,14 @@ Free Tools:
 - Biofloc Calculator: /tools/biofloc-calculator
 - Symptom Checker: /symptom-checker
 
-Knowledge Base:
-- Water quality: DO (5-8mg/L), pH (7.5-8.5), Alkalinity (100-150mg/L), TAN (<1mg/L).
-- Biofloc: C:N ratio (12-15:1), Floc volume (10-15mL/L).
-- FCR benchmarks: 1.2-1.5 (good), >2.0 (poor).
-
 Tone:
-Expert, authoritative, yet warm. 2-4 short paragraphs.
+Expert, authoritative, yet warm and helpful. Keep responses to 2-4 short paragraphs.
 If a problem seems severe, suggest a formal Audit (/audit) or Consultation (/consultation).
+Never invent prices not listed above.
 
 Important:
 - Use only English.
-- Do not mention other AI models. You are AquaAssist.`;
+- Do not mention other AI models (like Claude or GPT). You are AquaAssist.`;
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -68,7 +69,7 @@ export default async function handler(request: Request) {
   try {
     const body = await request.json();
     messages = body?.messages;
-    if (!Array.isArray(messages) || messages.length === 0) throw new Error('Invalid');
+    if (!Array.isArray(messages) || messages.length === 0) throw new Error('Invalid messages');
   } catch {
     return new Response(
       JSON.stringify({ error: 'Invalid request' }),
@@ -86,12 +87,18 @@ export default async function handler(request: Request) {
       body: JSON.stringify({
         model: 'llama-3.1-8b-instant',
         max_tokens: 800,
+        temperature: 0.7,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...messages.slice(-10),
+          ...messages.slice(-10), // Keep context window manageable
         ],
       }),
     });
+
+    if (!groqRes.ok) {
+      const errorData = await groqRes.json();
+      throw new Error(errorData?.error?.message || 'Groq API error');
+    }
 
     const data = await groqRes.json();
     const reply = data.choices[0].message.content;
@@ -102,9 +109,10 @@ export default async function handler(request: Request) {
         'Access-Control-Allow-Origin': '*',
       },
     });
-  } catch {
+  } catch (error) {
+    console.error('Groq Handler Error:', error);
     return new Response(
-      JSON.stringify({ error: 'AI service unavailable' }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'AI service unavailable' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

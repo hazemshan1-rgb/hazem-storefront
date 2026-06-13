@@ -1,8 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk'
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
-const SYSTEM_PROMPT = `You are a diagnostic assistant for Hazem Shannak, an aquaculture consultant with 30+ years across 15 countries. You specialise in shrimp and prawn species: Litopenaeus vannamei, Penaeus monodon, Penaeus indicus, Penaeus semisulcatus, and Macrobrachium rosenbergii.
+const SYSTEM_PROMPT = `You are AquaAssist, Hazem Shannak's diagnostic assistant.
+Hazem is an aquaculture consultant with 30+ years across 15 countries.
+You specialise in shrimp and prawn species: Litopenaeus vannamei, Penaeus monodon, Penaeus indicus, Penaeus semisulcatus, and Macrobrachium rosenbergii.
 
 When given a farm symptom or problem, respond with ONLY valid JSON (no markdown, no explanation outside the JSON):
 
@@ -27,7 +27,7 @@ Match the resource to the problem precisely:
 - Complex operational problems needing diagnosis → /consultation
 - Multi-system or severe problems → /audit
 
-Never be vague. Operators reading this need specific, technical answers they can act on immediately.`
+Never be vague. Operators reading this need specific, technical answers they can act on immediately.`;
 
 export default async function handler(request: Request) {
   if (request.method === 'OPTIONS') {
@@ -37,60 +37,69 @@ export default async function handler(request: Request) {
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-    })
+    });
   }
 
   if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 })
+    return new Response('Method not allowed', { status: 405 });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
     return new Response(
-      JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' }),
+      JSON.stringify({ error: 'AI configuration missing' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
-    )
+    );
   }
 
-  let symptom: string
+  let symptom: string;
   try {
-    const body = await request.json()
-    symptom = body?.symptom?.trim()
+    const body = await request.json();
+    symptom = body?.symptom?.trim();
     if (!symptom || symptom.length < 10) {
       return new Response(
         JSON.stringify({ error: 'Symptom description too short' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
-      )
+      );
     }
   } catch {
     return new Response(
-      JSON.stringify({ error: 'Invalid request body' }),
+      JSON.stringify({ error: 'Invalid request' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
-    )
+    );
   }
 
-  const message = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 500,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: symptom }],
-  })
-
-  const raw = message.content[0].type === 'text' ? message.content[0].text : ''
-
-  let parsed: unknown
   try {
-    parsed = JSON.parse(raw)
+    const groqRes = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        max_tokens: 500,
+        response_format: { type: 'json_object' },
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: symptom },
+        ],
+      }),
+    });
+
+    const data = await groqRes.json();
+    const reply = data.choices[0].message.content;
+
+    return new Response(reply, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
   } catch {
     return new Response(
-      JSON.stringify({ error: 'Failed to parse diagnosis' }),
+      JSON.stringify({ error: 'AI service unavailable' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
-    )
+    );
   }
-
-  return new Response(JSON.stringify(parsed), {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-  })
 }

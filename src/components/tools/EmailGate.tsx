@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 
 interface CapturedEmail { name: string; email: string }
 
@@ -19,15 +19,11 @@ interface Props {
 }
 
 export function EmailGate({ toolName, children }: Props) {
-  const [captured, setCaptured] = useState<CapturedEmail | null>(null)
+  const [captured, setCaptured] = useState<CapturedEmail | null>(() => load())
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
-
-  useEffect(() => {
-    setCaptured(load())
-  }, [])
 
   if (captured) return <>{children}</>
 

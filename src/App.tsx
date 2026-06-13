@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
@@ -15,6 +15,7 @@ const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then(m => ({ de
 const ConsultationPage = lazy(() => import('./pages/ConsultationPage').then(m => ({ default: m.ConsultationPage })))
 const NewsletterPage = lazy(() => import('./pages/NewsletterPage').then(m => ({ default: m.NewsletterPage })))
 const CoursesPage = lazy(() => import('./pages/CoursesPage').then(m => ({ default: m.CoursesPage })))
+const AskPage = lazy(() => import('./pages/AskPage').then(m => ({ default: m.AskPage })))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage').then(m => ({ default: m.CaseStudiesPage })))
 const AuditPage = lazy(() => import('./pages/AuditPage').then(m => ({ default: m.AuditPage })))
 const BookConsultationPage  = lazy(() => import('./pages/BookConsultationPage').then(m => ({ default: m.BookConsultationPage })))
@@ -84,7 +85,7 @@ function AnimatedRoutes() {
             <Route path="/tools"              element={<ToolsPage />} />
             <Route path="/tools/feed-calculator"    element={<FeedCalculatorPage />} />
             <Route path="/tools/biofloc-calculator" element={<BioflocCalculatorPage />} />
-            <Route path="/ask"                element={<Navigate to="/library?tab=ai" replace />} />
+            <Route path="/ask"                element={<AskPage />} />
           </Routes>
         </Suspense>
       </motion.div>

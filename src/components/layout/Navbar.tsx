@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +9,6 @@ export function Navbar() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
 
   const links = [
     { to: '/',             label: t('nav.home') },
@@ -20,8 +19,6 @@ export function Navbar() {
     { to: '/library',      label: t('nav.library') },
     { to: '/about',        label: t('nav.about') },
   ]
-
-  useEffect(() => { setOpen(false) }, [location.pathname])
 
   useEffect(() => {
     if (open) {
@@ -148,6 +145,7 @@ export function Navbar() {
                       <NavLink
                         to={l.to}
                         end={l.to === '/'}
+                        onClick={() => setOpen(false)}
                         className={({ isActive }) =>
                           `flex items-center justify-between py-4 text-sm tracking-widest uppercase transition-colors ${
                             isActive
@@ -193,10 +191,10 @@ export function Navbar() {
                   transition={{ delay: links.length * 0.04 + 0.08, duration: 0.2 }}
                   className="mt-6 flex flex-col gap-3"
                 >
-                  <Button as="link" to="/diagnostic" size="lg" className="w-full justify-center">
+                  <Button as="link" to="/diagnostic" size="lg" className="w-full justify-center" onClick={() => setOpen(false)}>
                     {t('nav.cta.farmScore')}
                   </Button>
-                  <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center">
+                  <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center" onClick={() => setOpen(false)}>
                     {t('nav.cta.book')}
                   </Button>
                 </motion.div>

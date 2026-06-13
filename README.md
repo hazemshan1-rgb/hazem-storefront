@@ -2,7 +2,7 @@
 
 Premium aquaculture resources by Hazem Shannak.
 
-**Live:** https://hazem-storefront.vercel.app
+**Live:** https://hazemshannak.qzz.io
 
 ## Stack
 

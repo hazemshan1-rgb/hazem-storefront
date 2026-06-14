@@ -46,43 +46,52 @@ interface Message {
 }
 
 export default async function handler(request: Request) {
-  if (request.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-    });
-  }
-
-  if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    return new Response(
-      JSON.stringify({ error: 'AI configuration missing' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
-  }
-
-  let messages: Message[];
-  try {
-    const body = await request.json();
-    messages = body?.messages;
-    if (!Array.isArray(messages) || messages.length === 0) throw new Error('Invalid messages');
-  } catch {
-    return new Response(
-      JSON.stringify({ error: 'Invalid request' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
-  }
+  // Use a timeout to avoid hanging functions
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 20000); // 20s timeout
 
   try {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+      });
+    }
+
+    if (request.method !== 'POST') {
+      return new Response('Method not allowed', { status: 405 });
+    }
+
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      console.error('CRITICAL: GROQ_API_KEY is missing in environment variables');
+      return new Response(
+        JSON.stringify({ error: 'AI configuration missing on server' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    let messages: Message[];
+    try {
+      const body = await request.json();
+      messages = body?.messages;
+      if (!Array.isArray(messages) || messages.length === 0) throw new Error('Invalid messages format');
+    } catch (e) {
+      console.error('Request parsing error:', e);
+      return new Response(
+        JSON.stringify({ error: 'Invalid request data' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`Calling Groq for user message: "${messages[messages.length-1].content.substring(0, 50)}..."`);
+
     const groqRes = await fetch(GROQ_API_URL, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
@@ -93,7 +102,7 @@ export default async function handler(request: Request) {
         temperature: 0.7,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...messages.slice(-10), // Keep context window manageable
+          ...messages.slice(-10),
         ],
       }),
     });
@@ -108,13 +117,21 @@ export default async function handler(request: Request) {
       } catch {
         errorMsg = `API Error ${groqRes.status}: ${errorText.substring(0, 100)}`;
       }
-      throw new Error(errorMsg);
+      return new Response(
+        JSON.stringify({ error: errorMsg }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
     const data = await groqRes.json();
     const reply = data.choices[0]?.message?.content;
 
-    if (!reply) throw new Error('Empty response from AI');
+    if (!reply) {
+      console.error('Groq returned empty response', data);
+      throw new Error('Empty response from AI');
+    }
+
+    console.log('Successfully received AI reply');
 
     return new Response(JSON.stringify({ reply }), {
       headers: {
@@ -123,13 +140,21 @@ export default async function handler(request: Request) {
       },
     });
   } catch (error) {
-    console.error('AquaAssist Chat Error:', error);
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('AquaAssist Request Timed Out');
+      return new Response(
+        JSON.stringify({ error: 'The AI took too long to respond. Please try again.' }),
+        { status: 504, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    console.error('AquaAssist Handler Exception:', error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'AI service unavailable',
-        details: process.env.NODE_ENV === 'development' ? String(error) : undefined
+        error: error instanceof Error ? error.message : 'Internal server error',
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
+  } finally {
+    clearTimeout(timeoutId);
   }
 }

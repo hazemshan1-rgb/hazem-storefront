@@ -498,7 +498,7 @@ function ResultsScreen({
   const crossLinks = [
     { to: '/benchmark',       labelKey: 'diagnostic.crossLink1Label', subKey: 'diagnostic.crossLink1Sub' },
     { to: '/valuation',       labelKey: 'diagnostic.crossLink2Label', subKey: 'diagnostic.crossLink2Sub' },
-    { to: '/symptom-checker', labelKey: 'diagnostic.crossLink3Label', subKey: 'diagnostic.crossLink3Sub' },
+    { to: '/newsletter',      labelKey: 'diagnostic.crossLink3Label', subKey: 'diagnostic.crossLink3Sub' },
   ]
 
   return (

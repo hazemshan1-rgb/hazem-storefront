@@ -223,7 +223,7 @@ export function ValuationPage() {
           {[
             { to: '/diagnostic',      labelKey: 'valuation.crossLink1Label', subKey: 'valuation.crossLink1Sub' },
             { to: '/benchmark',       labelKey: 'valuation.crossLink2Label', subKey: 'valuation.crossLink2Sub' },
-            { to: '/symptom-checker', labelKey: 'valuation.crossLink3Label', subKey: 'valuation.crossLink3Sub' },
+            { to: '/newsletter',      labelKey: 'valuation.crossLink3Label', subKey: 'valuation.crossLink3Sub' },
           ].map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">

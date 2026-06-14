@@ -1,21 +1,14 @@
-import { products } from '../src/data/products';
-
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-// We wrap this in a helper to avoid top-level issues if products is undefined
-function getProductContext() {
-  try {
-    if (!products || !Array.isArray(products)) return 'No product data available.';
-    return products.map(p =>
-      `- ${p.title}: ${p.tagline} (Price: $${p.price}) | Link: /shop/${p.slug}`
-    ).join('\n');
-  } catch (e) {
-    console.error('Error generating product list:', e);
-    return 'No product data available.';
-  }
-}
-
-const PRODUCT_LIST = getProductContext();
+// Hardcoded product list to avoid bundling issues with 'src/' imports in Vercel functions
+const PRODUCT_LIST = `
+- 10 Ways to Ruin a Biofloc System: The failure modes that kill BFT cycles — mapped so you can avoid every one. (Price: $0) | Link: /shop/free-biofloc-guide
+- Aquaculture Profit Leak Audit: Find and fix the hidden losses draining your farm — in a single day. (Price: $0) | Link: /shop/aquaculture-profit-leak-audit
+- The Shrimp IMTA Primer: Three crops, one pond, better margins — the case for IMTA in 15 minutes. (Price: $27) | Link: /shop/shrimp-imta-primer
+- 7 Strategies for Waste-Free Shrimp Farming: Proven frameworks for sustainable, low-waste shrimp production. (Price: $0) | Link: /shop/free-7-strategies-waste-free-shrimp
+- FCR Optimisation Toolkit: Reduce your feed costs by 15-20% with precision management. (Price: $147) | Link: /shop/fcr-optimisation-toolkit
+- Biofloc Management Complete Guide: The definitive manual for high-density BFT systems. (Price: $197) | Link: /shop/biofloc-management-complete-guide
+`;
 
 const SYSTEM_PROMPT = `You are AquaAssist, Hazem Shannak's premium AI aquaculture expert.
 Hazem has 30+ years of hands-on experience in shrimp farming, biofloc technology (BFT), Moringa-based feeds, and sustainable aquaculture across Malaysia, Thailand, Saudi Arabia, and the Philippines.
@@ -37,7 +30,6 @@ Free Tools:
 - Profitability Calculator: /tools
 - Feed Calculator: /tools/feed-calculator
 - Biofloc Calculator: /tools/biofloc-calculator
-- Symptom Checker: /symptom-checker
 
 Tone:
 Expert, authoritative, yet warm and helpful. Keep responses to 2-4 short paragraphs.

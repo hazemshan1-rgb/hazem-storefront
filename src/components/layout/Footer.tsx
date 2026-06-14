@@ -39,8 +39,8 @@ export function Footer() {
             <Link to="/diagnostic"       className={footerLink}>{t('footer.diagnostic')}</Link>
             <Link to="/benchmark"        className={footerLink}>{t('footer.benchmark')}</Link>
             <Link to="/valuation"        className={footerLink}>{t('footer.valuation')}</Link>
-            <Link to="/symptom-checker"  className={footerLink}>{t('footer.symptomChecker')}</Link>
-            <Link to="/ask"              className={footerLink}>{t('footer.aiAssistant')}</Link>
+            <Link to="/newsletter"       className={footerLink}>{t('footer.newsletter')}</Link>
+            <Link to="/about"            className={footerLink}>{t('footer.aboutHazem')}</Link>
           </div>
         </div>
 

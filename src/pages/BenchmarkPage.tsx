@@ -164,7 +164,7 @@ export function BenchmarkPage() {
   const crossLinks = [
     { to: '/diagnostic',      labelKey: 'benchmark.crossLink1Label', subKey: 'benchmark.crossLink1Sub' },
     { to: '/valuation',       labelKey: 'benchmark.crossLink2Label', subKey: 'benchmark.crossLink2Sub' },
-    { to: '/symptom-checker', labelKey: 'benchmark.crossLink3Label', subKey: 'benchmark.crossLink3Sub' },
+    { to: '/newsletter',      labelKey: 'benchmark.crossLink3Label', subKey: 'benchmark.crossLink3Sub' },
   ]
 
   return (

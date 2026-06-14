@@ -278,7 +278,7 @@ export function AuditPage() {
     { to: '/diagnostic',      labelKey: 'audit.crossLink1Label', subKey: 'audit.crossLink1Sub' },
     { to: '/benchmark',       labelKey: 'audit.crossLink2Label', subKey: 'audit.crossLink2Sub' },
     { to: '/valuation',       labelKey: 'audit.crossLink3Label', subKey: 'audit.crossLink3Sub' },
-    { to: '/symptom-checker', labelKey: 'audit.crossLink4Label', subKey: 'audit.crossLink4Sub' },
+    { to: '/newsletter',      labelKey: 'audit.crossLink4Label', subKey: 'audit.crossLink4Sub' },
   ]
 
   return (

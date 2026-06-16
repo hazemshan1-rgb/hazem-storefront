@@ -15,7 +15,6 @@ const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then(m => ({ de
 const ConsultationPage = lazy(() => import('./pages/ConsultationPage').then(m => ({ default: m.ConsultationPage })))
 const NewsletterPage = lazy(() => import('./pages/NewsletterPage').then(m => ({ default: m.NewsletterPage })))
 const CoursesPage = lazy(() => import('./pages/CoursesPage').then(m => ({ default: m.CoursesPage })))
-const AskPage = lazy(() => import('./pages/AskPage').then(m => ({ default: m.AskPage })))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage').then(m => ({ default: m.CaseStudiesPage })))
 const AuditPage = lazy(() => import('./pages/AuditPage').then(m => ({ default: m.AuditPage })))
 const BookConsultationPage  = lazy(() => import('./pages/BookConsultationPage').then(m => ({ default: m.BookConsultationPage })))
@@ -23,7 +22,6 @@ const ThankYouPage          = lazy(() => import('./pages/ThankYouPage').then(m =
 const DiagnosticPage        = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })))
 const BenchmarkPage         = lazy(() => import('./pages/BenchmarkPage').then(m => ({ default: m.BenchmarkPage })))
 const ValuationPage         = lazy(() => import('./pages/ValuationPage').then(m => ({ default: m.ValuationPage })))
-const SymptomCheckerPage    = lazy(() => import('./pages/SymptomCheckerPage').then(m => ({ default: m.SymptomCheckerPage })))
 const ToolsPage             = lazy(() => import('./pages/ToolsPage').then(m => ({ default: m.ToolsPage })))
 const FeedCalculatorPage    = lazy(() => import('./pages/FeedCalculatorPage').then(m => ({ default: m.FeedCalculatorPage })))
 const BioflocCalculatorPage = lazy(() => import('./pages/BioflocCalculatorPage').then(m => ({ default: m.BioflocCalculatorPage })))
@@ -81,11 +79,9 @@ function AnimatedRoutes() {
             <Route path="/diagnostic"         element={<DiagnosticPage />} />
             <Route path="/benchmark"          element={<BenchmarkPage />} />
             <Route path="/valuation"          element={<ValuationPage />} />
-            <Route path="/symptom-checker"    element={<SymptomCheckerPage />} />
             <Route path="/tools"              element={<ToolsPage />} />
             <Route path="/tools/feed-calculator"    element={<FeedCalculatorPage />} />
             <Route path="/tools/biofloc-calculator" element={<BioflocCalculatorPage />} />
-            <Route path="/ask"                element={<AskPage />} />
           </Routes>
         </Suspense>
       </motion.div>

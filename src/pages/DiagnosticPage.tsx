@@ -498,7 +498,7 @@ function ResultsScreen({
   const crossLinks = [
     { to: '/benchmark',       labelKey: 'diagnostic.crossLink1Label', subKey: 'diagnostic.crossLink1Sub' },
     { to: '/valuation',       labelKey: 'diagnostic.crossLink2Label', subKey: 'diagnostic.crossLink2Sub' },
-    { to: '/symptom-checker', labelKey: 'diagnostic.crossLink3Label', subKey: 'diagnostic.crossLink3Sub' },
+    { to: '/newsletter',      labelKey: 'diagnostic.crossLink3Label', subKey: 'diagnostic.crossLink3Sub' },
   ]
 
   return (
@@ -606,15 +606,11 @@ function ResultsScreen({
             onSubmit={async (e) => {
               e.preventDefault()
               if (!email) return
-              let ok: boolean
-              if (savedId) {
-                const r = await updateDiagnosticEmail(savedId, email)
-                ok = r.success
-              } else {
-                const r = await saveDiagnosticResult(answers, contextAnswers, result, email)
-                ok = r.success
-              }
-              if (ok) setEmailSaved(true)
+              const { success } = savedId
+                ? await updateDiagnosticEmail(savedId, email)
+                : await saveDiagnosticResult(answers, contextAnswers, result, email)
+
+              if (success) setEmailSaved(true)
             }}
             className="flex flex-col sm:flex-row gap-3"
           >

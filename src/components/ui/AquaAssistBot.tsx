@@ -63,9 +63,19 @@ const AquaAssistBot: React.FC = () => {
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to get response');
+      const contentType = response.headers.get('content-type');
+      let data;
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(text || `Server error (${response.status})`);
+      }
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to get response');
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -75,12 +85,13 @@ const AquaAssistBot: React.FC = () => {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Chat Error:', error);
+      const errorMsg = error instanceof Error ? error.message : "I'm having trouble connecting right now.";
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
+          content: `Sorry! ${errorMsg} Please check your connection or API configuration.`,
         },
       ]);
     } finally {
@@ -205,6 +216,7 @@ const AquaAssistBot: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={toggleChat}
+        aria-label={isOpen ? "Close AquaAssist AI" : "Open AquaAssist AI"}
         className="w-14 h-14 rounded-full bg-[var(--color-navy)] border-2 border-[var(--color-gold)] shadow-xl flex items-center justify-center text-[var(--color-gold)] pointer-events-auto transition-shadow hover:shadow-[0_0_20px_rgba(184,146,84,0.4)]"
       >
         <AnimatePresence mode="wait">

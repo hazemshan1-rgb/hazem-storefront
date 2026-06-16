@@ -131,7 +131,7 @@ export function ResourcesPage() {
               { to: '/diagnostic',      labelKey: 'library.crossLink1Label', subKey: 'library.crossLink1Sub' },
               { to: '/benchmark',       labelKey: 'library.crossLink2Label', subKey: 'library.crossLink2Sub' },
               { to: '/valuation',       labelKey: 'library.crossLink3Label', subKey: 'library.crossLink3Sub' },
-              { to: '/symptom-checker', labelKey: 'library.crossLink4Label', subKey: 'library.crossLink4Sub' },
+              { to: '/newsletter',      labelKey: 'library.crossLink4Label', subKey: 'library.crossLink4Sub' },
             ].map(l => (
               <Link key={l.to} to={l.to}
                 className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">

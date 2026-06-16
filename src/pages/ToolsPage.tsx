@@ -256,18 +256,18 @@ export function ToolsPage() {
 
   const aiTools = [
     {
-      to: '/symptom-checker',
-      labelKey: 'tools.symptomChecker',
-      subKey: 'tools.symptomCheckerSub',
-      descKey: 'tools.symptomCheckerDesc',
-      ctaKey: 'tools.symptomCheckerCta',
+      to: '/diagnostic',
+      labelKey: 'tools.diagnostic',
+      subKey: 'tools.diagnosticMeta',
+      descKey: 'tools.diagnosticDesc',
+      ctaKey: 'tools.getFarmScoreBtn',
     },
     {
-      to: '/ask',
-      labelKey: 'tools.aiAssistant',
-      subKey: 'tools.aiAssistantSub',
-      descKey: 'tools.aiAssistantDesc',
-      ctaKey: 'tools.aiAssistantCta',
+      to: '/benchmark',
+      labelKey: 'tools.benchmark',
+      subKey: 'tools.benchmarkMeta',
+      descKey: 'tools.benchmarkDesc',
+      ctaKey: 'tools.benchmarkBtn',
     },
   ]
 

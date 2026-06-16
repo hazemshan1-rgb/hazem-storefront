@@ -17,8 +17,8 @@ function ToolsNav() {
     { to: '/diagnostic',      labelKey: 'toolsNav.farmScore',  subKey: 'toolsNav.farmScoreSub'  },
     { to: '/benchmark',       labelKey: 'toolsNav.benchmark',  subKey: 'toolsNav.benchmarkSub'  },
     { to: '/valuation',       labelKey: 'toolsNav.valuation',  subKey: 'toolsNav.valuationSub'  },
-    { to: '/symptom-checker', labelKey: 'toolsNav.aiSymptom',  subKey: 'toolsNav.aiSymptomSub'  },
-    { to: '/ask',             labelKey: 'toolsNav.askAI',      subKey: 'toolsNav.askAISub'      },
+    { to: '/newsletter',      labelKey: 'toolsNav.newsletter', subKey: 'toolsNav.newsletterSub' },
+    { to: '/library',         labelKey: 'toolsNav.library',    subKey: 'toolsNav.librarySub'    },
   ]
 
   return (

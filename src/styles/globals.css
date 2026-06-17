@@ -1,32 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-serif: 'Playfair Display', Georgia, serif;
-  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-serif: 'Cormorant', Georgia, serif;
+  --font-family-sans: 'Montserrat', system-ui, sans-serif;
   --font-family-arabic: 'Cairo', system-ui, sans-serif;
 }
 
 @layer base {
   :root {
-    --color-bg:              #F8FAFC;
-    --color-surface:         #FFFFFF;
-    --color-surface-2:       #F1F5F9;
-    --color-navy:            #0F172A;
-    --color-navy-2:          #1E293B;
-    --color-gold:            #8B6914;
-    --color-gold-cta:        #CA8A04;
-    --color-gold-muted:      rgba(139, 105, 20, 0.14);
-    --color-text:            #0F172A;
-    --color-text-muted:      #475569;
-    --color-text-on-dark:    #F1F5F9;
-    --color-text-muted-dark: #94A3B8;
-    --color-border:          #E2E8F0;
-    --font-serif:            'Playfair Display', Georgia, serif;
-    --font-sans:             'Inter', system-ui, sans-serif;
+    --color-bg:              #07101f;
+    --color-surface:         #0d1a2e;
+    --color-surface-2:       #122038;
+    --color-navy:            #07101f;
+    --color-navy-2:          #0d1a2e;
+    --color-gold:            #c9952a;
+    --color-gold-cta:        #e0aa3e;
+    --color-gold-muted:      rgba(201, 149, 42, 0.14);
+    --color-gold-border:     rgba(201, 149, 42, 0.22);
+    --color-text:            #ede9e0;
+    --color-text-muted:      #7a7060;
+    --color-text-on-dark:    #ede9e0;
+    --color-text-muted-dark: #7a7060;
+    --color-border:          rgba(201, 149, 42, 0.22);
+    --font-serif:            'Cormorant', Georgia, serif;
+    --font-sans:             'Montserrat', system-ui, sans-serif;
   }
 
   html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }
-  h1, h2, h3 { font-family: var(--font-serif); }
+  h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; }
 }
 
 @keyframes fadeInUp {
@@ -60,8 +61,8 @@
 }
 
 @keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(139, 105, 20, 0); }
-  50%       { box-shadow: 0 0 0 6px rgba(139, 105, 20, 0.12); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 149, 42, 0); }
+  50%       { box-shadow: 0 0 0 6px rgba(201, 149, 42, 0.12); }
 }
 
 @layer utilities {
@@ -152,7 +153,7 @@
   }
   .card-hover:hover {
     transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(139, 108, 58, 0.13);
+    box-shadow: 0 16px 40px rgba(201, 149, 42, 0.13);
   }
   .card-hover:hover img {
     transform: scale(1.05);
@@ -192,9 +193,9 @@
     background: linear-gradient(
       90deg,
       var(--color-gold) 0%,
-      #CA8A04 40%,
+      #e0aa3e 40%,
       var(--color-gold) 60%,
-      #A06B10 100%
+      #c9952a 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;

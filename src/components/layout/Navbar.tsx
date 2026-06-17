@@ -40,8 +40,8 @@ export function Navbar() {
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 border-b"
         animate={{
-          backgroundColor: scrolled ? 'rgba(15, 23, 42, 0.92)' : 'rgba(15, 23, 42, 1)',
-          borderColor: scrolled ? 'rgba(139, 105, 20, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+          backgroundColor: scrolled ? 'rgba(7, 16, 31, 0.92)' : 'rgba(7, 16, 31, 1)',
+          borderColor: scrolled ? 'rgba(201, 149, 42, 0.22)' : 'rgba(201, 149, 42, 0.12)',
         }}
         style={{
           backdropFilter: scrolled ? 'blur(16px)' : undefined,

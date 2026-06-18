@@ -37,24 +37,30 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50 border-b"
-        animate={{
-          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'rgba(255, 255, 255, 0)',
-          borderColor: scrolled ? 'rgba(139, 105, 20, 0.15)' : 'rgba(255, 255, 255, 0)',
-        }}
+      <header
+        className="fixed top-0 left-0 right-0 z-50 border-b border-white/10"
         style={{
+          backgroundColor: scrolled ? 'rgba(10, 22, 42, 0.98)' : '#0F172A',
           backdropFilter: scrolled ? 'blur(16px)' : undefined,
           WebkitBackdropFilter: scrolled ? 'blur(16px)' : undefined,
+          boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.4)' : 'none',
+          transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
         }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          {/* Logo + Name */}
           <Link
             to="/"
-            className="font-sans font-bold text-xl tracking-[0.2em] text-[var(--color-navy)] uppercase hover:text-[var(--color-gold-cta)] transition-colors duration-300"
+            className="flex items-center gap-3 group"
           >
-            Hazem Shannak
+            <img
+              src="/images/hazem-logo.jpg"
+              alt="Hazem Shannak"
+              className="h-9 w-9 rounded-full object-cover border border-[var(--color-gold-muted)] shrink-0"
+            />
+            <span className="font-sans font-bold text-xl tracking-[0.2em] text-white uppercase group-hover:text-[var(--color-gold-cta)] transition-colors duration-300">
+              Hazem Shannak
+            </span>
           </Link>
 
           {/* Desktop nav */}
@@ -68,7 +74,7 @@ export function Navbar() {
                   `text-xs tracking-widest uppercase transition-colors ${
                     isActive
                       ? 'text-[var(--color-gold-cta)]'
-                      : 'text-[var(--color-text-muted)] hover:text-[var(--color-navy)]'
+                      : 'text-white/70 hover:text-white'
                   }`
                 }
               >
@@ -87,7 +93,7 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-[var(--color-text-muted)] hover:text-[var(--color-navy)] p-2 -mr-2"
+            className="md:hidden text-white/70 hover:text-white p-2 -mr-2"
             onClick={() => setOpen(o => !o)}
             aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={open}
@@ -106,9 +112,9 @@ export function Navbar() {
             </AnimatePresence>
           </button>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Mobile menu — rendered outside header to avoid stacking context conflict */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <>
@@ -118,7 +124,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 top-16 z-40 bg-[var(--color-navy)]/70 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 top-16 z-40 bg-black/60 backdrop-blur-sm md:hidden"
               onClick={() => setOpen(false)}
               aria-hidden="true"
             />
@@ -129,12 +135,12 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-16 left-0 right-0 z-50 md:hidden bg-white border-b border-[var(--color-border)] shadow-2xl"
+              className="fixed top-16 left-0 right-0 z-50 md:hidden border-b border-white/10 shadow-2xl"
+              style={{ backgroundColor: '#0F172A' }}
               aria-label={t('nav.mobileNav')}
             >
               <div className="px-6 pt-6 pb-8 flex flex-col">
-                {/* Nav links */}
-                <div className="flex flex-col divide-y divide-[var(--color-border)]">
+                <div className="flex flex-col divide-y divide-white/10">
                   {links.map((l, i) => (
                     <motion.div
                       key={l.to}
@@ -150,7 +156,7 @@ export function Navbar() {
                           `flex items-center justify-between py-4 text-sm tracking-widest uppercase transition-colors ${
                             isActive
                               ? 'text-[var(--color-gold-cta)]'
-                              : 'text-[var(--color-text-muted)] hover:text-[var(--color-navy)]'
+                              : 'text-white/70 hover:text-white'
                           }`
                         }
                       >
@@ -165,7 +171,6 @@ export function Navbar() {
                       </NavLink>
                     </motion.div>
                   ))}
-
                 </div>
 
                 {/* Community external link */}

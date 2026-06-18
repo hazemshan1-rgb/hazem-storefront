@@ -1,3 +1,5 @@
+export const config = { runtime: 'edge' };
+
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const REQUEST_TIMEOUT_MS = 25000;
 

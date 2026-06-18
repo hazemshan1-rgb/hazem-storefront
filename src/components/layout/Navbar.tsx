@@ -56,7 +56,7 @@ export function Navbar() {
             <img
               src="/images/hazem-logo.jpg"
               alt="Hazem Shannak"
-              className="h-9 w-9 rounded-full object-cover border border-[var(--color-gold-muted)] shrink-0"
+              className="h-11 w-11 rounded-full object-cover border border-[var(--color-gold-muted)] shrink-0"
             />
             <span className="font-sans font-bold text-xl tracking-[0.2em] text-white uppercase group-hover:text-[var(--color-gold-cta)] transition-colors duration-300">
               Hazem Shannak

@@ -12,9 +12,16 @@ export function Footer() {
 
         {/* Brand */}
         <div className="lg:col-span-1">
-          <p className="font-serif font-bold text-lg tracking-[0.12em] uppercase text-white mb-3">
-            Hazem Shannak
-          </p>
+          <div className="flex items-center gap-3 mb-3">
+            <img
+              src="/images/hazem-logo.jpg"
+              alt="Hazem Shannak"
+              className="h-10 w-10 rounded-full object-cover border border-[var(--color-gold-muted)] shrink-0"
+            />
+            <p className="font-serif font-bold text-lg tracking-[0.12em] uppercase text-white">
+              Hazem Shannak
+            </p>
+          </div>
           <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed mb-5">
             {t('footer.tagline')}
           </p>

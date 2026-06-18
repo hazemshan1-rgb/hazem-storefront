@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Minus, Maximize2 } from 'lucide-react';
+import { Fish, X, Send, Minus, Maximize2 } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -118,7 +118,7 @@ const AquaAssistBot: React.FC = () => {
             <div className="bg-[var(--color-navy)] px-4 py-3 flex items-center justify-between border-b border-[var(--color-gold-muted)]">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-[var(--color-surface)] border border-[var(--color-gold-muted)] flex items-center justify-center shrink-0">
-                  <span className="font-serif text-xs text-[var(--color-gold)] font-bold">A</span>
+                  <Fish size={16} className="text-[var(--color-gold)]" />
                 </div>
                 <div>
                   <h3 className="text-white font-serif text-sm leading-none">AquaAssist AI</h3>
@@ -237,7 +237,7 @@ const AquaAssistBot: React.FC = () => {
               exit={{ opacity: 0, scale: 0.5 }}
               className="flex flex-col items-center"
             >
-              <MessageSquare size={28} fill="currentColor" />
+              <Fish size={28} fill="currentColor" />
             </motion.div>
           )}
         </AnimatePresence>

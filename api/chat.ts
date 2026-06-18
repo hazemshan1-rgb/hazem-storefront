@@ -1,5 +1,5 @@
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const REQUEST_TIMEOUT_MS = 25000; // Increased to 25s to stay under platform limits
+const REQUEST_TIMEOUT_MS = 25000;
 
 // Hardcoded product list to avoid bundling issues with 'src/' imports in Vercel functions
 const PRODUCT_LIST = `
@@ -67,14 +67,13 @@ export default async function handler(request: Request) {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    // 1. Fail fast and CLEARLY if the key isn't actually live on this deployment.
     const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
-      console.error('[api/chat] CRITICAL: GROQ_API_KEY is missing at runtime on this deployment.');
+      console.error('[api/chat] CRITICAL: GROQ_API_KEY is missing at runtime.');
       return new Response(
         JSON.stringify({
           error: 'config_error',
-          message: 'The AI assistant is not configured yet. (Missing GROQ_API_KEY on this deployment.)'
+          message: 'The AI assistant is not configured yet. (Missing GROQ_API_KEY)'
         }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
@@ -117,16 +116,24 @@ export default async function handler(request: Request) {
 
     if (!groqRes.ok) {
       console.error('[api/chat] Groq returned an error:', groqRes.status, rawBody.slice(0, 500));
-      const status = groqRes.status === 429 ? 429 : 502;
+
+      if (groqRes.status === 429) {
+        return new Response(
+          JSON.stringify({
+            error: 'rate_limit',
+            message: 'The AI assistant is receiving a lot of requests right now. Please wait a moment before trying again.',
+          }),
+          { status: 429, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
       return new Response(
         JSON.stringify({
-          error: status === 429 ? 'rate_limit' : 'upstream_error',
-          message: status === 429
-            ? 'Too many messages right now — please wait a moment and try again.'
-            : 'The AI service had a hiccup. Please try again.',
+          error: 'upstream_error',
+          message: 'The AI service had a hiccup. Please try again.',
           details: rawBody.substring(0, 100)
         }),
-        { status: status, headers: { 'Content-Type': 'application/json' } }
+        { status: 502, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -158,7 +165,7 @@ export default async function handler(request: Request) {
     });
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
-      console.error(`[api/chat] Request to Groq timed out after ${REQUEST_TIMEOUT_MS}ms`);
+      console.error(`[api/chat] Request to Groq timed out`);
       return new Response(
         JSON.stringify({ error: 'timeout', message: 'That took too long — please try again.' }),
         { status: 504, headers: { 'Content-Type': 'application/json' } }

@@ -12,7 +12,7 @@ export function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-navy)]">
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg)]">
       {/* Parallax background — video loop with image fallback */}
       <motion.div
         className="absolute inset-0 overflow-hidden"
@@ -25,18 +25,18 @@ export function Hero() {
           loop
           playsInline
           poster="/images/hero/aerial-ponds.jpg"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="absolute inset-0 w-full h-full object-cover opacity-10"
           onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none' }}
         >
           <source src="/videos/hero-loop.mp4" type="video/mp4" />
           <source src="/videos/hero-loop.webm" type="video/webm" />
         </video>
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-15"
+          className="absolute inset-0 bg-cover bg-center opacity-5"
           style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-navy)] via-[var(--color-navy)]/85 to-[var(--color-navy)]/60" aria-hidden="true" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/95 to-[var(--color-bg)]/70" aria-hidden="true" />
       <RingTexture />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
@@ -70,22 +70,22 @@ export function Hero() {
               {t('hero.eyebrow')}
             </p>
 
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-on-dark)] leading-tight animate-fade-in-up animation-delay-100">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-navy)] leading-tight animate-fade-in-up animation-delay-100">
               {t('hero.headline')}
             </h1>
 
-            <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
+            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-md animate-fade-in-up animation-delay-300">
               {t('hero.body')}
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-400">
               <Button as="link" to="/diagnostic" size="lg">{t('hero.ctaPrimary')}</Button>
-              <Button as="link" to="/shop" variant="secondary" size="lg">{t('hero.ctaSecondary')}</Button>
+              <Button as="link" to="/shop" variant="secondary" size="lg" className="border-[var(--color-navy)] text-[var(--color-navy)] hover:bg-[var(--color-navy)] hover:text-white transition-all">{t('hero.ctaSecondary')}</Button>
             </div>
 
             <Link
               to="/shop"
-              className="inline-flex items-center gap-2 self-start text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors duration-300 animate-fade-in-up animation-delay-400 group"
+              className="inline-flex items-center gap-2 self-start text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-navy)] transition-colors duration-300 animate-fade-in-up animation-delay-400 group"
             >
               <span className="w-1 h-1 rounded-full bg-[var(--color-gold-cta)] opacity-70 group-hover:opacity-100 transition-opacity" />
               {t('hero.ctaTertiary')}

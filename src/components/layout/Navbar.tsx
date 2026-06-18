@@ -40,8 +40,8 @@ export function Navbar() {
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 border-b"
         animate={{
-          backgroundColor: scrolled ? 'rgba(7, 16, 31, 0.92)' : 'rgba(7, 16, 31, 1)',
-          borderColor: scrolled ? 'rgba(201, 149, 42, 0.22)' : 'rgba(201, 149, 42, 0.12)',
+          backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'rgba(255, 255, 255, 0)',
+          borderColor: scrolled ? 'rgba(139, 105, 20, 0.15)' : 'rgba(255, 255, 255, 0)',
         }}
         style={{
           backdropFilter: scrolled ? 'blur(16px)' : undefined,
@@ -52,7 +52,7 @@ export function Navbar() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             to="/"
-            className="font-serif font-bold text-lg tracking-[0.12em] text-[var(--color-text-on-dark)] uppercase hover:text-[var(--color-gold-cta)] transition-colors duration-300"
+            className="font-sans font-bold text-xl tracking-[0.2em] text-[var(--color-navy)] uppercase hover:text-[var(--color-gold-cta)] transition-colors duration-300"
           >
             Hazem Shannak
           </Link>
@@ -68,7 +68,7 @@ export function Navbar() {
                   `text-xs tracking-widest uppercase transition-colors ${
                     isActive
                       ? 'text-[var(--color-gold-cta)]'
-                      : 'text-[var(--color-text-muted-dark)] hover:text-[var(--color-text-on-dark)]'
+                      : 'text-[var(--color-text-muted)] hover:text-[var(--color-navy)]'
                   }`
                 }
               >
@@ -87,7 +87,7 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-[var(--color-text-muted-dark)] hover:text-[var(--color-text-on-dark)] p-2 -mr-2"
+            className="md:hidden text-[var(--color-text-muted)] hover:text-[var(--color-navy)] p-2 -mr-2"
             onClick={() => setOpen(o => !o)}
             aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={open}
@@ -129,12 +129,12 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-16 left-0 right-0 z-50 md:hidden bg-[var(--color-navy)] border-b border-[rgba(255,255,255,0.08)] shadow-2xl"
+              className="fixed top-16 left-0 right-0 z-50 md:hidden bg-white border-b border-[var(--color-border)] shadow-2xl"
               aria-label={t('nav.mobileNav')}
             >
               <div className="px-6 pt-6 pb-8 flex flex-col">
                 {/* Nav links */}
-                <div className="flex flex-col divide-y divide-[rgba(255,255,255,0.06)]">
+                <div className="flex flex-col divide-y divide-[var(--color-border)]">
                   {links.map((l, i) => (
                     <motion.div
                       key={l.to}
@@ -150,7 +150,7 @@ export function Navbar() {
                           `flex items-center justify-between py-4 text-sm tracking-widest uppercase transition-colors ${
                             isActive
                               ? 'text-[var(--color-gold-cta)]'
-                              : 'text-[var(--color-text-muted-dark)] hover:text-[var(--color-text-on-dark)]'
+                              : 'text-[var(--color-text-muted)] hover:text-[var(--color-navy)]'
                           }`
                         }
                       >

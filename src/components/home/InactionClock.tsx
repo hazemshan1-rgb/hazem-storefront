@@ -49,7 +49,7 @@ export function InactionClock() {
 
   return (
     <section ref={ref} className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.06)]">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
 
           {/* Pond selector */}

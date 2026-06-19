@@ -22,7 +22,7 @@ function ToolsNav() {
   ]
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12">
+    <section className="max-w-6xl mx-auto px-6 py-24">
       <div className="flex items-center justify-between mb-6">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">
           {t('toolsNav.eyebrow')}
@@ -32,16 +32,32 @@ function ToolsNav() {
         </Link>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {tools.map(tool => (
-          <Link key={tool.to} to={tool.to}
-            className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
-            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
-              {t(tool.labelKey)}
-            </p>
-            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
-              {t(tool.subKey)}
-            </p>
-          </Link>
+        {tools.map((tool, i) => (
+          i === 0 ? (
+            /* Farm Score — spotlight card with gold gradient */
+            <Link key={tool.to} to={tool.to}
+              className="relative block p-4 rounded-sm overflow-hidden border border-[var(--color-gold)] hover:border-[var(--color-gold-cta)] transition-all group text-center col-span-2 md:col-span-1">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(202,138,4,0.22)_0%,rgba(15,23,42,0.55)_70%)] pointer-events-none" aria-hidden="true" />
+              <div className="relative z-10">
+                <p className="text-xs font-semibold text-[var(--color-gold-cta)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
+                  {t(tool.labelKey)}
+                </p>
+                <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
+                  {t(tool.subKey)}
+                </p>
+              </div>
+            </Link>
+          ) : (
+            <Link key={tool.to} to={tool.to}
+              className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
+              <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
+                {t(tool.labelKey)}
+              </p>
+              <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
+                {t(tool.subKey)}
+              </p>
+            </Link>
+          )
         ))}
       </div>
     </section>
@@ -53,7 +69,7 @@ function ConsultationBanner() {
 
   return (
     <section className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-6 py-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-4">
@@ -67,14 +83,16 @@ function ConsultationBanner() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-5 md:items-end">
-            <ul className="space-y-2 md:text-right">
+          {/* Elevated dark card — sits above the navy base */}
+          <div className="bg-[#141516] border border-[rgba(255,255,255,0.1)] rounded-sm p-8 flex flex-col gap-6 md:items-end">
+            <ul className="space-y-3 md:text-right">
               {(['bullet1', 'bullet2', 'bullet3'] as const).map(key => (
-                <li key={key} className="text-xs text-[var(--color-text-muted-dark)]">
+                <li key={key} className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed">
                   {t(`consultationBanner.${key}`)}
                 </li>
               ))}
             </ul>
+            <div className="w-full border-t border-[rgba(255,255,255,0.06)]" />
             <div className="flex flex-col sm:flex-row gap-3 md:flex-col md:items-end">
               <Link to="/consultation"
                 className="inline-block text-[11px] font-semibold tracking-widest uppercase text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-4 rounded-sm hover:brightness-110 transition-all text-center">

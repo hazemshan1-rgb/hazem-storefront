@@ -13,7 +13,14 @@ export function Hero() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg)]">
-      {/* Parallax background — video loop with image fallback */}
+      {/* Gradient mesh atmosphere — gold bloom lower-left, navy haze upper-right */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute bottom-0 left-0 w-3/4 h-3/4 bg-[radial-gradient(ellipse_at_bottom_left,rgba(202,138,4,0.13)_0%,transparent_65%)]" />
+        <div className="absolute top-0 right-0 w-1/2 h-2/3 bg-[radial-gradient(ellipse_at_top_right,rgba(15,23,42,0.08)_0%,transparent_60%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_100%_60%_at_25%_100%,rgba(139,105,20,0.07)_0%,transparent_70%)]" />
+      </div>
+
+      {/* Parallax background — video as subtle texture only */}
       <motion.div
         className="absolute inset-0 overflow-hidden"
         style={{ y: bgY }}
@@ -25,18 +32,16 @@ export function Hero() {
           loop
           playsInline
           poster="/images/hero/aerial-ponds.jpg"
-          className="absolute inset-0 w-full h-full object-cover opacity-10"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.04]"
           onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none' }}
         >
           <source src="/videos/hero-loop.mp4" type="video/mp4" />
           <source src="/videos/hero-loop.webm" type="video/webm" />
         </video>
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-5"
-          style={{ backgroundImage: 'url(/images/hero/aerial-ponds.jpg)' }}
-        />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/95 to-[var(--color-bg)]/70" aria-hidden="true" />
+
+      {/* Directional veil — lighter on photo side so mesh shows through */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/88 to-[var(--color-bg)]/45" aria-hidden="true" />
       <RingTexture />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">

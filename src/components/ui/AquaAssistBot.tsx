@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Fish, X, Send, Minus, Maximize2 } from 'lucide-react';
+import { X, Send, Minus, Maximize2 } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -117,8 +117,8 @@ const AquaAssistBot: React.FC = () => {
             {/* Header */}
             <div className="bg-[var(--color-navy)] px-4 py-3 flex items-center justify-between border-b border-[var(--color-gold-muted)]">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[var(--color-surface)] border border-[var(--color-gold-muted)] flex items-center justify-center shrink-0">
-                  <Fish size={16} className="text-[var(--color-gold)]" />
+                <div className="w-8 h-8 rounded-full bg-[var(--color-surface)] border border-[var(--color-gold-muted)] flex items-center justify-center shrink-0 text-base leading-none">
+                  🦐
                 </div>
                 <div>
                   <h3 className="text-white font-serif text-sm leading-none">AquaAssist AI</h3>
@@ -211,37 +211,55 @@ const AquaAssistBot: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={toggleChat}
-        aria-label={isOpen ? "Close AquaAssist AI" : "Open AquaAssist AI"}
-        className="w-14 h-14 rounded-full bg-[var(--color-navy)] border-2 border-[var(--color-gold)] shadow-xl flex items-center justify-center text-[var(--color-gold)] pointer-events-auto transition-shadow hover:shadow-[0_0_20px_rgba(184,146,84,0.4)]"
-      >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
+      {/* Toggle Button + Ask me label */}
+      <div className="flex items-center gap-3 pointer-events-auto">
+        <AnimatePresence>
+          {!isOpen && (
             <motion.div
-              key="close"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
+              key="ask-me"
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: [0, 0, -3, 0], transition: { x: { repeat: Infinity, duration: 2.4, ease: 'easeInOut', repeatDelay: 1.2 }, opacity: { duration: 0.25 } } }}
+              exit={{ opacity: 0, x: 8, transition: { duration: 0.2 } }}
+              className="relative bg-[var(--color-navy)] border border-[var(--color-gold)] text-[var(--color-gold)] text-[11px] font-semibold tracking-wide px-3 py-1.5 rounded-full shadow-lg select-none"
             >
-              <X size={28} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="open"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              className="flex flex-col items-center"
-            >
-              <Fish size={28} fill="currentColor" />
+              Ask me
+              {/* speech-bubble tail pointing right */}
+              <span className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-y-4 border-y-transparent border-l-[6px] border-l-[var(--color-gold)]" aria-hidden="true" />
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={toggleChat}
+          aria-label={isOpen ? "Close AquaAssist AI" : "Open AquaAssist AI"}
+          className="w-14 h-14 rounded-full bg-[var(--color-navy)] border-2 border-[var(--color-gold)] shadow-xl flex items-center justify-center text-[var(--color-gold)] transition-shadow hover:shadow-[0_0_20px_rgba(184,146,84,0.4)]"
+        >
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.div
+                key="close"
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+              >
+                <X size={28} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="open"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                className="text-3xl leading-none"
+              >
+                🦐
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </div>
   );
 };

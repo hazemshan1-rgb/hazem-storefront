@@ -32,32 +32,16 @@ function ToolsNav() {
         </Link>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {tools.map((tool, i) => (
-          i === 0 ? (
-            /* Farm Score — spotlight card with gold gradient */
-            <Link key={tool.to} to={tool.to}
-              className="relative block p-4 rounded-sm overflow-hidden border border-[var(--color-gold)] hover:border-[var(--color-gold-cta)] transition-all group text-center col-span-2 md:col-span-1">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(202,138,4,0.22)_0%,rgba(15,23,42,0.55)_70%)] pointer-events-none" aria-hidden="true" />
-              <div className="relative z-10">
-                <p className="text-xs font-semibold text-[var(--color-gold-cta)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
-                  {t(tool.labelKey)}
-                </p>
-                <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
-                  {t(tool.subKey)}
-                </p>
-              </div>
-            </Link>
-          ) : (
-            <Link key={tool.to} to={tool.to}
-              className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
-              <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
-                {t(tool.labelKey)}
-              </p>
-              <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
-                {t(tool.subKey)}
-              </p>
-            </Link>
-          )
+        {tools.map((tool) => (
+          <Link key={tool.to} to={tool.to}
+            className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
+            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
+              {t(tool.labelKey)}
+            </p>
+            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
+              {t(tool.subKey)}
+            </p>
+          </Link>
         ))}
       </div>
     </section>

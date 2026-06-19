@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hazemshannak.qzz.io/sitemap.xml
+Sitemap: https://hazemshannak.cc/sitemap.xml

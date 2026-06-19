@@ -220,7 +220,7 @@ const AquaAssistBot: React.FC = () => {
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: [0, 0, -3, 0], transition: { x: { repeat: Infinity, duration: 2.4, ease: 'easeInOut', repeatDelay: 1.2 }, opacity: { duration: 0.25 } } }}
               exit={{ opacity: 0, x: 8, transition: { duration: 0.2 } }}
-              className="relative bg-[var(--color-navy)] border border-[var(--color-gold)] text-[var(--color-gold)] text-[11px] font-semibold tracking-wide px-3 py-1.5 rounded-full shadow-lg select-none"
+              className="relative bg-[var(--color-navy)] border border-[var(--color-gold)] text-white text-[11px] font-semibold tracking-wide px-3 py-1.5 rounded-full shadow-lg select-none"
             >
               Ask me
               {/* speech-bubble tail pointing right */}

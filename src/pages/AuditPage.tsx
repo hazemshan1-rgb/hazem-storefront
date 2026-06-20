@@ -154,7 +154,7 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
         {t(tier.bestForKey)}
       </p>
       <div className={`text-[10px] rounded-sm px-3 py-2 mb-5 leading-relaxed ${featured ? 'bg-[rgba(202,138,4,0.12)] text-[var(--color-gold-cta)]' : 'bg-[var(--color-gold-muted)] text-[var(--color-gold)]'}`}>
-        {t(tier.guaranteeShortKey).split('.')[0]}.
+        {t(tier.guaranteeShortKey)}
       </div>
       <a href={tier.email} className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}>
         {t(tier.ctaLabelKey)}
@@ -321,11 +321,55 @@ export function AuditPage() {
             {t('audit.heroFreeLink')}
           </a>
         </div>
+        {/* 3-step plan */}
+        <div className="mb-10">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-3">{t('audit.planEyebrow')}</p>
+          <h2 className="font-serif text-xl text-[var(--color-text)] mb-8">{t('audit.planHeadline')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex gap-4">
+              <span className="font-mono text-[var(--color-gold-cta)] text-xs shrink-0 pt-0.5 opacity-60">{t('audit.planStep1Num')}</span>
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-text)] mb-1">{t('audit.planStep1Title')}</p>
+                <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{t('audit.planStep1Body')}</p>
+                <Link to="/diagnostic" className="text-[10px] text-[var(--color-gold-cta)] hover:underline mt-2 inline-block tracking-wide">
+                  {t('audit.planStep1Link')}
+                </Link>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="font-mono text-[var(--color-gold-cta)] text-xs shrink-0 pt-0.5 opacity-60">{t('audit.planStep2Num')}</span>
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-text)] mb-1">{t('audit.planStep2Title')}</p>
+                <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{t('audit.planStep2Body')}</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="font-mono text-[var(--color-gold-cta)] text-xs shrink-0 pt-0.5 opacity-60">{t('audit.planStep3Num')}</span>
+              <div>
+                <p className="text-sm font-semibold text-[var(--color-text)] mb-1">{t('audit.planStep3Title')}</p>
+                <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{t('audit.planStep3Body')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-8 border border-[var(--color-gold-muted)] rounded-sm px-5 py-4 max-w-xl">
           <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold mb-2">{t('audit.mathsEyebrow')}</p>
           <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
             {t('audit.mathsBody1')} <span className="font-semibold text-[var(--color-text)]">{t('audit.mathsHighlight')}</span>. {t('audit.mathsBody2')}
           </p>
+        </div>
+        {/* Social proof above tiers — mirrors Final CTA strip, placed at decision point */}
+        <div className="flex items-center gap-3 mb-6 px-1">
+          <div className="flex -space-x-2">
+            {['/images/hero/hazem-at-ponds.jpg', '/images/hero/hazem-teaching.jpg', '/images/hero/hazem-consulting.jpg'].map((src, i) => (
+              <img key={i} src={src} alt="" aria-hidden="true" className="w-8 h-8 rounded-full border-2 border-[var(--color-bg)] object-cover" />
+            ))}
+          </div>
+          <div>
+            <p className="text-xs font-medium text-[var(--color-text)]">{t('audit.socialProofLine1')}</p>
+            <p className="text-[10px] text-[var(--color-text-muted)]">{t('audit.socialProofLine2')}</p>
+          </div>
         </div>
         <div id="tiers" className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}

@@ -6,9 +6,9 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { caseStudies } from '../data/caseStudies'
 
-const T1_EMAIL = 'mailto:hazemshan1@gmail.com?subject=Tier%201%20%E2%80%93%20Diagnostic%20Audit%20%E2%80%93%20Enquiry'
-const T2_EMAIL = 'mailto:hazemshan1@gmail.com?subject=Tier%202%20%E2%80%93%2090-Day%20Transformation%20%E2%80%93%20Application'
-const T3_EMAIL = 'mailto:hazemshan1@gmail.com?subject=Tier%203%20%E2%80%93%20Investor-Ready%20Enterprise%20%E2%80%93%20Application'
+const T1_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%201%20%E2%80%93%20Diagnostic%20Audit%20%E2%80%93%20Enquiry'
+const T2_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%202%20%E2%80%93%2090-Day%20Transformation%20%E2%80%93%20Application'
+const T3_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%203%20%E2%80%93%20Investor-Ready%20Enterprise%20%E2%80%93%20Application'
 
 type TierKeys = {
   id: number

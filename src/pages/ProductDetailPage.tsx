@@ -43,8 +43,8 @@ export function ProductDetailPage() {
           '@type': 'Product',
           name: product.title,
           description: product.description,
-          image: `https://hazemshannak.com${product.coverImage}`,
-          url: `https://hazemshannak.com/shop/${product.slug}`,
+          image: `https://hazemshannak.cc${product.coverImage}`,
+          url: `https://hazemshannak.cc/shop/${product.slug}`,
           brand: { '@type': 'Brand', name: 'Hazem Shannak' },
           offers: {
             '@type': 'Offer',
@@ -101,7 +101,7 @@ export function ProductDetailPage() {
               {product.price === 0 ? t('productDetail.free') : `$${product.price}`}
             </span>
             {product.comingSoon ? (
-              <a href="mailto:hazemshan1@gmail.com?subject=Notify%20Me%20When%20Available" className="flex-1">
+              <a href="mailto:connect@hazemshannak.cc?subject=Notify%20Me%20When%20Available" className="flex-1">
                 <Button size="lg" className="w-full">{t('productDetail.notifyMe')}</Button>
               </a>
             ) : (

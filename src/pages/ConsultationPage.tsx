@@ -208,7 +208,7 @@ export function ConsultationPage() {
                   {t('consultation.deepDive.bookBtn')}
                 </a>
               ) : (
-                <a href="mailto:hazemshan1@gmail.com?subject=60-Minute%20Session%20Enquiry"
+                <a href="mailto:connect@hazemshannak.cc?subject=60-Minute%20Session%20Enquiry"
                   className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all">
                   {t('consultation.deepDive.enquireBtn')}
                 </a>
@@ -248,7 +248,7 @@ export function ConsultationPage() {
                   {t('consultation.focus.bookBtn')}
                 </a>
               ) : (
-                <a href="mailto:hazemshan1@gmail.com?subject=30-Minute%20Session%20Enquiry"
+                <a href="mailto:connect@hazemshannak.cc?subject=30-Minute%20Session%20Enquiry"
                   className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
                   {t('consultation.focus.enquireBtn')}
                 </a>

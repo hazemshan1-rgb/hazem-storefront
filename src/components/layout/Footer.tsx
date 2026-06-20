@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-const footerLink = 'text-xs text-[var(--color-text-muted-dark)] hover:text-white transition-colors'
+const footerLink = 'text-xs text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors'
 
 export function Footer() {
   const { t } = useTranslation()

@@ -23,7 +23,7 @@ type TierKeys = {
 const tiers: TierKeys[] = [
   {
     id: 1, nameKey: 'audit.t1Name', taglineKey: 'audit.t1Tagline',
-    price: '$4,500 – $7,500', priceSubKey: 'audit.t1PriceSub', lengthKey: 'audit.t1Length',
+    price: 'From $5,000', priceSubKey: 'audit.t1PriceSub', lengthKey: 'audit.t1Length',
     bestForKey: 'audit.t1BestFor', promiseKey: 'audit.t1Promise',
     guaranteeKey: 'audit.t1Guarantee', guaranteeShortKey: 'audit.t1GuaranteeShort',
     paymentKey: 'audit.t1Payment', leadTimeKey: 'audit.t1LeadTime', availabilityKey: 'audit.t1Availability',
@@ -160,6 +160,12 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
         {t(tier.ctaLabelKey)}
       </a>
       <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
+      {tier.id === 1 && (
+        <div className="mt-3 border border-[var(--color-gold-muted)] rounded-sm px-3 py-2.5">
+          <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold)] font-semibold mb-1">{t('audit.upgradeCreditEyebrow')}</p>
+          <p className="text-[9px] text-[var(--color-text-muted)] leading-relaxed">{t('audit.t1UpgradeCredit')}</p>
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -231,6 +237,12 @@ function TierDetail({ tier, reversed = false }: { tier: TierKeys; reversed?: boo
             <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
           </div>
 
+          {tier.id === 1 && (
+            <div className="mt-4 border border-[var(--color-gold-muted)] rounded-sm p-5">
+              <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold)] font-semibold mb-3">{t('audit.upgradeCreditEyebrow')}</p>
+              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{t('audit.upg1Detail')}</p>
+            </div>
+          )}
           {tier.id === 2 && (
             <div className="mt-4 border border-[var(--color-gold-muted)] rounded-sm p-5">
               <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold mb-3">{t('audit.mathsEyebrow')}</p>
@@ -309,8 +321,14 @@ export function AuditPage() {
             {t('audit.heroFreeLink')}
           </a>
         </div>
+        <div className="mb-8 border border-[var(--color-gold-muted)] rounded-sm px-5 py-4 max-w-xl">
+          <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] font-semibold mb-2">{t('audit.mathsEyebrow')}</p>
+          <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
+            {t('audit.mathsBody1')} <span className="font-semibold text-[var(--color-text)]">{t('audit.mathsHighlight')}</span>. {t('audit.mathsBody2')}
+          </p>
+        </div>
         <div id="tiers" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {tiers.map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}
+          {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}
         </div>
       </section>
 

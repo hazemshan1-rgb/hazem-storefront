@@ -585,6 +585,34 @@ function ResultsScreen({
         ))}
       </div>
 
+      {/* Score-contextual pathway nudge */}
+      {result.normalisedPct > 20 && result.normalisedPct <= 65 && (
+        <div className="border border-[var(--color-gold-muted)] rounded-sm p-5 mb-8 bg-[rgba(255,255,255,0.02)]">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] mb-2">Recommended path</p>
+          <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed mb-4">
+            {result.normalisedPct <= 40
+              ? 'A focused session will identify your top 2 leaks and build a prioritised fix plan. Most operators recover the session fee within the first adjusted cycle.'
+              : 'At this level, a single session finds the 2–3 highest-impact fixes. For dollar-precise leak quantification and a margin guarantee, the Tier 1 Diagnostic Audit starts at $5,000.'}
+          </p>
+          {result.normalisedPct > 40 && (
+            <Link
+              to="/audit"
+              className="text-xs text-[var(--color-gold)] hover:underline tracking-wide"
+            >
+              See the full Diagnostic Audit Programme →
+            </Link>
+          )}
+        </div>
+      )}
+      {result.normalisedPct > 65 && (
+        <div className="border border-[#ef4444]/30 rounded-sm p-5 mb-8 bg-[rgba(239,68,68,0.04)]">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-[#ef4444] mb-2">Severity note</p>
+          <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed">
+            A score at this level indicates structural bleeding across multiple systems. A consultation session will surface symptoms — the 90-Day Transformation Programme is built to fix them.
+          </p>
+        </div>
+      )}
+
       {/* CTA */}
       <div className="text-center mb-10">
         <Link

@@ -12,7 +12,8 @@
     "mobileNav": "Mobile navigation",
     "cta": {
       "farmScore": "Get My Farm Score",
-      "book": "Book a Consultation"
+      "book": "Book a Consultation",
+      "audit": "See Farm Audit →"
     },
     "lang": "عربي"
   },
@@ -49,7 +50,7 @@
   "hero": {
     "eyebrow": "Aquaculture · Systems · Profitability",
     "headline": "Most farms fail for reasons their operators never identify.",
-    "body": "After 30 years across 15 countries, the pattern is clear: it's rarely the biology. Feed conversion leaks, management blind spots, mis-timed interventions — these cost operators entire seasons, silently. These resources give you the frameworks to find those failures before they compound into something irreversible.",
+    "body": "Your shrimp operation is running — but if your FCR is above 1.5, you've had a disease event in the last two cycles, or your margins feel thinner than your yields suggest, you're losing 20–40% of potential profit through failures that don't show up in your feed reports. After 30 years across SE Asia and MENA, I've mapped exactly how this happens. The tools and frameworks here help you find it on your farm.",
     "ctaPrimary": "Get My Farm Score →",
     "ctaSecondary": "Browse Resources",
     "ctaTertiary": "Claim your free field guides →",
@@ -207,13 +208,13 @@
     "seeAllWaitlist": "See all & join waitlist →",
     "joinWaitlist": "Join waitlist →",
     "course1Title": "Shrimp Farm Operations Masterclass",
-    "course1Desc": "Carrying capacity, FCR optimisation, water quality systems, disease risk, and harvest planning — built for vannamei and monodon operators.",
+    "course1Desc": "Carrying capacity, FCR optimisation, water quality systems, disease risk, and harvest planning — built for vannamei and monodon operators. The same frameworks behind the $5,000 Diagnostic Audit, taught in full.",
     "course1Level": "Intermediate to Advanced",
     "course2Title": "Aquaculture Business Fundamentals",
-    "course2Desc": "Financial modelling, investor-readiness, cost structure, and strategic decision-making for aquaculture ventures at the $500K–$5M scale.",
+    "course2Desc": "Financial modelling, investor-readiness, cost structure, and strategic decision-making for aquaculture ventures at the $500K–$5M scale. The business layer of the 90-Day Transformation Programme, structured as a self-paced course.",
     "course2Level": "All levels",
     "course3Title": "Sustainable Systems Design",
-    "course3Desc": "Design, evaluate, and operate IMTA, biofloc, and RAS systems — from engineering logic and biological principles to economic trade-offs.",
+    "course3Desc": "Design, evaluate, and operate IMTA, biofloc, and RAS systems — from engineering logic and biological principles to economic trade-offs. Systems design that underpins facilities worth $500K–$5M.",
     "course3Level": "Advanced",
     "categories": {
       "Ebook": "Ebook",
@@ -293,13 +294,13 @@
     ],
     "socialProofTitle": "Client Results",
     "stickyEyebrow": "Advisory Session",
-    "stickyBody": "From $250 · Written action within 24 hrs",
+    "stickyBody": "From $350 · Written action within 24 hrs",
     "stickyBtn": "See Options →",
     "consultantTitle": "Aquaculture Systems Consultant — 30+ years, 15 countries",
     "deepDive": {
       "badge": "Deep Dive",
       "mostChosen": "Most chosen",
-      "price": "$500",
+      "price": "$750",
       "duration": "/ 60 minutes",
       "desc": "Full diagnostic. Multiple dimensions. Best for complex decisions, site evaluations, or any situation where you need to work through more than one layer of the problem.",
       "bullets": [
@@ -308,21 +309,22 @@
         "Multiple problems or dimensions covered",
         "No retainer. No upsell."
       ],
-      "bookBtn": "Book Deep Dive — $500",
+      "bookBtn": "Book Deep Dive — $750",
       "enquireBtn": "Enquire by Email",
-      "secure": "Secure payment via Lemon Squeezy"
+      "secure": "Secure payment via Gumroad",
+      "tier1CreditNote": "Book Tier 1 within 30 days of your session and the full session fee is credited toward your audit investment."
     },
     "focus": {
       "badge": "Focus Session",
       "duration30": "30 min",
-      "price": "$250",
+      "price": "$350",
       "desc": "One specific question. One clear answer. One action. Best for operators who already understand their situation and need a sharp, experienced second opinion.",
       "bullets": [
         "Targeted on a single problem or decision",
         "Written follow-up within 24 hours",
         "All time zones covered"
       ],
-      "bookBtn": "Book Focus Session — $250",
+      "bookBtn": "Book Focus Session — $350",
       "enquireBtn": "Enquire by Email"
     },
     "rescheduleTitle": "Reschedule policy",
@@ -354,7 +356,13 @@
     "membershipsLabel": "Professional Memberships",
     "degree": "B.Sc. Agricultural Engineering — Animal Production & Husbandry",
     "university": "University of Jordan",
-    "universityYears": "1989–1993"
+    "universityYears": "1989–1993",
+    "softOfferEyebrow": "Work With Me",
+    "softOfferHeadline": "If this resonates, the fastest route forward is a conversation.",
+    "softOfferBody": "Most operators who come to me have already tried fixing things from the inside. The Tier 1 Diagnostic Audit is where we start — 30 days, remote, specific dollar-figure leak identification and a prioritised action plan. Most operators find it recovers its cost within the first adjusted cycle. If you want to ask a question before booking, DM on LinkedIn.",
+    "softOfferCta": "See the Diagnostic Audit →",
+    "softOfferAlt": "Or book a one-hour consultation. Same depth, applied directly to your operation.",
+    "softOfferAltCta": "Book a consultation →"
   },
   "audit": {
     "seoTitle": "Aquapreneur Transformation Programme — Consulting for Shrimp Farm Operators",

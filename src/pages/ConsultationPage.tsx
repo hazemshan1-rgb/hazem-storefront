@@ -222,6 +222,7 @@ export function ConsultationPage() {
                   <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">{t('consultation.deepDive.secure')}</p>
                 </div>
               )}
+              <p className="text-[10px] text-[var(--color-gold)] mt-4 leading-relaxed">{t('consultation.deepDive.tier1CreditNote')}</p>
             </div>
 
             {/* 30-min */}

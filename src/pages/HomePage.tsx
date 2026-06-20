@@ -8,6 +8,7 @@ import { TrustLogos } from '../components/home/TrustLogos'
 import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { Philosophy } from '../components/home/Philosophy'
 import { InactionClock } from '../components/home/InactionClock'
+import { ValuationTeaser } from '../components/home/ValuationTeaser'
 import { SEO } from '../components/ui/SEO'
 
 function ToolsNav() {
@@ -118,6 +119,7 @@ export function HomePage() {
       <Hero />
       <TrustStrip />
       <TrustLogos />
+      <ValuationTeaser />
       <DiagnosticTeaser />
       <InactionClock />
       <ToolsNav />

@@ -189,6 +189,31 @@ export function AboutPage() {
         </div>
       </div>
 
+      {/* Soft offer */}
+      <div className="max-w-4xl mx-auto px-6 py-16 border-t border-[var(--color-gold-muted)] mt-10">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('about.softOfferEyebrow')}</p>
+        <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-text)] mb-5 leading-snug">
+          {t('about.softOfferHeadline')}
+        </h2>
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-8">
+          {t('about.softOfferBody')}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link
+            to="/audit"
+            className="inline-block text-[11px] font-semibold tracking-widest uppercase text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-4 rounded-sm hover:brightness-110 transition-all text-center"
+          >
+            {t('about.softOfferCta')}
+          </Link>
+          <div className="flex flex-col justify-center">
+            <p className="text-xs text-[var(--color-text-muted)]">{t('about.softOfferAlt')}</p>
+            <Link to="/consultation" className="text-xs text-[var(--color-gold)] hover:underline mt-1">
+              {t('about.softOfferAltCta')}
+            </Link>
+          </div>
+        </div>
+      </div>
+
     </main>
   )
 }

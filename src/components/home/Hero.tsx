@@ -85,7 +85,6 @@ export function Hero() {
 
             <div className="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-400">
               <Button as="link" to="/diagnostic" size="lg">{t('hero.ctaPrimary')}</Button>
-              <Button as="link" to="/shop" variant="secondary" size="lg" className="border-[var(--color-navy)] text-[var(--color-navy)] hover:bg-[var(--color-navy)] hover:text-white transition-all">{t('hero.ctaSecondary')}</Button>
             </div>
 
             <Link

@@ -199,8 +199,8 @@ export function Navbar() {
                   <Button as="link" to="/diagnostic" size="lg" className="w-full justify-center" onClick={() => setOpen(false)}>
                     {t('nav.cta.farmScore')}
                   </Button>
-                  <Button as="link" to="/consultation" size="lg" variant="secondary" className="w-full justify-center" onClick={() => setOpen(false)}>
-                    {t('nav.cta.book')}
+                  <Button as="link" to="/audit" size="lg" variant="secondary" className="w-full justify-center" onClick={() => setOpen(false)}>
+                    {t('nav.cta.audit')}
                   </Button>
                 </motion.div>
               </div>

@@ -2,7 +2,7 @@
 
 @theme {
   --font-family-serif: 'Playfair Display', Georgia, serif;
-  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-sans: 'Geist Variable', system-ui, sans-serif;
   --font-family-arabic: 'Cairo', system-ui, sans-serif;
 }
 
@@ -22,7 +22,7 @@
     --color-text-muted-dark: #E2E8F0;
     --color-border:          #E2E8F0;
     --font-serif:            'Playfair Display', Georgia, serif;
-    --font-sans:             'Inter', system-ui, sans-serif;
+    --font-sans:             'Geist Variable', system-ui, sans-serif;
   }
 
   html { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); }

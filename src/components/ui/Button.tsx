@@ -37,7 +37,7 @@ export function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center font-semibold tracking-widest uppercase transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)]'
+  const base = 'inline-flex items-center justify-center font-semibold tracking-widest uppercase transition-all duration-200 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)]'
 
   const variants = {
     primary: 'bg-[var(--color-gold-cta)] text-[var(--color-navy)] hover:brightness-110',

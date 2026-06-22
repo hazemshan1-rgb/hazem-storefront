@@ -473,6 +473,7 @@ function ResultsScreen({
   const [email, setEmail]           = useState('')
   const [emailSaved, setEmailSaved] = useState(false)
   const [savedId, setSavedId]       = useState<string | null>(null)
+  const [showPivotModal, setShowPivotModal] = useState(result.normalisedPct > 65)
 
   useEffect(() => {
     saveDiagnosticResult(answers, contextAnswers, result).then(r => {
@@ -502,6 +503,14 @@ function ResultsScreen({
   ]
 
   return (
+    <>
+      <PivotModal
+        isOpen={showPivotModal}
+        onClose={() => setShowPivotModal(false)}
+        score={result.normalisedPct}
+        leakHigh={leakHigh}
+        fmt={fmt}
+      />
     <div className="max-w-2xl mx-auto w-full px-6 py-20">
 
       {/* Score header */}
@@ -693,5 +702,101 @@ function ResultsScreen({
         {t('diagnostic.disclaimer')}
       </p>
     </div>
+    </>
+  )
+}
+
+// ── Pivot modal — intercepts >65% Leak Index users ────────────────────────────
+
+function PivotModal({
+  isOpen,
+  onClose,
+  score,
+  leakHigh,
+  fmt,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  score: number
+  leakHigh: number
+  fmt: (n: number) => string
+}) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          {/* Backdrop */}
+          <motion.div
+            className="absolute inset-0 bg-[var(--color-navy)]/80 backdrop-blur-sm"
+            onClick={onClose}
+            aria-hidden="true"
+          />
+
+          {/* Card */}
+          <motion.div
+            className="relative z-10 w-full max-w-md bg-[var(--color-navy-2)] border border-red-500/40 rounded-sm shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 8 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Red severity bar */}
+            <div className="h-1 w-full bg-gradient-to-r from-red-600 via-red-500 to-red-400" />
+
+            <div className="p-8">
+              {/* Score badge */}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="text-4xl font-serif font-bold text-red-400">{score}</span>
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-red-400 font-semibold leading-tight">
+                    Leak Index
+                  </p>
+                  <p className="text-[11px] text-[var(--color-text-muted-dark)] leading-tight mt-0.5">
+                    Critical severity
+                  </p>
+                </div>
+              </div>
+
+              <h2 className="font-serif text-xl text-[var(--color-text-on-dark)] leading-snug mb-3">
+                This score needs more than a consultation
+              </h2>
+
+              <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed mb-6">
+                At <span className="text-white font-medium">{score}%</span>, your farm is losing an
+                estimated{' '}
+                <span className="text-[var(--color-gold-cta)] font-medium">{fmt(leakHigh)}</span>{' '}
+                or more annually across multiple systems simultaneously. A single session surfaces
+                symptoms — the{' '}
+                <span className="text-white font-medium">90-Day Transformation Programme</span>{' '}
+                fixes the underlying cause with a guaranteed margin outcome.
+              </p>
+
+              {/* Primary CTA */}
+              <Link
+                to="/audit"
+                onClick={onClose}
+                className="block w-full text-center bg-[var(--color-gold-cta)] hover:bg-amber-500 text-[var(--color-navy)] font-semibold text-sm py-3.5 px-6 rounded-sm transition-colors duration-200 mb-3"
+              >
+                See the Audit Programme →
+              </Link>
+
+              {/* Secondary dismiss */}
+              <button
+                onClick={onClose}
+                className="block w-full text-center text-xs text-[var(--color-text-muted-dark)] hover:text-[var(--color-text-on-dark)] transition-colors duration-200 py-2"
+              >
+                Continue to my results
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

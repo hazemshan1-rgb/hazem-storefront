@@ -79,6 +79,88 @@ export const products: Product[] = [
     featured: true,
   },
 
+  // ─── Mid-ladder paid products ────────────────────────────────────────────────
+
+  {
+    id: 'water-smell-primer',
+    slug: 'why-your-water-smells-primer',
+    title: 'Why Your Water Smells',
+    category: 'Ebook',
+    tagline: 'Diagnose and fix pond water odour problems before they kill a crop.',
+    description: 'Ammonia spikes, hydrogen sulphide, off-gassing from decomposing organic matter — each has a distinct smell and a distinct fix. This primer maps the nine most common odour types to their biological and chemical causes, with field protocols for diagnosing each within 24 hours. Written for farm managers who need to act fast, not read a textbook.',
+    benefits: [
+      'Identify the source of any pond odour within 24 hours using the diagnostic framework',
+      'Understand the biological mechanisms behind each smell type — what is happening in your water column',
+      'Apply the correct intervention without guessing — each cause has a specific protocol',
+      'Prevent the cascade: odour is the first warning before an oxygen crash or floc collapse',
+    ],
+    price: 27,
+    coverImage: '/images/products/wq-sop-cover.svg',
+    checkoutUrl: '#',
+    comingSoon: true,
+    featured: false,
+  },
+
+  {
+    id: 'biofloc-doesnt-floc',
+    slug: 'biofloc-that-doesnt-floc',
+    title: 'Biofloc That Doesn\'t Floc',
+    category: 'Ebook',
+    tagline: 'The management protocols that keep biofloc stable through a full production cycle.',
+    description: 'Biofloc is one of the highest-yield systems available to shrimp farmers — and one of the most brittle if managed incorrectly. This guide covers the critical decisions that determine whether your floc performs or collapses: carbon source selection, aeration geometry, C:N management, harvest timing, and the early-warning indicators experienced operators use to catch instability before it becomes a crash.',
+    benefits: [
+      'Maintain stable floc across a full cycle using the C:N management protocol',
+      'Select the right carbon source for your system and budget — the wrong choice is the most common early mistake',
+      'Read the physical indicators that predict instability 48–72 hours before it becomes visible',
+      'Time your harvest based on floc performance data, not calendar dates',
+    ],
+    price: 37,
+    coverImage: '/images/products/biofloc-complete-cover.svg',
+    checkoutUrl: '#',
+    comingSoon: true,
+    featured: false,
+  },
+
+  {
+    id: 'sop-giant-prawn-arabic',
+    slug: 'sop-giant-prawn-production-arabic',
+    title: 'SOP: Giant Prawn Production (Arabic)',
+    category: 'SOP',
+    tagline: 'Full-cycle Macrobrachium rosenbergii production SOPs — written in Arabic for MENA operations.',
+    description: 'A complete standard operating procedure manual for giant freshwater prawn production covering hatchery management, nursery phase, grow-out, water quality maintenance, feeding protocols, and harvest. Written for Arabic-speaking farm managers and technical staff, with protocols calibrated to MENA temperature ranges, water quality parameters, and input availability.',
+    benefits: [
+      'Run your operation from a single complete reference document designed for your team',
+      'Apply protocols written for MENA conditions — not translated from Southeast Asian contexts',
+      'Train new staff against a documented standard to reduce training time and error rate',
+      'Maintain consistency across grow-out cycles with clear water quality and feeding decision trees',
+    ],
+    price: 67,
+    coverImage: '/images/products/feed-sop-cover.svg',
+    checkoutUrl: '#',
+    comingSoon: true,
+    featured: false,
+  },
+
+  {
+    id: 'aquaculture-market-gap-2026',
+    slug: 'global-aquaculture-market-gap-2026',
+    title: 'Global Aquaculture Market Gap — Q1 2026',
+    category: 'Ebook',
+    tagline: 'Where global aquaculture supply is failing demand — and what that means for producers who can scale.',
+    description: 'A structured analysis of production shortfalls across the top 12 aquaculture species categories — shrimp, tilapia, salmon, carp, seabass, sea bream, and six others — mapped against demand growth projections through 2028. Includes regional breakdown by production capacity, import/export gap data, and the specific market segments where undersupply is creating pricing power. Written for farm investors, export buyers, and operations planning their next expansion.',
+    benefits: [
+      'Identify the species and regions where supply gaps are greatest right now',
+      'Benchmark your production costs against the price floors that undersupply is creating',
+      'Make expansion decisions backed by global demand data, not regional market hearsay',
+      'Understand where export buyers are actively looking for new suppliers — and what they require',
+    ],
+    price: 67,
+    coverImage: '/images/products/financial-model-cover.svg',
+    checkoutUrl: '#',
+    comingSoon: true,
+    featured: false,
+  },
+
 ]
 
 export const getFeatured = (): Product[] => products.filter(p => p.featured)

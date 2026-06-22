@@ -1,0 +1,37 @@
+{
+  "name": "Hazem Shannak — Aquaculture Consulting",
+  "description": "Aquaculture systems consultant and business growth architect. Field-tested frameworks for shrimp and fish farm operators across SE Asia and MENA.",
+  "url": "https://hazemshannak.cc",
+  "contact": "connect@hazemshannak.cc",
+  "version": "1.0",
+  "capabilities": [
+    "Farm health diagnostic",
+    "Farm audit and margin recovery",
+    "Aquaculture strategy consultation",
+    "Digital resources: ebooks, SOPs, toolkits"
+  ],
+  "endpoints": [
+    {
+      "name": "Farm Diagnostic",
+      "description": "Free farm health self-assessment tool",
+      "url": "https://hazemshannak.cc/diagnostic"
+    },
+    {
+      "name": "Farm Audit",
+      "description": "Deep-dive audit for operators doing $200K–$2M/year",
+      "url": "https://hazemshannak.cc/audit"
+    },
+    {
+      "name": "Consultation",
+      "description": "60-minute or 30-minute strategy sessions",
+      "url": "https://hazemshannak.cc/consultation"
+    },
+    {
+      "name": "Shop",
+      "description": "Digital resources: ebooks, SOPs, toolkits",
+      "url": "https://hazemshannak.cc/shop"
+    }
+  ],
+  "llms_txt": "https://hazemshannak.cc/llms.txt",
+  "sitemap": "https://hazemshannak.cc/sitemap.xml"
+}

@@ -14,7 +14,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const tagline = t(`products.${product.slug}.tagline`, { defaultValue: product.tagline })
 
   return (
-    <div className="group bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.15)] transition-all duration-300 flex flex-row">
+    <div className="group relative bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.18)] transition-all duration-300 flex flex-row">
+      {/* Inner bezel ring */}
+      <div className="absolute inset-[3px] rounded-[3px] border border-[var(--color-gold-muted)]/30 pointer-events-none z-10 transition-colors duration-300 group-hover:border-[var(--color-gold-muted)]/50" aria-hidden="true" />
 
       {/* Cover image — left column */}
       <Link

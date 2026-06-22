@@ -70,6 +70,34 @@ export function ConsultationPage() {
         title={t('consultation.seoTitle')}
         description={t('consultation.seoDesc')}
         url="/consultation"
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ProfessionalService',
+            name: 'Hazem Shannak — Aquaculture Consulting',
+            url: 'https://hazemshannak.cc/consultation',
+            description: t('consultation.seoDesc'),
+            areaServed: 'Worldwide',
+            knowsAbout: ['Aquaculture', 'Shrimp Farming', 'Biofloc Systems', 'IMTA', 'Farm Profitability'],
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hazemshannak.cc' },
+              { '@type': 'ListItem', position: 2, name: 'Consultation', item: 'https://hazemshannak.cc/consultation' },
+            ],
+          },
+        ]}
       />
 
       {/* Sticky CTA */}
@@ -170,6 +198,17 @@ export function ConsultationPage() {
           {/* Right — session options */}
           <div id="options" className="space-y-4">
 
+            {/* Capacity indicator */}
+            <div className="flex items-center gap-3 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm px-4 py-2.5">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-gold-cta)] opacity-60" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-gold-cta)]" />
+              </span>
+              <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
+                <span className="text-[var(--color-text)] font-semibold">2–3 spots available</span> this month · Typically books out by week 2
+              </p>
+            </div>
+
             {/* Social proof — above pricing */}
             <div className="mb-2 flex items-center gap-3 px-1">
               <div className="flex -space-x-2">
@@ -222,7 +261,12 @@ export function ConsultationPage() {
                   <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">{t('consultation.deepDive.secure')}</p>
                 </div>
               )}
-              <p className="text-[10px] text-[var(--color-gold)] mt-4 leading-relaxed">{t('consultation.deepDive.tier1CreditNote')}</p>
+              <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.06)]">
+                <p className="text-[10px] text-[var(--color-text-muted-dark)] text-center leading-relaxed">
+                  If the session delivers no actionable insight, I'll refund you. No form. No friction.
+                </p>
+              </div>
+              <p className="text-[10px] text-[var(--color-gold)] mt-3 leading-relaxed">{t('consultation.deepDive.tier1CreditNote')}</p>
             </div>
 
             {/* 30-min */}

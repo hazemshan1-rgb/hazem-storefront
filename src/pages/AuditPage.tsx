@@ -295,7 +295,29 @@ export function AuditPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
-      <SEO title={t('audit.seoTitle')} description={t('audit.seoDesc')} url="/audit" />
+      <SEO
+        title={t('audit.seoTitle')}
+        description={t('audit.seoDesc')}
+        url="/audit"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Aquaculture Farm Audit & Transformation Programme',
+          description: 'On-site diagnostic audits, 90-day transformation sprints, and investor-ready enterprise redesigns for aquaculture operators doing $200K–$2M/year.',
+          url: 'https://hazemshannak.cc/audit',
+          provider: { '@type': 'Person', name: 'Hazem Shannak' },
+          areaServed: ['Southeast Asia', 'Middle East', 'North Africa', 'Sub-Saharan Africa'],
+          serviceType: 'Aquaculture Management Consulting',
+          hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Audit Tiers',
+            itemListElement: [
+              { '@type': 'Offer', name: 'Tier 1 Diagnostic Audit', priceSpecification: { '@type': 'PriceSpecification', minPrice: 5000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 12000, priceCurrency: 'USD' } },
+            ],
+          },
+        }}
+      />
 
       {/* Sticky CTA */}
       <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-lg transition-all duration-500 ${showSticky ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>

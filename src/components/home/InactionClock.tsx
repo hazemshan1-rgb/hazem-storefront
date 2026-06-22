@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 // Model: intensive commercial pond ≈ $100K annual revenue, 40% efficiency gap
 // Breakdown: FCR overspend 15% + invisible mortality 12% + disease risk amortised 8%
@@ -33,6 +38,29 @@ export function InactionClock() {
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
   }, [inView])
+
+  const breakdownRef = useRef<HTMLDivElement>(null)
+  const counterRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      // Stagger breakdown stat cards
+      if (breakdownRef.current?.children) {
+        gsap.from(breakdownRef.current.children, {
+          y: 24, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: breakdownRef.current, start: 'top 75%' },
+        })
+      }
+      // Counter reveal
+      if (counterRef.current) {
+        gsap.from(counterRef.current, {
+          y: 20, opacity: 0, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: counterRef.current, start: 'top 80%' },
+        })
+      }
+    })
+  }, { scope: ref })
 
   const ratePerSec = ponds * LOSS_PER_POND_PER_SECOND
   const session    = elapsed * ratePerSec
@@ -77,7 +105,7 @@ export function InactionClock() {
           </div>
 
           {/* Breakdown */}
-          <div className="grid grid-cols-2 gap-3">
+          <div ref={breakdownRef} className="grid grid-cols-2 gap-3">
             {breakdown.map(({ label, value, highlight }) => (
               <div
                 key={label}
@@ -98,7 +126,7 @@ export function InactionClock() {
           </div>
 
           {/* Live counter */}
-          <div className="text-center">
+          <div ref={counterRef} className="text-center">
             <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] mb-3">
               {t('inactionClock.pageCounter')}
             </p>

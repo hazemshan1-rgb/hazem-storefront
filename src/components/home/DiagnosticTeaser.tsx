@@ -1,10 +1,20 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
+
+// Fixed ghost scores — representative of a real farm, not generated on render
+const GHOST_SCORES = [72, 48, 65, 31, 58]
 
 export function DiagnosticTeaser() {
   const { t } = useTranslation()
   const ref = useScrollReveal<HTMLElement>()
+  const scorecardRef = useRef<HTMLDivElement>(null)
 
   const dims = [
     t('diagnosticTeaser.dim.feedEfficiency'),
@@ -13,6 +23,25 @@ export function DiagnosticTeaser() {
     t('diagnosticTeaser.dim.financial'),
     t('diagnosticTeaser.dim.infrastructure'),
   ]
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const bars = scorecardRef.current?.querySelectorAll('.ghost-bar')
+      if (!bars?.length) return
+
+      gsap.from(bars, {
+        width: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: scorecardRef.current,
+          start: 'top 72%',
+        },
+      })
+    })
+  }, { scope: scorecardRef })
 
   return (
     <section ref={ref} className="scroll-reveal bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
@@ -41,7 +70,7 @@ export function DiagnosticTeaser() {
 
           {/* Right — ghost scorecard */}
           <div className="relative">
-            <div className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-sm p-6">
+            <div ref={scorecardRef} className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] rounded-sm p-6">
               <div className="flex items-center justify-between mb-6">
                 <p className="text-[10px] tracking-widest uppercase text-[var(--color-gold-cta)]">
                   {t('diagnosticTeaser.scorecardTitle')}
@@ -51,12 +80,15 @@ export function DiagnosticTeaser() {
                 </div>
               </div>
               <div className="space-y-3 mb-6">
-                {dims.map(label => (
+                {dims.map((label, i) => (
                   <div key={label} className="flex items-center justify-between">
                     <span className="text-xs text-[var(--color-text-muted-dark)]">{label}</span>
                     <div className="flex items-center gap-3">
                       <div className="w-24 h-1.5 bg-[rgba(255,255,255,0.08)] rounded-full overflow-hidden">
-                        <div className="h-full w-0 bg-[var(--color-gold-cta)]/30 rounded-full" />
+                        <div
+                          className="ghost-bar h-full bg-[var(--color-gold-cta)]/30 rounded-full"
+                          style={{ width: `${GHOST_SCORES[i]}%` }}
+                        />
                       </div>
                       <span className="text-xs text-[var(--color-text-muted-dark)] w-8 text-right">?/10</span>
                     </div>

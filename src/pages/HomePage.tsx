@@ -87,6 +87,9 @@ function ConsultationBanner() {
                 className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors text-center">
                 {t('consultationBanner.ctaProgram')}
               </Link>
+              <p className="text-[9px] text-[var(--color-text-muted-dark)] md:text-right leading-relaxed">
+                2–3 operators per month · Spots typically filled by week 2
+              </p>
             </div>
           </div>
         </div>

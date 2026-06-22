@@ -60,9 +60,12 @@ export function TrustStrip() {
   return (
     <section ref={ref} className="border-y border-[var(--color-gold-muted)] bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {stats.map(stat => (
-            <StatItem key={stat.label} {...stat} active={isInView} />
+            <div key={stat.label} className="relative bg-[var(--color-bg)] border border-[var(--color-gold-muted)] rounded-sm p-6">
+              <div className="absolute inset-[3px] rounded-[2px] border border-[var(--color-gold-muted)]/20 pointer-events-none" aria-hidden="true" />
+              <StatItem {...stat} active={isInView} />
+            </div>
           ))}
         </div>
       </div>

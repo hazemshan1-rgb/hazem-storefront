@@ -38,22 +38,48 @@ export function ProductDetailPage() {
         image={product.coverImage}
         url={`/shop/${product.slug}`}
         type="product"
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          name: product.title,
-          description: product.description,
-          image: `https://hazemshannak.cc${product.coverImage}`,
-          url: `https://hazemshannak.cc/shop/${product.slug}`,
-          brand: { '@type': 'Brand', name: 'Hazem Shannak' },
-          offers: {
-            '@type': 'Offer',
-            price: product.price,
-            priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
-            url: product.checkoutUrl,
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.title,
+            description: product.description,
+            image: `https://hazemshannak.cc${product.coverImage}`,
+            url: `https://hazemshannak.cc/shop/${product.slug}`,
+            brand: { '@type': 'Brand', name: 'Hazem Shannak' },
+            offers: {
+              '@type': 'Offer',
+              price: product.price,
+              priceCurrency: 'USD',
+              availability: product.comingSoon ? 'https://schema.org/PreOrder' : 'https://schema.org/InStock',
+              url: product.checkoutUrl !== '#' ? product.checkoutUrl : `https://hazemshannak.cc/shop/${product.slug}`,
+            },
           },
-        }}
+          // Educational resource schema for ebooks and SOPs
+          ...(product.category === 'Ebook' || product.category === 'SOP' ? [{
+            '@context': 'https://schema.org',
+            '@type': 'LearningResource',
+            name: product.title,
+            description: product.description,
+            url: `https://hazemshannak.cc/shop/${product.slug}`,
+            author: { '@type': 'Person', name: 'Hazem Shannak', url: 'https://hazemshannak.cc' },
+            educationalLevel: 'Professional',
+            learningResourceType: product.category === 'SOP' ? 'Standard Operating Procedure' : 'Guide',
+            inLanguage: 'en',
+            about: { '@type': 'Thing', name: 'Aquaculture', description: 'Shrimp farming, biofloc systems, IMTA, and aquaculture profitability' },
+            teaches: product.benefits?.join('; ') ?? '',
+          }] : []),
+          // BreadcrumbList
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://hazemshannak.cc' },
+              { '@type': 'ListItem', position: 2, name: 'Resources', item: 'https://hazemshannak.cc/shop' },
+              { '@type': 'ListItem', position: 3, name: product.title, item: `https://hazemshannak.cc/shop/${product.slug}` },
+            ],
+          },
+        ]}
       />
       <Link to="/shop" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors mb-8 block">
         {t('productDetail.backToShop')}
@@ -116,14 +142,36 @@ export function ProductDetailPage() {
           </div>
 
           {product.price > 0 && !product.comingSoon && (
-            <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-              {t('productDetail.secureCheckout')}
-            </p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <rect x="1" y="6" width="10" height="5.5" rx="1.2" stroke="var(--color-text-muted)" strokeWidth="1.1"/>
+                  <path d="M3.5 6V4.5a2.5 2.5 0 015 0V6" stroke="var(--color-text-muted)" strokeWidth="1.1" strokeLinecap="round"/>
+                </svg>
+                <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">{t('productDetail.secureCheckout')}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <circle cx="6" cy="6" r="5" stroke="var(--color-gold)" strokeWidth="1.1"/>
+                  <path d="M6 3.5V6l1.5 1.5" stroke="var(--color-gold)" strokeWidth="1.1" strokeLinecap="round"/>
+                </svg>
+                <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">Instant digital delivery — PDF in your inbox within 60 seconds</p>
+              </div>
+              <div className="mt-3 pt-3 border-t border-[var(--color-gold-muted)]">
+                <p className="text-[10px] text-[var(--color-text-muted)] leading-relaxed">
+                  A session with Hazem costs $250–$500. This gives you the same framework, at your own pace.
+                </p>
+              </div>
+            </div>
           )}
           {product.price === 0 && (
-            <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
-              {t('productDetail.freeDelivery')}
-            </p>
+            <div className="flex items-center gap-2">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <circle cx="6" cy="6" r="5" stroke="var(--color-gold)" strokeWidth="1.1"/>
+                <path d="M6 3.5V6l1.5 1.5" stroke="var(--color-gold)" strokeWidth="1.1" strokeLinecap="round"/>
+              </svg>
+              <p className="text-[10px] text-[var(--color-text-muted)] tracking-wide">{t('productDetail.freeDelivery')}</p>
+            </div>
           )}
         </div>
       </div>

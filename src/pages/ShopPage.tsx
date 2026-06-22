@@ -43,7 +43,22 @@ export function ShopPage() {
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">
           {t('shop.storeEyebrow')}
         </p>
-        <h1 className="font-serif text-4xl text-[var(--color-text)]">{t('shop.allResources')}</h1>
+        <h1 className="font-serif text-4xl text-[var(--color-text)] mb-4">{t('shop.allResources')}</h1>
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
+          Field-tested across 15+ countries. Everything here was built from operating problems, not theory — each resource maps directly to a measurable outcome on a working farm.
+        </p>
+        <div className="flex items-center gap-6 mt-6 pt-6 border-t border-[var(--color-gold-muted)]">
+          {[
+            { val: '30+', label: 'Years practice' },
+            { val: '1,000+', label: 'Professionals trained' },
+            { val: '$50M+', label: 'Farms restructured' },
+          ].map(stat => (
+            <div key={stat.label} className="flex flex-col gap-0.5">
+              <span className="font-serif text-xl text-[var(--color-gold)]">{stat.val}</span>
+              <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)]">{stat.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
       <CategoryFilter active={activeFilter} onChange={setActiveFilter} />
       <ProductGrid products={filtered} />

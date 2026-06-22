@@ -131,6 +131,18 @@ export function DiagnosticPage() {
         title={t('diagnostic.seoTitle')}
         description={t('diagnostic.seoDesc')}
         url="/diagnostic"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          name: 'Aquaculture Farm Health Diagnostic',
+          description: 'Score your farm across feed efficiency, survival rates, operations, financials, and infrastructure. Identify hidden profit leaks in under 15 minutes.',
+          url: 'https://hazemshannak.cc/diagnostic',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+          author: { '@type': 'Person', name: 'Hazem Shannak', url: 'https://hazemshannak.cc' },
+          keywords: 'aquaculture diagnostic, shrimp farm audit, farm health score, biofloc assessment, aquaculture profitability',
+        }}
       />
 
       <div className="min-h-screen bg-[var(--color-navy)] text-[var(--color-text-on-dark)] flex flex-col">

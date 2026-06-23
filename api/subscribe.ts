@@ -1,3 +1,5 @@
+export const config = { runtime: 'edge' }
+
 // anon key is intentionally hardcoded — it's already public in the Vite client bundle
 const SUPABASE_URL      = 'https://gtvdzrzezdrwclhikccf.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0dmR6cnplemRyd2NsaGlrY2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NjA3MzEsImV4cCI6MjA5NjMzNjczMX0.njx9pY6j3QdZe2cB0ZeUrAIZQHboa0f33UMw1LIgzfs'

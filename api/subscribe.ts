@@ -1,7 +1,7 @@
 export const config = { runtime: 'edge' }
 
-const SUPABASE_URL     = process.env.VITE_SUPABASE_URL ?? ''
-const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY ?? ''
+const SUPABASE_URL      = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? ''
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ?? process.env.VITE_SUPABASE_ANON_KEY ?? ''
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

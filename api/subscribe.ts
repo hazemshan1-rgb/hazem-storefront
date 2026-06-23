@@ -22,7 +22,7 @@ export default async function handler(req: Request): Promise<Response> {
 
   let body: { email?: string; source?: string }
   try {
-    body = await req.json()
+    body = await req.json() as { email?: string; source?: string }
   } catch {
     return json({ error: 'Invalid JSON' }, 400)
   }

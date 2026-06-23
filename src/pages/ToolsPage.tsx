@@ -476,10 +476,10 @@ export function ToolsPage() {
             {t('tools.needMoreBody')}
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link to="/consultation"
+            <a href="mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call"
               className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-5 py-2.5 rounded-sm hover:brightness-110 transition-all">
               {t('tools.bookSessionBtn')}
-            </Link>
+            </a>
             <Link to="/audit"
               className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-5 py-2.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
               {t('tools.seeAuditBtn')}

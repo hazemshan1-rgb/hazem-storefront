@@ -5,12 +5,12 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { caseStudies } from '../data/caseStudies'
 
-const CHECKOUT_60  = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
-const CHECKOUT_30  = import.meta.env.VITE_CONSULTATION_30_CHECKOUT_URL ?? ''
-const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL ?? ''
+const CHECKOUT_60 = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
+const CHECKOUT_30 = import.meta.env.VITE_CONSULTATION_30_CHECKOUT_URL ?? ''
+const BOOK_EMAIL  = 'mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call'
 
 function bookUrl(checkout: string) {
-  return checkout || CALENDLY_URL || ''
+  return checkout || BOOK_EMAIL
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {

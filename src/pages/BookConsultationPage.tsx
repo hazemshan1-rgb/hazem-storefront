@@ -1,33 +1,6 @@
-import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const CALENDLY_URL = import.meta.env.VITE_CALENDLY_URL ?? ''
-
-function CalendlyWidget({ url }: { url: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!ref.current || !url) return
-    const win = window as Window & { Calendly?: { initInlineWidget: (opts: object) => void } }
-    if (win.Calendly) {
-      win.Calendly.initInlineWidget({
-        url,
-        parentElement: ref.current,
-        prefill: {},
-        utm: {},
-      })
-    }
-  }, [url])
-
-  return (
-    <div
-      ref={ref}
-      className="calendly-inline-widget w-full"
-      style={{ minWidth: 320, height: 700 }}
-      data-auto-load="false"
-    />
-  )
-}
+const BOOK_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call'
 
 export function BookConsultationPage() {
   const { t } = useTranslation()
@@ -72,24 +45,23 @@ export function BookConsultationPage() {
         </div>
       </section>
 
-      {/* Calendly embed */}
-      <section className="max-w-4xl mx-auto px-6 py-12">
-        {CALENDLY_URL ? (
-          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-sm overflow-hidden shadow-sm">
-            <CalendlyWidget url={CALENDLY_URL} />
-          </div>
-        ) : (
-          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-sm p-16 text-center">
-            <p className="font-serif text-2xl text-[var(--color-text)] mb-4">{t('bookConsultation.widgetComingSoon')}</p>
-            <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-sm mx-auto">
-              Set{' '}
-              <code className="text-[var(--color-gold)] bg-[var(--color-surface-2)] px-1.5 py-0.5 rounded text-xs">
-                VITE_CALENDLY_URL
-              </code>{' '}
-              in your Vercel environment variables to activate scheduling.
-            </p>
-          </div>
-        )}
+      {/* Email booking CTA */}
+      <section className="max-w-2xl mx-auto px-6 py-16 text-center">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-12">
+          <p className="font-serif text-2xl text-[var(--color-text)] mb-3">Ready to book?</p>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-8 max-w-sm mx-auto">
+            Send an email and I'll reply within one business day to confirm your slot and send a brief intake form.
+          </p>
+          <a
+            href={BOOK_EMAIL}
+            className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-10 py-4 rounded-sm hover:brightness-110 transition-all"
+          >
+            Email to Book →
+          </a>
+          <p className="text-[10px] text-[var(--color-text-muted)] mt-6 tracking-wide">
+            connect@hazemshannak.cc
+          </p>
+        </div>
       </section>
 
       {/* What happens next */}

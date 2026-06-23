@@ -659,7 +659,15 @@ function ResultsScreen({
                 ? await updateDiagnosticEmail(savedId, email)
                 : await saveDiagnosticResult(answers, contextAnswers, result, email)
 
-              if (success) setEmailSaved(true)
+              if (success) {
+                setEmailSaved(true)
+                // Also add to subscribers list (fire-and-forget)
+                fetch('/api/subscribe', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ email, source: 'diagnostic-results' }),
+                }).catch(() => {/* silent — diagnostic save already succeeded */})
+              }
             }}
             className="flex flex-col sm:flex-row gap-3"
           >

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { SubscribeForm } from '../ui/SubscribeForm'
 
 const footerLink = 'text-xs text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors'
 
@@ -103,6 +104,12 @@ export function Footer() {
             >
               {t('footer.takeScorecard')}
             </Link>
+          </div>
+
+          <div className="mt-5 border border-[rgba(255,255,255,0.08)] rounded-sm p-4">
+            <p className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)] mb-1">Stay in the loop</p>
+            <p className="text-[10px] text-[var(--color-text-muted-dark)] mb-3 leading-relaxed">Field notes, frameworks, and insights — direct to your inbox.</p>
+            <SubscribeForm source="footer" placeholder="Your email" btnLabel="Join →" successMsg="Welcome aboard." />
           </div>
         </div>
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
+import { SubscribeForm } from '../components/ui/SubscribeForm'
 
 const DIMS = ['Feed Efficiency', 'Survival & Health', 'Operations', 'Financial', 'Infrastructure']
 
@@ -486,6 +487,14 @@ export function ToolsPage() {
             </Link>
           </div>
         </div>
+
+        {/* Email capture */}
+        <div className="mt-6 border-t border-[var(--color-gold-muted)] pt-6">
+          <p className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-1">Get insights like these to your inbox</p>
+          <p className="text-xs text-[var(--color-text-muted)] mb-3 leading-relaxed">Field notes, frameworks, and profit-leak fixes — no fluff.</p>
+          <SubscribeForm source="tools-page" placeholder="Your email address" btnLabel="Subscribe →" />
+        </div>
+
       </div>
     </main>
   )

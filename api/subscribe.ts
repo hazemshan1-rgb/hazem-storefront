@@ -1,7 +1,6 @@
-export const config = { runtime: 'edge' }
-
-const SUPABASE_URL      = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? ''
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ?? process.env.VITE_SUPABASE_ANON_KEY ?? ''
+// anon key is intentionally hardcoded — it's already public in the Vite client bundle
+const SUPABASE_URL      = 'https://gtvdzrzezdrwclhikccf.supabase.co'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0dmR6cnplemRyd2NsaGlrY2NmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NjA3MzEsImV4cCI6MjA5NjMzNjczMX0.njx9pY6j3QdZe2cB0ZeUrAIZQHboa0f33UMw1LIgzfs'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -34,18 +33,14 @@ export default async function handler(req: Request): Promise<Response> {
     return json({ error: 'Invalid email' }, 400)
   }
 
-  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    return json({ error: 'Server misconfiguration' }, 500)
-  }
-
-  // Upsert — on duplicate email just update source silently so the user sees success
+  // Plain INSERT — 409 conflict (duplicate email) is treated as success
   const res = await fetch(`${SUPABASE_URL}/rest/v1/subscribers`, {
     method: 'POST',
     headers: {
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       'Content-Type': 'application/json',
-      Prefer: 'resolution=merge-duplicates,return=minimal',
+      Prefer: 'return=minimal',
     },
     body: JSON.stringify({ email, source }),
   })

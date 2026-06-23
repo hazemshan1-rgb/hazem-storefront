@@ -7,10 +7,10 @@ import { caseStudies } from '../data/caseStudies'
 
 const CHECKOUT_60 = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
 const CHECKOUT_30 = import.meta.env.VITE_CONSULTATION_30_CHECKOUT_URL ?? ''
-const BOOK_EMAIL  = 'mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call'
+const BOOK_FORM   = 'https://form.jotform.com/261730956335057'
 
 function bookUrl(checkout: string) {
-  return checkout || BOOK_EMAIL
+  return checkout || BOOK_FORM
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -247,7 +247,7 @@ export function ConsultationPage() {
                   {t('consultation.deepDive.bookBtn')}
                 </a>
               ) : (
-                <a href="mailto:connect@hazemshannak.cc?subject=60-Minute%20Session%20Enquiry"
+                <a href={BOOK_FORM}
                   className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all">
                   {t('consultation.deepDive.enquireBtn')}
                 </a>
@@ -293,7 +293,7 @@ export function ConsultationPage() {
                   {t('consultation.focus.bookBtn')}
                 </a>
               ) : (
-                <a href="mailto:connect@hazemshannak.cc?subject=30-Minute%20Session%20Enquiry"
+                <a href={BOOK_FORM}
                   className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
                   {t('consultation.focus.enquireBtn')}
                 </a>

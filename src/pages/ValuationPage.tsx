@@ -205,7 +205,7 @@ export function ValuationPage() {
                   className="block text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] py-3.5 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
                   {t('valuation.seeProgrammeBtn')}
                 </Link>
-                <a href="mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call"
+                <a href="https://form.jotform.com/261730956335057" target="_blank" rel="noopener noreferrer"
                   className="block text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] py-3 text-[10px] tracking-widest uppercase rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
                   {t('valuation.talkFirstBtn')}
                 </a>

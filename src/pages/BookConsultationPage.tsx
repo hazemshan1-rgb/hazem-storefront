@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-const BOOK_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Booking%20a%20Call'
+const BOOK_FORM = 'https://form.jotform.com/261730956335057'
 
 export function BookConsultationPage() {
   const { t } = useTranslation()
@@ -53,13 +53,15 @@ export function BookConsultationPage() {
             Send an email and I'll reply within one business day to confirm your slot and send a brief intake form.
           </p>
           <a
-            href={BOOK_EMAIL}
+            href={BOOK_FORM}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-10 py-4 rounded-sm hover:brightness-110 transition-all"
           >
-            Email to Book →
+            Apply to Book a Call →
           </a>
           <p className="text-[10px] text-[var(--color-text-muted)] mt-6 tracking-wide">
-            connect@hazemshannak.cc
+            Takes 2 minutes — Hazem reviews every submission personally
           </p>
         </div>
       </section>

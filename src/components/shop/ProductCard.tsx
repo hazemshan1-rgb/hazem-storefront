@@ -14,9 +14,11 @@ export function ProductCard({ product }: ProductCardProps) {
   const tagline = t(`products.${product.slug}.tagline`, { defaultValue: product.tagline })
 
   return (
-    <div className="group relative bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_8px_32px_rgba(139,108,58,0.18)] transition-all duration-300 flex flex-row">
+    <div className="group relative bg-white/70 backdrop-blur-sm border border-[var(--color-gold-muted)] rounded-sm overflow-hidden hover:border-[var(--color-gold)] hover:shadow-[0_12px_40px_rgba(139,108,58,0.22)] hover:bg-white/90 transition-all duration-300 flex flex-row">
+      {/* Glass top-edge highlight */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none z-20" aria-hidden="true" />
       {/* Inner bezel ring */}
-      <div className="absolute inset-[3px] rounded-[3px] border border-[var(--color-gold-muted)]/30 pointer-events-none z-10 transition-colors duration-300 group-hover:border-[var(--color-gold-muted)]/50" aria-hidden="true" />
+      <div className="absolute inset-[3px] rounded-[3px] border border-[var(--color-gold-muted)]/30 pointer-events-none z-10 transition-colors duration-300 group-hover:border-[var(--color-gold-muted)]/60" aria-hidden="true" />
 
       {/* Cover image — left column */}
       <Link

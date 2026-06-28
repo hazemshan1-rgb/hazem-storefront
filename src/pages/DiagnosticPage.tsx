@@ -628,20 +628,41 @@ function ResultsScreen({
       {result.normalisedPct > 65 && (
         <div className="border border-[#ef4444]/30 rounded-sm p-5 mb-8 bg-[rgba(239,68,68,0.04)]">
           <p className="text-[10px] tracking-[0.2em] uppercase text-[#ef4444] mb-2">Severity note</p>
-          <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed">
-            A score at this level indicates structural bleeding across multiple systems. A consultation session will surface symptoms — the 90-Day Transformation Programme is built to fix them.
+          <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed mb-4">
+            A score at this level indicates structural bleeding across multiple systems. A consultation session will surface the symptoms — the Tier 1 Diagnostic Audit is built to quantify and fix them, with a margin guarantee.
           </p>
+          <a
+            href="https://form.jotform.com/261731704452049"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-[#ef4444] hover:underline tracking-wide"
+          >
+            Request a Diagnostic Audit →
+          </a>
         </div>
       )}
 
       {/* CTA */}
-      <div className="text-center mb-10">
+      <div className="text-center mb-6">
         <Link
           to={interp.ctaLink}
           className="inline-flex items-center gap-2 bg-[var(--color-gold-cta)] hover:brightness-110 text-[var(--color-navy)] font-semibold px-8 py-4 rounded-sm transition-all duration-300 text-sm tracking-wide"
         >
           {interp.ctaLabel} →
         </Link>
+      </div>
+
+      {/* Secondary CTA — post-diagnostic Jotform call booking */}
+      <div className="text-center mb-10">
+        <a
+          href="https://form.jotform.com/261731896819068"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-[var(--color-gold)] hover:underline tracking-wide"
+        >
+          Get your personalised breakdown →
+        </a>
+        <p className="text-[10px] text-[var(--color-text-muted-dark)] mt-1.5">Free 15-minute results call · No obligation</p>
       </div>
 
       {/* Email capture */}

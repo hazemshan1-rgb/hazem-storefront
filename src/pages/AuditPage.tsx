@@ -6,7 +6,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { caseStudies } from '../data/caseStudies'
 
-const T1_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%201%20%E2%80%93%20Diagnostic%20Audit%20%E2%80%93%20Enquiry'
+const T1_JOTFORM = 'https://form.jotform.com/261731704452049'
 const T2_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%202%20%E2%80%93%2090-Day%20Transformation%20%E2%80%93%20Application'
 const T3_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%203%20%E2%80%93%20Investor-Ready%20Enterprise%20%E2%80%93%20Application'
 
@@ -35,7 +35,7 @@ const tiers: TierKeys[] = [
     ],
     includesKeys: ['audit.t1Inc1','audit.t1Inc2','audit.t1Inc3','audit.t1Inc4','audit.t1Inc5','audit.t1Inc6'],
     excludesKeys: ['audit.t1Exc1','audit.t1Exc2','audit.t1Exc3','audit.t1Exc4','audit.t1Exc5'],
-    email: T1_EMAIL, ctaLabelKey: 'audit.t1CtaLabel', ctaNoteKey: 'audit.t1CtaNote',
+    email: T1_JOTFORM, ctaLabelKey: 'audit.t1CtaLabel', ctaNoteKey: 'audit.t1CtaNote',
   },
   {
     id: 2, nameKey: 'audit.t2Name', taglineKey: 'audit.t2Tagline',
@@ -156,7 +156,12 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
       <div className={`text-[10px] rounded-sm px-3 py-2 mb-5 leading-relaxed ${featured ? 'bg-[rgba(202,138,4,0.12)] text-[var(--color-gold-cta)]' : 'bg-[var(--color-gold-muted)] text-[var(--color-gold)]'}`}>
         {t(tier.guaranteeShortKey)}
       </div>
-      <a href={tier.email} className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}>
+      <a
+        href={tier.email}
+        target={tier.email.startsWith('http') ? '_blank' : undefined}
+        rel={tier.email.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}
+      >
         {t(tier.ctaLabelKey)}
       </a>
       <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
@@ -231,7 +236,12 @@ function TierDetail({ tier, reversed = false }: { tier: TierKeys; reversed?: boo
                 {t(tier.availabilityKey)}
               </div>
             )}
-            <a href={tier.email} className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}>
+            <a
+              href={tier.email}
+              target={tier.email.startsWith('http') ? '_blank' : undefined}
+              rel={tier.email.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}
+            >
               {t(tier.ctaLabelKey)}
             </a>
             <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
@@ -560,7 +570,7 @@ export function AuditPage() {
             <a href={T2_EMAIL} className="gold-pulse inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-3.5 rounded-sm hover:brightness-110 transition-all">
               {t('audit.finalApplyBtn')}
             </a>
-            <a href={T1_EMAIL} className="inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-8 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
+            <a href={T1_JOTFORM} target="_blank" rel="noopener noreferrer" className="inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-8 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
               {t('audit.finalBookBtn')}
             </a>
           </div>

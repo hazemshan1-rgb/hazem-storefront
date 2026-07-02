@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useEmailGateCapture } from './EmailGate'
+import { ReportExport } from './ReportExport'
 
 // ── Carbon sources (from biofloc_calc/core/carbon_sources.py) ───────────────
 const CARBON_SOURCES = {
@@ -141,6 +143,7 @@ const RISK_BORDER: Record<RiskLevel, string> = {
 // ── Component ────────────────────────────────────────────────────────────────
 
 export function BioflocCalculator() {
+  const capturedEmail = useEmailGateCapture()
   const [volumeM3, setVolumeM3] = useState(1000)
   const [feedKg, setFeedKg]     = useState(20)
   const [proteinPct, setProteinPct] = useState(35)
@@ -160,7 +163,7 @@ export function BioflocCalculator() {
     <div className="space-y-8">
 
       {/* Inputs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="no-print grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {/* Left: water + feeding */}
         <div className="space-y-5">
@@ -304,7 +307,7 @@ export function BioflocCalculator() {
         initial={{ opacity: 0.6, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.18 }}
-        className={`rounded-sm border bg-[var(--color-navy)] p-8 ${RISK_BORDER[result.overall]}`}
+        className={`no-print rounded-sm border bg-[var(--color-navy)] p-8 ${RISK_BORDER[result.overall]}`}
       >
         {/* Risk badge */}
         <div className="flex items-center justify-between mb-6">
@@ -361,9 +364,33 @@ export function BioflocCalculator() {
         </div>
       </motion.div>
 
-      <p className="text-[10px] text-[var(--color-text-muted)] leading-relaxed">
+      <p className="no-print text-[10px] text-[var(--color-text-muted)] leading-relaxed">
         Based on Avnimelech (1999), Boyd &amp; Tucker (2014), and Ebeling et al. (2006). NH₃ fraction uses Emerson et al. (1975) corrected for salinity (25 ppt default). For full water quality tracking, farm records, and daily dose history, the complete Biofloc Calculator is available in the shop.
       </p>
+
+      <ReportExport
+        toolName="Biofloc C:N Calculator"
+        source="biofloc-calculator"
+        capturedEmail={capturedEmail}
+        inputs={[
+          { label: 'Pond Volume', value: `${volumeM3.toLocaleString()} m³` },
+          { label: 'Daily Feed', value: `${feedKg} kg` },
+          { label: 'Feed Protein', value: `${proteinPct}%` },
+          { label: 'Current TAN', value: `${tanMgL.toFixed(1)} mg/L` },
+          { label: 'pH', value: ph.toFixed(1) },
+          { label: 'Water Temperature', value: `${tempC.toFixed(1)}°C` },
+          { label: 'Carbon Source', value: CARBON_SOURCES[sourceKey].name },
+          { label: 'Target C:N', value: `${targetCN}:1` },
+          { label: 'Carbon Price', value: `$${pricePerKg.toFixed(2)}/kg` },
+        ]}
+        results={[
+          { label: 'Carbon to Add Today', value: `${result.totalKg.toFixed(2)} kg (${result.gPerM3.toFixed(1)} g/m³)` },
+          { label: 'System Risk Level', value: result.overall },
+          { label: 'Free NH₃', value: `${result.nh3MgL.toFixed(3)} mg/L` },
+          { label: 'Daily Cost Estimate', value: `$${result.dailyCostUsd.toFixed(2)}` },
+          { label: 'Application Schedule', value: result.schedule.join(' · ') },
+        ]}
+      />
     </div>
   )
 }

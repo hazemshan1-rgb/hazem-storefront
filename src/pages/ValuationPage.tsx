@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
+import { useEmailGateCapture } from '../components/tools/EmailGate'
+import { ReportExport } from '../components/tools/ReportExport'
 
 function getMultiple(years: string, docs: string, species: string, certified: string): number {
   const base: Record<string, number> = { under3: 3.0, '3to7': 3.8, over7: 4.5 }
@@ -43,6 +45,7 @@ const multipleFactors = [
 
 export function ValuationPage() {
   const { t } = useTranslation()
+  const capturedEmail = useEmailGateCapture()
   const [revenue,    setRevenue]    = useState(500_000)
   const [margin,     setMargin]     = useState(14)
   const [years,      setYears]      = useState('3to7')
@@ -69,6 +72,12 @@ export function ValuationPage() {
     else setCertified(val)
   }
 
+  const factorLabel = (factorKey: string, value: string): string => {
+    const factor = multipleFactors.find(f => f.key === factorKey)
+    const option = factor?.options.find(o => o.value === value)
+    return option ? t(option.labelKey) : value
+  }
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
       <SEO title={t('valuation.seoTitle')}
@@ -84,7 +93,7 @@ export function ValuationPage() {
           {t('valuation.body')}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="no-print grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Inputs */}
           <div className="space-y-8">
             {/* Revenue slider */}
@@ -214,12 +223,12 @@ export function ValuationPage() {
           </div>
         </div>
 
-        <p className="text-[10px] text-[var(--color-text-muted)] mt-8 mb-10 leading-relaxed max-w-xl">
+        <p className="no-print text-[10px] text-[var(--color-text-muted)] mt-8 mb-10 leading-relaxed max-w-xl">
           {t('valuation.disclaimer')}
         </p>
 
         {/* Cross-links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="no-print grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { to: '/diagnostic',      labelKey: 'valuation.crossLink1Label', subKey: 'valuation.crossLink1Sub' },
             { to: '/benchmark',       labelKey: 'valuation.crossLink2Label', subKey: 'valuation.crossLink2Sub' },
@@ -232,6 +241,27 @@ export function ValuationPage() {
             </Link>
           ))}
         </div>
+
+        <ReportExport
+          toolName="Farm Valuation Estimator"
+          source="valuation"
+          capturedEmail={capturedEmail}
+          inputs={[
+            { label: 'Annual Revenue', value: fmt(revenue) },
+            { label: 'EBITDA Margin', value: `${margin}%` },
+            { label: 'Years in Operation', value: factorLabel('years', years) },
+            { label: 'Documentation', value: factorLabel('docs', docs) },
+            { label: 'Species Mix', value: factorLabel('species', species) },
+            { label: 'Certification', value: factorLabel('certified', certified) },
+          ]}
+          results={[
+            { label: 'Current EBITDA', value: fmt(ebitda) },
+            { label: 'Current Multiple', value: `${multiple.toFixed(2)}×` },
+            { label: 'Current Estimated Value', value: fmt(currentVal) },
+            { label: 'Post-Programme Estimated Value', value: fmt(postVal) },
+            { label: 'Estimated Value Uplift', value: `+${fmt(uplift)}` },
+          ]}
+        />
       </div>
     </main>
   )

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 
-interface CapturedEmail { name: string; email: string }
+export interface CapturedEmail { name: string; email: string }
 
 const STORAGE_KEY = 'tools_email_captured'
 
@@ -11,6 +11,12 @@ function load(): CapturedEmail | null {
   } catch {
     return null
   }
+}
+
+// Reads the name/email already captured by EmailGate, for use by components
+// (like ReportExport) rendered inside an already-unlocked gate.
+export function useEmailGateCapture(): CapturedEmail | null {
+  return load()
 }
 
 interface Props {

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useEmailGateCapture } from './EmailGate'
+import { ReportExport } from './ReportExport'
 
 // ── Calculation logic (ported from optifeed-pro-1) ──────────────────────────
 
@@ -59,6 +61,7 @@ function CoeffBadge({ label, value, optimal }: { label: string; value: number; o
 }
 
 export function FeedCalculator() {
+  const capturedEmail = useEmailGateCapture()
   const [species, setSpecies] = useState<Species>('L. Vannamei')
   const [areHa, setAreaHa] = useState(1.0)
   const [densityPerM2, setDensityPerM2] = useState(80)
@@ -90,7 +93,7 @@ export function FeedCalculator() {
     <div className="space-y-8">
 
       {/* Inputs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="no-print grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {/* Left column */}
         <div className="space-y-5">
@@ -238,7 +241,7 @@ export function FeedCalculator() {
         initial={{ opacity: 0.6, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.18 }}
-        className={`rounded-sm border ${isCritical ? 'border-red-500/40 bg-red-950/20' : 'border-[var(--color-gold-cta)] bg-[var(--color-navy)]'} p-8`}
+        className={`no-print rounded-sm border ${isCritical ? 'border-red-500/40 bg-red-950/20' : 'border-[var(--color-gold-cta)] bg-[var(--color-navy)]'} p-8`}
       >
         {isCritical && (
           <p className="text-xs font-semibold text-red-400 uppercase tracking-widest mb-4">
@@ -292,9 +295,31 @@ export function FeedCalculator() {
         </div>
       </motion.div>
 
-      <p className="text-[10px] text-[var(--color-text-muted)] leading-relaxed">
+      <p className="no-print text-[10px] text-[var(--color-text-muted)] leading-relaxed">
         Recommendations are based on L. vannamei biological feeding curves (FCR correlations). Adjust for your specific feed brand protein content and pond conditions. For precision pond-level optimisation, see the full OptiFeed Pro suite available in the shop.
       </p>
+
+      <ReportExport
+        toolName="Shrimp Feed Calculator"
+        source="feed-calculator"
+        capturedEmail={capturedEmail}
+        inputs={[
+          { label: 'Species', value: species },
+          { label: 'Pond Area', value: `${areHa.toFixed(1)} ha` },
+          { label: 'Stocking Density', value: `${densityPerM2} shrimp/m²` },
+          { label: 'Day of Culture', value: `Day ${doc}` },
+          { label: 'Actual ABW', value: `${abw.toFixed(1)} g` },
+          { label: 'pH', value: ph.toFixed(1) },
+          { label: 'Water Temperature', value: `${temp.toFixed(1)}°C` },
+          { label: 'Appetite Adjustment', value: appetiteAdj === 0 ? 'Standard' : `${appetiteAdj > 0 ? '+' : ''}${appetiteAdj}%` },
+        ]}
+        results={[
+          { label: 'Daily Feed Target', value: `${feedKg} kg` },
+          { label: 'Per Meal (4×/day)', value: `${perMeal} kg` },
+          { label: 'Standing Biomass', value: `${biomassKg.toLocaleString()} kg` },
+          { label: 'Estimated Survival', value: `${survivalRate}%` },
+        ]}
+      />
     </div>
   )
 }

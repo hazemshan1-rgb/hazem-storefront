@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { SEO } from '../components/ui/SEO'
+import { useEmailGateCapture } from '../components/tools/EmailGate'
+import { ReportExport } from '../components/tools/ReportExport'
 
 const BENCHMARKS = {
   fcr:            { labelKey: 'benchmark.metricFcr',            p25: 1.42, p50: 1.65,  p75: 1.87,  lower: 0.8,  upper: 3.0,    step: 0.05, unit: '',  lowerIsBetter: true  },
@@ -136,6 +138,7 @@ function BenchmarkBar({ metricKey, value, onChange }: {
 
 export function BenchmarkPage() {
   const { t } = useTranslation()
+  const capturedEmail = useEmailGateCapture()
   const [values, setValues] = useState<MetricInputs>({
     fcr: 1.9, survival: 72, costPerKg: 3.5,
     stockingDensity: 60, morningDO: 5.2, energyCostPct: 18,
@@ -183,7 +186,7 @@ export function BenchmarkPage() {
         </p>
 
         {METRIC_GROUPS.map(group => (
-          <div key={group.labelKey} className="mb-10">
+          <div key={group.labelKey} className="no-print mb-10">
             <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t(group.labelKey)}</p>
             <div className="space-y-5">
               {group.keys.map(key => (
@@ -195,7 +198,7 @@ export function BenchmarkPage() {
         ))}
 
         {/* Overall summary */}
-        <motion.div layout className="bg-[var(--color-navy)] border border-[var(--color-gold-muted)] rounded-sm p-8 mb-8">
+        <motion.div layout className="no-print bg-[var(--color-navy)] border border-[var(--color-gold-muted)] rounded-sm p-8 mb-8">
           <div className="flex items-start justify-between gap-6 mb-6">
             <div>
               <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-2">{t('benchmark.overallStanding')}</p>
@@ -228,7 +231,7 @@ export function BenchmarkPage() {
         </motion.div>
 
         {/* Cross-links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="no-print grid grid-cols-1 sm:grid-cols-3 gap-4">
           {crossLinks.map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">
@@ -237,6 +240,26 @@ export function BenchmarkPage() {
             </Link>
           ))}
         </div>
+
+        <ReportExport
+          toolName="Farm Benchmark"
+          source="benchmark"
+          capturedEmail={capturedEmail}
+          inputs={(Object.keys(BENCHMARKS) as MetricKey[]).map(key => {
+            const bm = BENCHMARKS[key]
+            const v = values[key]
+            const display = bm.step < 0.1 ? v.toFixed(2) : bm.step < 1 ? v.toFixed(1) : Math.round(v).toString()
+            return { label: t(bm.labelKey), value: `${bm.unit === '$' ? '$' : ''}${display}${bm.unit === '%' ? '%' : ''}` }
+          })}
+          results={[
+            ...(Object.keys(BENCHMARKS) as MetricKey[]).map(key => ({
+              label: t(BENCHMARKS[key].labelKey),
+              value: `${Math.round(percentiles[key])}th percentile`,
+            })),
+            { label: 'Overall Standing', value: `${Math.round(overallPct)}th percentile — ${overallMsg}` },
+            { label: 'Weakest Metric', value: t(BENCHMARKS[weakestKey].labelKey) },
+          ]}
+        />
       </div>
     </main>
   )

@@ -100,7 +100,7 @@ const AquaAssistBot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className="no-print fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div

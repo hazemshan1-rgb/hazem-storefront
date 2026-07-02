@@ -290,3 +290,70 @@
 [dir="rtl"] .scroll-reveal-right.revealed {
   transform: translateX(0);
 }
+
+/* Tool report printing (Save as PDF) — hide site chrome and interactive
+   controls, show only the .print-report block a tool renders */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .print-report {
+    display: block !important;
+  }
+}
+
+.print-report {
+  display: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #111;
+  padding: 24px;
+}
+.print-report .report-title {
+  font-size: 22px;
+  margin: 0 0 4px 0;
+}
+.print-report .report-meta {
+  font-size: 11px;
+  color: #555;
+  margin: 0 0 24px 0;
+}
+.print-report h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 20px 0 8px 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+.print-report ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.print-report li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+  padding: 5px 0;
+  border-bottom: 1px dotted #ddd;
+}
+.print-report .report-footer {
+  margin-top: 32px;
+  font-size: 11px;
+  color: #777;
+  border-top: 1px solid #ccc;
+  padding-top: 12px;
+}
+
+.print-report {
+  display: none;
+}

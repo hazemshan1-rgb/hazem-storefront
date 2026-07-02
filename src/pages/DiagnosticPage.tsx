@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { SEO } from '../components/ui/SEO'
+import { ReportExport } from '../components/tools/ReportExport'
 import { saveDiagnosticResult, updateDiagnosticEmail } from '../lib/diagnosticPersistence'
 import {
   QUESTIONS,
@@ -524,6 +525,7 @@ function ResultsScreen({
         fmt={fmt}
       />
     <div className="max-w-2xl mx-auto w-full px-6 py-20">
+    <div className="no-print">
 
       {/* Score header */}
       <div className="text-center mb-12">
@@ -743,6 +745,31 @@ function ResultsScreen({
         {t('diagnostic.disclaimer')}
       </p>
     </div>
+
+      <ReportExport
+        toolName="Farm Diagnostic"
+        source="diagnostic-results"
+        capturedEmail={emailSaved ? { name: '', email } : null}
+        inputs={CATEGORIES.map(cat => {
+          const s = result.categoryScores[cat.id] ?? 0
+          const mx = result.categoryMaxes[cat.id] ?? 1
+          const pct = Math.round((s / mx) * 100)
+          return { label: cat.name, value: `${pct}%` }
+        })}
+        results={[
+          { label: 'Leak Index', value: `${result.normalisedPct} — ${interp.label}` },
+          ...(result.totalLeakUsd > 0
+            ? [{ label: 'Estimated Annual Loss', value: `${fmt(leakLow)} – ${fmt(leakHigh)} / year` }]
+            : []),
+          {
+            label: 'Top Leak Categories',
+            value: result.topLeakCategories
+              .map(id => CATEGORIES.find(c => c.id === id)?.name ?? String(id))
+              .join(', '),
+          },
+        ]}
+      />
+    </div>
     </>
   )
 }
@@ -766,7 +793,7 @@ function PivotModal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          className="no-print fixed inset-0 z-50 flex items-center justify-center p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

@@ -465,6 +465,46 @@ export function ToolsPage() {
                 </div>
               </Link>
             </motion.div>
+            <motion.div variants={fadeUp}>
+              <Link to="/tools/pl-cycle-advisor"
+                className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
+                <div className="p-6 sm:p-8 flex flex-col h-full">
+                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
+                    Decision Engine
+                  </span>
+                  <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
+                    PL Cycle Advisor
+                  </h2>
+                  <p className="text-[10px] text-[var(--color-text-muted)] mb-4">Pre-stocking · Survival · Cost/kg · Harvest timing</p>
+                  <p className="text-sm leading-relaxed text-[var(--color-text-muted)] flex-1 mb-6">
+                    Five checkpoints across the full production cycle. Get a GO / ADJUST / ABORT signal before you stock, mid-cycle survival tracking, and a harvest-window optimiser that finds the profit-maximising day.
+                  </p>
+                  <span className="self-start text-[10px] tracking-widest uppercase font-semibold px-5 py-2.5 rounded-sm transition-all border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] group-hover:border-[var(--color-gold)] group-hover:text-[var(--color-gold)]">
+                    Open Advisor
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <Link to="/tools/biosecurity-audit"
+                className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
+                <div className="p-6 sm:p-8 flex flex-col h-full">
+                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
+                    Biosecurity
+                  </span>
+                  <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
+                    Biosecurity Audit
+                  </h2>
+                  <p className="text-[10px] text-[var(--color-text-muted)] mb-4">20 checkpoints · 6 categories · Weighted score</p>
+                  <p className="text-sm leading-relaxed text-[var(--color-text-muted)] flex-1 mb-6">
+                    Self-assess vector exclusion, pathogen control, PCR credentials, sanitation, feed safety, and waste handling. Get a weighted score and a flagged list of critical gaps.
+                  </p>
+                  <span className="self-start text-[10px] tracking-widest uppercase font-semibold px-5 py-2.5 rounded-sm transition-all border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] group-hover:border-[var(--color-gold)] group-hover:text-[var(--color-gold)]">
+                    Run Audit
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>

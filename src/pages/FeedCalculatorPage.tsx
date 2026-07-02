@@ -29,7 +29,7 @@ export function FeedCalculatorPage() {
           </p>
         </div>
 
-        <EmailGate toolName="Shrimp Feed Calculator">
+        <EmailGate toolName="Shrimp Feed Calculator" source="feed-calculator">
           <FeedCalculator />
         </EmailGate>
 

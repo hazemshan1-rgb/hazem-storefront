@@ -21,19 +21,23 @@ export default async function handler(req: Request): Promise<Response> {
     return json({ error: 'Method not allowed' }, 405)
   }
 
-  let body: { email?: string; source?: string }
+  let body: { email?: string; source?: string; name?: string }
   try {
-    body = await req.json() as { email?: string; source?: string }
+    body = await req.json() as { email?: string; source?: string; name?: string }
   } catch {
     return json({ error: 'Invalid JSON' }, 400)
   }
 
   const email  = (body.email ?? '').trim().toLowerCase()
   const source = (body.source ?? 'unknown').trim().slice(0, 64)
+  const name   = (body.name ?? '').trim().slice(0, 128)
 
   if (!EMAIL_RE.test(email)) {
     return json({ error: 'Invalid email' }, 400)
   }
+
+  const record: { email: string; source: string; name?: string } = { email, source }
+  if (name) record.name = name
 
   // Plain INSERT — 409 conflict (duplicate email) is treated as success
   const res = await fetch(`${SUPABASE_URL}/rest/v1/subscribers`, {
@@ -44,13 +48,27 @@ export default async function handler(req: Request): Promise<Response> {
       'Content-Type': 'application/json',
       Prefer: 'return=minimal',
     },
-    body: JSON.stringify({ email, source }),
+    body: JSON.stringify(record),
   })
 
   if (!res.ok && res.status !== 409) {
     const detail = await res.text()
     console.error('Supabase insert error', res.status, detail)
     return json({ error: 'Failed to save' }, 500)
+  }
+
+  // Forward new (non-duplicate) leads to Zapier for Notion sync — optional, no-op until configured
+  const zapierWebhook = process.env.ZAPIER_LEADS_WEBHOOK_URL
+  if (zapierWebhook && res.ok) {
+    try {
+      await fetch(zapierWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, source, captured_at: new Date().toISOString() }),
+      })
+    } catch (err) {
+      console.error('Zapier webhook forward failed', err)
+    }
   }
 
   return json({ success: true })

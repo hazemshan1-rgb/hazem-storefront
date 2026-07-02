@@ -15,10 +15,11 @@ function load(): CapturedEmail | null {
 
 interface Props {
   toolName: string
+  source: string
   children: ReactNode
 }
 
-export function EmailGate({ toolName, children }: Props) {
+export function EmailGate({ toolName, source, children }: Props) {
   const [captured, setCaptured] = useState<CapturedEmail | null>(() => load())
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -27,7 +28,7 @@ export function EmailGate({ toolName, children }: Props) {
 
   if (captured) return <>{children}</>
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     if (!name.trim() || !email.trim()) {
@@ -39,7 +40,24 @@ export function EmailGate({ toolName, children }: Props) {
       return
     }
     setSubmitting(true)
-    const data: CapturedEmail = { name: name.trim(), email: email.trim() }
+    const data: CapturedEmail = { name: name.trim(), email: email.trim().toLowerCase() }
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: data.name, email: data.email, source }),
+      })
+      const result = await res.json() as { success?: boolean; error?: string }
+      if (!result.success) {
+        setError(result.error ?? 'Something went wrong. Please try again.')
+        setSubmitting(false)
+        return
+      }
+    } catch {
+      setError('Network error — please try again.')
+      setSubmitting(false)
+      return
+    }
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     } catch { /* storage unavailable */ }

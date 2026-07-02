@@ -29,7 +29,7 @@ export function BioflocCalculatorPage() {
           </p>
         </div>
 
-        <EmailGate toolName="Biofloc C:N Calculator">
+        <EmailGate toolName="Biofloc C:N Calculator" source="biofloc-calculator">
           <BioflocCalculator />
         </EmailGate>
 

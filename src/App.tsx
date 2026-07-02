@@ -27,6 +27,7 @@ const FeedCalculatorPage    = lazy(() => import('./pages/FeedCalculatorPage').th
 const BioflocCalculatorPage = lazy(() => import('./pages/BioflocCalculatorPage').then(m => ({ default: m.BioflocCalculatorPage })))
 const PLCycleAdvisorPage    = lazy(() => import('./pages/PLCycleAdvisorPage').then(m => ({ default: m.PLCycleAdvisorPage })))
 const BiosecurityAuditPage  = lazy(() => import('./pages/BiosecurityAuditPage').then(m => ({ default: m.BiosecurityAuditPage })))
+const MarginRecoveryPage    = lazy(() => import('./pages/MarginRecoveryPage').then(m => ({ default: m.MarginRecoveryPage })))
 
 function PageLoader() {
   return (
@@ -86,6 +87,7 @@ function AnimatedRoutes() {
             <Route path="/tools/biofloc-calculator" element={<BioflocCalculatorPage />} />
             <Route path="/tools/pl-cycle-advisor"   element={<PLCycleAdvisorPage />} />
             <Route path="/tools/biosecurity-audit"  element={<BiosecurityAuditPage />} />
+            <Route path="/tools/margin-recovery"    element={<MarginRecoveryPage />} />
           </Routes>
         </Suspense>
       </motion.div>

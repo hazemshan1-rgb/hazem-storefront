@@ -253,11 +253,11 @@ const fadeUp = {
 }
 
 const JUMP_NAV = [
-  { href: '#tool-diagnostic', label: 'Diagnostic' },
-  { href: '#tool-benchmark', label: 'Benchmark' },
-  { href: '#tool-valuation', label: 'Valuation' },
-  { href: '#tool-feed-calculator', label: 'Feed Calculator' },
-  { href: '#tool-biofloc-calculator', label: 'Biofloc Calculator' },
+  { href: '#tool-diagnostic', label: 'Farm Health Diagnostic' },
+  { href: '#tool-benchmark', label: 'Benchmark My Farm' },
+  { href: '#tool-valuation', label: 'Farm Valuation Calculator' },
+  { href: '#tool-feed-calculator', label: 'Shrimp Feed Calculator' },
+  { href: '#tool-biofloc-calculator', label: 'Biofloc C:N Calculator' },
   { href: '#tool-pl-cycle-advisor', label: 'PL Cycle Advisor' },
   { href: '#tool-biosecurity-audit', label: 'Biosecurity Audit' },
 ]

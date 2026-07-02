@@ -252,25 +252,18 @@ const fadeUp = {
   animate: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' as const } },
 }
 
+const JUMP_NAV = [
+  { href: '#tool-diagnostic', label: 'Diagnostic' },
+  { href: '#tool-benchmark', label: 'Benchmark' },
+  { href: '#tool-valuation', label: 'Valuation' },
+  { href: '#tool-feed-calculator', label: 'Feed Calculator' },
+  { href: '#tool-biofloc-calculator', label: 'Biofloc Calculator' },
+  { href: '#tool-pl-cycle-advisor', label: 'PL Cycle Advisor' },
+  { href: '#tool-biosecurity-audit', label: 'Biosecurity Audit' },
+]
+
 export function ToolsPage() {
   const { t } = useTranslation()
-
-  const aiTools = [
-    {
-      to: '/diagnostic',
-      labelKey: 'tools.diagnostic',
-      subKey: 'tools.diagnosticMeta',
-      descKey: 'tools.diagnosticDesc',
-      ctaKey: 'tools.getFarmScoreBtn',
-    },
-    {
-      to: '/benchmark',
-      labelKey: 'tools.benchmark',
-      subKey: 'tools.benchmarkMeta',
-      descKey: 'tools.benchmarkDesc',
-      ctaKey: 'tools.benchmarkBtn',
-    },
-  ]
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
@@ -280,7 +273,7 @@ export function ToolsPage() {
         url="/tools"
       />
 
-      <div className="max-w-5xl mx-auto px-6 mb-16">
+      <div className="max-w-5xl mx-auto px-6 mb-10">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('tools.eyebrow')}</p>
         <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-4">
           {t('tools.headline')}
@@ -290,8 +283,22 @@ export function ToolsPage() {
         </p>
       </div>
 
+      {/* Jump nav — links to all 7 tool sections below */}
+      <div className="sticky top-16 z-30 bg-[var(--color-bg)]/95 backdrop-blur-sm border-y border-[var(--color-gold-muted)] mb-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <nav aria-label="Jump to tool" className="flex gap-1 overflow-x-auto py-3 -mx-1 px-1">
+            {JUMP_NAV.map(item => (
+              <a key={item.href} href={item.href}
+                className="shrink-0 text-[10px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] px-3 py-2 rounded-sm border border-transparent hover:border-[var(--color-gold-muted)] hover:text-[var(--color-gold)] transition-all whitespace-nowrap">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
+
       {/* 1. Farm Health Diagnostic */}
-      <section className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
+      <section id="tool-diagnostic" className="scroll-mt-32 bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
         <div className="max-w-5xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
@@ -316,7 +323,7 @@ export function ToolsPage() {
       </section>
 
       {/* 2. Benchmark */}
-      <section className="border-b border-[var(--color-gold-muted)]">
+      <section id="tool-benchmark" className="scroll-mt-32 border-b border-[var(--color-gold-muted)]">
         <div className="max-w-5xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <BenchmarkWidget />
@@ -340,32 +347,8 @@ export function ToolsPage() {
         </div>
       </section>
 
-      {/* 3. Margin Recovery */}
-      <section className="bg-[var(--color-navy)] border-b border-[rgba(255,255,255,0.08)]">
-        <div className="max-w-5xl mx-auto px-6 py-16">
-          <div className="mb-10">
-            <span className="inline-block text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-5">
-              {t('tools.badgeCalculator')}
-            </span>
-            <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-text-on-dark)] leading-tight mb-3">
-              {t('tools.marginRecovery')}
-            </h2>
-            <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-xl">
-              {t('tools.marginRecoveryDesc')}
-            </p>
-          </div>
-          <MarginWidget />
-          <div className="mt-10">
-            <Link to="/audit"
-              className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-8 py-4 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
-              {t('tools.getFullAuditBtn')}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Farm Valuation */}
-      <section className="border-b border-[var(--color-gold-muted)]">
+      {/* 3. Farm Valuation */}
+      <section id="tool-valuation" className="scroll-mt-32 border-b border-[var(--color-gold-muted)]">
         <div className="max-w-5xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
@@ -392,46 +375,24 @@ export function ToolsPage() {
         </div>
       </section>
 
-      {/* 5+6. AI Tools */}
-      <section className="border-b border-[var(--color-gold-muted)]">
-        <div className="max-w-5xl mx-auto px-6 py-16">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-8">{t('tools.aiPowered')}</p>
-          <motion.div variants={container} initial="initial" animate="animate"
-            className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {aiTools.map(tool => (
-              <motion.div key={tool.to} variants={fadeUp}>
-                <Link to={tool.to}
-                  className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
-                  <div className="p-6 sm:p-8 flex flex-col h-full">
-                    <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
-                      {t(tool.labelKey)}
-                    </h2>
-                    <p className="text-[10px] text-[var(--color-text-muted)] mb-4">{t(tool.subKey)}</p>
-                    <p className="text-sm leading-relaxed text-[var(--color-text-muted)] flex-1 mb-6">{t(tool.descKey)}</p>
-                    <span className="self-start text-[10px] tracking-widest uppercase font-semibold px-5 py-2.5 rounded-sm transition-all border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] group-hover:border-[var(--color-gold)] group-hover:text-[var(--color-gold)]">
-                      {t(tool.ctaKey)}
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 7. Calculation Tools */}
+      {/* 4. Calculation Tools */}
       <section className="border-b border-[var(--color-gold-muted)]">
         <div className="max-w-5xl mx-auto px-6 py-16">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-8">Free Calculators</p>
           <motion.div variants={container} initial="initial" animate="animate"
             className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <motion.div variants={fadeUp}>
+            <motion.div id="tool-feed-calculator" className="scroll-mt-32" variants={fadeUp}>
               <Link to="/tools/feed-calculator"
                 className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
                 <div className="p-6 sm:p-8 flex flex-col h-full">
-                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
-                    Aquaculture
-                  </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)]">
+                      Aquaculture
+                    </span>
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-text-muted)] border-[var(--color-gold-muted)]">
+                      Email required
+                    </span>
+                  </div>
                   <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
                     Shrimp Feed Calculator
                   </h2>
@@ -445,13 +406,18 @@ export function ToolsPage() {
                 </div>
               </Link>
             </motion.div>
-            <motion.div variants={fadeUp}>
+            <motion.div id="tool-biofloc-calculator" className="scroll-mt-32" variants={fadeUp}>
               <Link to="/tools/biofloc-calculator"
                 className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
                 <div className="p-6 sm:p-8 flex flex-col h-full">
-                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
-                    Biofloc
-                  </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)]">
+                      Biofloc
+                    </span>
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-text-muted)] border-[var(--color-gold-muted)]">
+                      Email required
+                    </span>
+                  </div>
                   <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
                     Biofloc C:N Calculator
                   </h2>
@@ -465,13 +431,18 @@ export function ToolsPage() {
                 </div>
               </Link>
             </motion.div>
-            <motion.div variants={fadeUp}>
+            <motion.div id="tool-pl-cycle-advisor" className="scroll-mt-32" variants={fadeUp}>
               <Link to="/tools/pl-cycle-advisor"
                 className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
                 <div className="p-6 sm:p-8 flex flex-col h-full">
-                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
-                    Decision Engine
-                  </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)]">
+                      Decision Engine
+                    </span>
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-text-muted)] border-[var(--color-gold-muted)]">
+                      Email required
+                    </span>
+                  </div>
                   <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
                     PL Cycle Advisor
                   </h2>
@@ -485,13 +456,18 @@ export function ToolsPage() {
                 </div>
               </Link>
             </motion.div>
-            <motion.div variants={fadeUp}>
+            <motion.div id="tool-biosecurity-audit" className="scroll-mt-32" variants={fadeUp}>
               <Link to="/tools/biosecurity-audit"
                 className="group flex flex-col h-full rounded-sm border bg-[var(--color-surface)] border-[var(--color-gold-muted)] hover:border-[var(--color-gold)] transition-all hover:shadow-lg">
                 <div className="p-6 sm:p-8 flex flex-col h-full">
-                  <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-4">
-                    Biosecurity
-                  </span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)]">
+                      Biosecurity
+                    </span>
+                    <span className="self-start text-[9px] tracking-[0.2em] uppercase font-semibold px-2 py-1 rounded-sm border text-[var(--color-text-muted)] border-[var(--color-gold-muted)]">
+                      Email required
+                    </span>
+                  </div>
                   <h2 className="font-serif text-xl mb-1 text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
                     Biosecurity Audit
                   </h2>
@@ -506,6 +482,30 @@ export function ToolsPage() {
               </Link>
             </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* What a paid session finds — closing teaser, not one of the 7 tools (no dedicated page) */}
+      <section className="bg-[var(--color-navy)] border-b border-[rgba(255,255,255,0.08)]">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <div className="mb-10">
+            <span className="inline-block text-[9px] tracking-[0.2em] uppercase font-semibold px-2.5 py-1 rounded-sm border text-[var(--color-gold)] border-[var(--color-gold-muted)] mb-5">
+              Preview
+            </span>
+            <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-text-on-dark)] leading-tight mb-3">
+              {t('tools.marginRecovery')}
+            </h2>
+            <p className="text-sm text-[var(--color-text-muted-dark)] leading-relaxed max-w-xl">
+              {t('tools.marginRecoveryDesc')}
+            </p>
+          </div>
+          <MarginWidget />
+          <div className="mt-10">
+            <Link to="/audit"
+              className="inline-block bg-[var(--color-gold-cta)] text-[var(--color-navy)] px-8 py-4 text-[11px] tracking-widest uppercase font-semibold rounded-sm hover:brightness-110 transition-all">
+              {t('tools.getFullAuditBtn')}
+            </Link>
+          </div>
         </div>
       </section>
 

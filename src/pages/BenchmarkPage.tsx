@@ -26,12 +26,12 @@ interface MetricInputs {
 
 function getPercentile(value: number, p25: number, p50: number, p75: number, lowerIsBetter: boolean): number {
   if (lowerIsBetter) {
-    if (value <= p25) return 85 + Math.random() * 10
+    if (value <= p25) return Math.min(99, 85 + ((p25 - value) / (p50 - p25)) * 25)
     if (value <= p50) return 60 + ((p50 - value) / (p50 - p25)) * 25
     if (value <= p75) return 35 + ((p75 - value) / (p75 - p50)) * 25
     return 5 + ((2 * p75 - p25 - value) / p75) * 30
   }
-  if (value >= p75) return 85 + Math.random() * 10
+  if (value >= p75) return Math.min(99, 85 + ((value - p75) / (p75 - p50)) * 25)
   if (value >= p50) return 60 + ((value - p50) / (p75 - p50)) * 25
   if (value >= p25) return 35 + ((value - p25) / (p50 - p25)) * 25
   return 5 + (value / p25) * 30

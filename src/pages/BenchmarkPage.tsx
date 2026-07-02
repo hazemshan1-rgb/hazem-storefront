@@ -181,8 +181,11 @@ export function BenchmarkPage() {
         <h1 className="font-serif text-4xl md:text-5xl text-[var(--color-text)] leading-tight mb-4">
           {t('benchmark.headline')}
         </h1>
-        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-xl">
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-4 max-w-xl">
           {t('benchmark.body')}
+        </p>
+        <p className="no-print text-[10px] text-[var(--color-text-muted)] leading-relaxed mb-10 max-w-xl">
+          {t('benchmark.methodologyNote')}
         </p>
 
         {METRIC_GROUPS.map(group => (
@@ -258,6 +261,7 @@ export function BenchmarkPage() {
             })),
             { label: 'Overall Standing', value: `${Math.round(overallPct)}th percentile — ${overallMsg}` },
             { label: 'Weakest Metric', value: t(BENCHMARKS[weakestKey].labelKey) },
+            { label: 'Methodology', value: 'Production ranges from 30+ years of field experience across 15+ countries — not a formal published survey.' },
           ]}
         />
       </div>

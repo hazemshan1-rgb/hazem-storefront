@@ -733,10 +733,11 @@
   },
   "benchmark": {
     "seoTitle": "Benchmark My Farm — How Do You Compare?",
-    "seoDesc": "Enter your FCR, survival rate, cost per kg, stocking density, DO, and energy cost. See exactly where your farm ranks against 50+ audited operations.",
+    "seoDesc": "Enter your FCR, survival rate, cost per kg, stocking density, DO, and energy cost. See where your farm ranks against production ranges drawn from 30+ years of hands-on field experience.",
     "eyebrow": "Benchmark Tool",
     "headline": "How does your farm compare?",
-    "body": "Move the sliders to match your current metrics. See in real time where you rank against the 50+ farms in our audit database.",
+    "body": "Move the sliders to match your current metrics. See in real time where you rank against production ranges informed by Hazem Shannak's 30+ years advising shrimp and aquaculture operations across 15+ countries.",
+    "methodologyNote": "These ranges reflect production patterns observed across 30+ years advising shrimp and aquaculture operations in 15+ countries — not a formal published survey. Use them as a directional check, not a certified benchmark. For a farm-specific breakdown, see the Diagnostic tool or book a consultation.",
     "groupProduction": "Production Efficiency",
     "groupCost": "Cost & Resource Health",
     "overallStanding": "Overall Standing",

@@ -39,7 +39,7 @@ export function BiosecurityAuditPage() {
             Need a fix plan, not just a score?
           </h2>
           <p className="text-sm text-[var(--color-text-muted)] leading-relaxed mb-6 max-w-xl">
-            The Water Quality &amp; Aeration SOP walks through fixing the most common critical gaps. For a full site walk-through and prioritised remediation plan, book a consultation.
+            The shop has SOPs and toolkits that walk through fixing the most common gaps. For a full site walk-through and a prioritised remediation plan, book a consultation.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link

@@ -48,12 +48,12 @@ function statusFor(pct: number): { labelKey: string; colour: string } {
 }
 
 function productFor(key: MetricKey): { link: string; labelKey: string } {
-  if (key === 'fcr')             return { link: '/shop/fcr-optimisation-toolkit',   labelKey: 'benchmark.productFcrLabel' }
-  if (key === 'survival')        return { link: '/shop/water-quality-aeration-sop', labelKey: 'benchmark.productSurvivalLabel' }
-  if (key === 'morningDO')       return { link: '/shop/water-quality-aeration-sop', labelKey: 'benchmark.productDoLabel' }
-  if (key === 'energyCostPct')   return { link: '/consultation',                    labelKey: 'benchmark.productEnergyLabel' }
-  if (key === 'stockingDensity') return { link: '/diagnostic',                      labelKey: 'benchmark.productDensityLabel' }
-  return                                { link: '/consultation',                    labelKey: 'benchmark.productDefaultLabel' }
+  if (key === 'fcr')             return { link: '/consultation', labelKey: 'benchmark.productFcrLabel' }
+  if (key === 'survival')        return { link: '/consultation', labelKey: 'benchmark.productSurvivalLabel' }
+  if (key === 'morningDO')       return { link: '/consultation', labelKey: 'benchmark.productDoLabel' }
+  if (key === 'energyCostPct')   return { link: '/consultation', labelKey: 'benchmark.productEnergyLabel' }
+  if (key === 'stockingDensity') return { link: '/diagnostic',   labelKey: 'benchmark.productDensityLabel' }
+  return                                { link: '/consultation', labelKey: 'benchmark.productDefaultLabel' }
 }
 
 const METRIC_GROUPS: { labelKey: string; keys: MetricKey[] }[] = [

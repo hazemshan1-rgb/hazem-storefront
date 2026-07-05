@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { Button } from '../ui/Button'
 
 gsap.registerPlugin(SplitText, ScrollTrigger, useGSAP)
 
@@ -16,6 +18,7 @@ export function Philosophy() {
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const body1Ref = useRef<HTMLParagraphElement>(null)
   const body2Ref = useRef<HTMLParagraphElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
   const imageInView = useInView(imageRef, { once: true, margin: '-60px' })
 
   useGSAP(() => {
@@ -54,7 +57,7 @@ export function Philosophy() {
         })
       }
 
-      const bodyEls = [body1Ref.current, body2Ref.current].filter(Boolean) as HTMLElement[]
+      const bodyEls = [body1Ref.current, body2Ref.current, ctaRef.current].filter(Boolean) as HTMLElement[]
       bodyEls.forEach((el, i) => {
         gsap.from(el, {
           opacity: 0,
@@ -87,6 +90,16 @@ export function Philosophy() {
           <div className="space-y-4 text-sm text-[var(--color-text-muted)] leading-relaxed">
             <p ref={body1Ref}>{t('philosophy.body1')}</p>
             <p ref={body2Ref}>{t('philosophy.body2')}</p>
+          </div>
+
+          <div ref={ctaRef} className="flex flex-wrap items-center gap-6 mt-6">
+            <Button as="link" to="/diagnostic" size="md">{t('philosophy.ctaPrimary')}</Button>
+            <Link
+              to="/audit"
+              className="text-[11px] tracking-[0.15em] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors"
+            >
+              {t('philosophy.ctaSecondary')}
+            </Link>
           </div>
         </div>
 

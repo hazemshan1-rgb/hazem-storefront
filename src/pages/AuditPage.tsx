@@ -33,7 +33,7 @@ const tiers: TierKeys[] = [
       { nameKey: 'audit.t1P3Name', labelKey: 'audit.t1P3Label', detailKey: 'audit.t1P3Detail' },
       { nameKey: 'audit.t1P4Name', labelKey: 'audit.t1P4Label', detailKey: 'audit.t1P4Detail' },
     ],
-    includesKeys: ['audit.t1Inc1','audit.t1Inc2','audit.t1Inc3','audit.t1Inc4','audit.t1Inc5','audit.t1Inc6','audit.t1Inc7'],
+    includesKeys: ['audit.t1Inc1','audit.t1Inc2','audit.t1Inc3','audit.t1Inc4','audit.t1Inc5','audit.t1Inc6','audit.t1Inc7','audit.t1Inc8'],
     excludesKeys: ['audit.t1Exc1','audit.t1Exc2','audit.t1Exc3','audit.t1Exc4','audit.t1Exc5'],
     email: T1_JOTFORM, ctaLabelKey: 'audit.t1CtaLabel', ctaNoteKey: 'audit.t1CtaNote',
   },
@@ -286,6 +286,14 @@ export function AuditPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const vitalSixKeys = [
+    { labelKey: 'audit.vs1Label', whyKey: 'audit.vs1Why' },
+    { labelKey: 'audit.vs2Label', whyKey: 'audit.vs2Why' },
+    { labelKey: 'audit.vs3Label', whyKey: 'audit.vs3Why' },
+    { labelKey: 'audit.vs4Label', whyKey: 'audit.vs4Why' },
+    { labelKey: 'audit.vs5Label', whyKey: 'audit.vs5Why' },
+    { labelKey: 'audit.vs6Label', whyKey: 'audit.vs6Why' },
+  ]
   const upgradeKeys = [
     { fromKey: 'audit.upg1From', detailKey: 'audit.upg1Detail' },
     { fromKey: 'audit.upg2From', detailKey: 'audit.upg2Detail' },
@@ -324,7 +332,7 @@ export function AuditPage() {
             name: 'Audit Tiers',
             itemListElement: [
               { '@type': 'Offer', name: 'Tier 1 Diagnostic Audit', priceSpecification: { '@type': 'PriceSpecification', minPrice: 5000, priceCurrency: 'USD' } },
-              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 12000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 15000, priceCurrency: 'USD' } },
             ],
           },
         }}
@@ -348,7 +356,8 @@ export function AuditPage() {
         <div className="max-w-3xl mb-12">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-4">{t('audit.eyebrow')}</p>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[var(--color-text)] leading-tight mb-6">{t('audit.headline')}</h1>
-          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-6">{t('audit.heroBody')}</p>
+          <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-4">{t('audit.heroBody')}</p>
+          <p className="text-sm text-[var(--color-text)] font-medium leading-relaxed max-w-2xl mb-6 italic border-l-2 border-[var(--color-gold-cta)] pl-4">{t('audit.methodPositioning')}</p>
           <a href="#free-ebook" className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase font-semibold border border-[var(--color-gold-cta)] text-[var(--color-gold-cta)] px-4 py-3 rounded-sm hover:bg-[rgba(202,138,4,0.08)] transition-all w-fit">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v8M4 6.5l3 3 3-3M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             {t('audit.heroFreeLink')}
@@ -400,12 +409,35 @@ export function AuditPage() {
             ))}
           </div>
           <div>
-            <p className="text-xs font-medium text-[var(--color-text)]">{t('audit.socialProofLine1')}</p>
-            <p className="text-[10px] text-[var(--color-text-muted)]">{t('audit.socialProofLine2')}</p>
+            <p className="text-xs font-medium text-[var(--color-text)]">{t('audit.heroSocialProofLine1')}</p>
+            <p className="text-[10px] text-[var(--color-text-muted)]">{t('audit.heroSocialProofLine2')}</p>
           </div>
         </div>
         <div id="tiers" className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}
+        </div>
+      </section>
+
+      {/* Blue Sigma method */}
+      <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">{t('audit.methodEyebrow')}</p>
+        <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-text)] leading-tight mb-4 max-w-2xl">{t('audit.methodHeadline')}</h2>
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-3">{t('audit.methodBody1')}</p>
+        <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-10">{t('audit.methodBody2')}</p>
+
+        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-3">{t('audit.methodVitalSixEyebrow')}</p>
+        <p className="text-xs text-[var(--color-text-muted)] leading-relaxed max-w-2xl mb-6">{t('audit.methodVitalSixIntro')}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {vitalSixKeys.map((v, i) => (
+            <div key={i} className="border border-[var(--color-gold-muted)] rounded-sm p-4">
+              <p className="text-xs font-semibold text-[var(--color-text)] mb-1">{t(v.labelKey)}</p>
+              <p className="text-[11px] text-[var(--color-text-muted)] leading-relaxed">{t(v.whyKey)}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="border border-[var(--color-gold-muted)] rounded-sm px-5 py-4 max-w-2xl">
+          <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{t('audit.methodHonesty')}</p>
         </div>
       </section>
 

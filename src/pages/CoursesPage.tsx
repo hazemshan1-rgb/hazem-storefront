@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
-import { captureEmail } from '../lib/diagnosticPersistence'
 import { WaitlistForm } from '../components/ui/WaitlistForm'
 
 const courses = [
@@ -38,12 +37,27 @@ export function CoursesPage() {
   const gridRef = useScrollReveal<HTMLDivElement>()
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email.trim()) return
-    captureEmail(email.trim(), 'courses-header-waitlist')
-    setSubmitted(true)
+    setSubmitError('')
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), source: 'courses-header-waitlist' }),
+      })
+      const data = await res.json() as { success?: boolean; error?: string }
+      if (data.success) {
+        setSubmitted(true)
+      } else {
+        setSubmitError(data.error ?? 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setSubmitError('Network error — please try again.')
+    }
   }
 
   return (
@@ -71,7 +85,7 @@ export function CoursesPage() {
               <p className="text-sm text-[var(--color-text)]">{t('courses.onList')}</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row flex-wrap gap-3 max-w-md">
               <input
                 type="email"
                 required
@@ -86,6 +100,9 @@ export function CoursesPage() {
               >
                 {t('courses.joinWaitlistBtn')}
               </button>
+              {submitError && (
+                <p className="text-xs text-red-400 basis-full">{submitError}</p>
+              )}
             </form>
           )}
         </div>

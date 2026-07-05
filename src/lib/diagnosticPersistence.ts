@@ -10,6 +10,20 @@ function getSessionId(): string {
   return id
 }
 
+// Mirrors every captured email into the single master `subscribers` list,
+// regardless of which specialised table (diagnostic_results, course_waitlist)
+// it also lives in. A duplicate-email conflict (23505) is expected and fine —
+// it just means this person is already on the list.
+async function mirrorToSubscribers(email: string, source: string): Promise<void> {
+  const { error } = await supabase
+    .from('subscribers')
+    .insert({ email, source })
+
+  if (error && error.code !== '23505') {
+    console.error('Failed to mirror email to subscribers:', error)
+  }
+}
+
 export async function saveDiagnosticResult(
   answers: DiagnosticAnswers,
   contextAnswers: ContextAnswers,
@@ -39,6 +53,10 @@ export async function saveDiagnosticResult(
     return { success: false }
   }
 
+  if (email) {
+    void mirrorToSubscribers(email, 'diagnostic-results')
+  }
+
   return { success: true, id: data?.id }
 }
 
@@ -55,6 +73,8 @@ export async function updateDiagnosticEmail(
     console.error('Failed to update diagnostic email:', error)
     return { success: false }
   }
+
+  void mirrorToSubscribers(email, 'diagnostic-results')
 
   return { success: true }
 }
@@ -75,21 +95,7 @@ export async function joinCourseWaitlist(
     return { success: false }
   }
 
-  return { success: true }
-}
-
-export async function captureEmail(
-  email: string,
-  source: string,
-): Promise<{ success: boolean }> {
-  const { error } = await supabase
-    .from('email_captures')
-    .insert({ email, source })
-
-  if (error) {
-    console.error('Failed to capture email:', error)
-    return { success: false }
-  }
+  void mirrorToSubscribers(email, `course-waitlist-${courseSlug}`)
 
   return { success: true }
 }

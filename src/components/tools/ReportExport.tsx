@@ -18,6 +18,7 @@ export function ReportExport({ toolName, source, inputs, results, capturedEmail 
   const [name, setName]   = useState(capturedEmail?.name ?? '')
   const [email, setEmail] = useState(capturedEmail?.email ?? '')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [reportSent, setReportSent] = useState(false)
   const [errMsg, setErrMsg] = useState('')
 
   async function sendReport(e?: React.FormEvent) {
@@ -32,27 +33,52 @@ export function ReportExport({ toolName, source, inputs, results, capturedEmail 
     }
     setStatus('loading')
     setErrMsg('')
-    try {
-      const res = await fetch('/api/report-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          source,
-          toolName,
-          inputs,
-          results,
-        }),
-      })
-      const data = await res.json() as { success?: boolean; error?: string }
-      if (data.success) {
-        setStatus('success')
-      } else {
-        setErrMsg(data.error ?? 'Something went wrong. Please try again.')
-        setStatus('error')
+
+    const trimmedName = name.trim()
+    const trimmedEmail = email.trim().toLowerCase()
+
+    // Supabase is the one guaranteed destination — capture the lead regardless of
+    // whether the report-email delivery pipeline below is configured.
+    const captured = await (async () => {
+      try {
+        const subscribeRes = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: trimmedName, email: trimmedEmail, source }),
+        })
+        return subscribeRes.ok
+      } catch {
+        return false
       }
-    } catch {
+    })()
+
+    // Best-effort: actually email them the report content. Failing here (e.g. the
+    // Zapier webhook isn't configured yet) must not hide that the lead was captured.
+    const sent = await (async () => {
+      try {
+        const res = await fetch('/api/report-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: trimmedName,
+            email: trimmedEmail,
+            source,
+            toolName,
+            inputs,
+            results,
+          }),
+        })
+        const data = await res.json() as { success?: boolean; error?: string }
+        return !!data.success
+      } catch {
+        return false
+      }
+    })()
+
+    setReportSent(sent)
+    if (captured) {
+      setStatus('success')
+    } else {
       setErrMsg('Network error — please try again.')
       setStatus('error')
     }
@@ -80,7 +106,9 @@ export function ReportExport({ toolName, source, inputs, results, capturedEmail 
         </button>
 
         {status === 'success' ? (
-          <p className="text-[11px] text-[var(--color-gold-cta)]">✓ Report sent to {email}</p>
+          <p className="text-[11px] text-[var(--color-gold-cta)]">
+            {reportSent ? `✓ Report sent to ${email}` : `✓ Got it — we'll follow up at ${email}`}
+          </p>
         ) : (
           <button
             type="button"
@@ -140,8 +168,16 @@ export function ReportExport({ toolName, source, inputs, results, capturedEmail 
           ))}
         </ul>
 
+        <div className="report-cta">
+          <p className="report-cta-headline">Want this fixed, not just measured?</p>
+          <p className="report-cta-body">
+            The Farm Profit-Leak Audit prices every leak on your farm from your own numbers — from $5,000.
+            hazemshannak.cc/audit
+          </p>
+        </div>
+
         <p className="report-footer">
-          Prepared by Hazem Shannak, Director &amp; Business Growth Architect — hazemshannak.cc
+          Hazem Shannak, Director &amp; Business Growth Architect · hazemshannak.cc · connect@hazemshannak.cc
         </p>
       </div>
     </div>

@@ -122,12 +122,12 @@ export function HomePage() {
       <Hero />
       <TrustStrip />
       <TrustLogos />
+      <Philosophy />
       <ValuationTeaser />
       <DiagnosticTeaser />
       <InactionClock />
       <ToolsNav />
       <LibraryFeature />
-      <Philosophy />
       <ConsultationBanner />
     </main>
   )

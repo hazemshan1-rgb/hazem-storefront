@@ -128,6 +128,7 @@ export function Hero() {
 
             <div ref={ctaGroupRef} className="flex flex-wrap gap-4 pt-2">
               <Button as="link" to="/diagnostic" size="lg">{t('hero.ctaPrimary')}</Button>
+              <Button as="link" to="/about" variant="secondary" size="lg">{t('hero.ctaAbout')}</Button>
             </div>
 
             <Link

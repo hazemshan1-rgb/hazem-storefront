@@ -3,7 +3,6 @@
 @theme {
   --font-family-serif: 'Playfair Display', Georgia, serif;
   --font-family-sans: 'Geist Variable', system-ui, sans-serif;
-  --font-family-arabic: 'Cairo', system-ui, sans-serif;
 }
 
 @layer base {
@@ -256,41 +255,6 @@
   }
 }
 
-/* ─── Arabic / RTL overrides ─────────────────────────────────────────────── */
-[dir="rtl"] {
-  font-family: 'Cairo', system-ui, sans-serif;
-}
-
-[dir="rtl"] h1,
-[dir="rtl"] h2,
-[dir="rtl"] h3,
-[dir="rtl"] .font-serif {
-  font-family: 'Cairo', system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-/* Remove English letter-spacing in Arabic — looks wrong on Arabic glyphs */
-[dir="rtl"] .tracking-widest,
-[dir="rtl"] .tracking-wide,
-[dir="rtl"] [class*="tracking-["] {
-  letter-spacing: 0;
-}
-
-/* Flip directional animations for RTL */
-[dir="rtl"] .scroll-reveal-left {
-  transform: translateX(28px);
-}
-[dir="rtl"] .scroll-reveal-left.revealed {
-  transform: translateX(0);
-}
-[dir="rtl"] .scroll-reveal-right {
-  transform: translateX(-28px);
-}
-[dir="rtl"] .scroll-reveal-right.revealed {
-  transform: translateX(0);
-}
-
 /* Tool report printing (Save as PDF) — hide site chrome and interactive
    controls, show only the .print-report block a tool renders */
 @media print {
@@ -352,8 +316,4 @@
   color: #777;
   border-top: 1px solid #ccc;
   padding-top: 12px;
-}
-
-.print-report {
-  display: none;
 }

@@ -94,6 +94,7 @@ export default async function handler(req: Request): Promise<Response> {
     body: JSON.stringify({
       from: 'Hazem Shannak <connect@hazemshannak.cc>',
       to: [email],
+      bcc: ['connect@hazemshannak.cc'],
       subject: `Your ${toolName} Report — hazemshannak.cc`,
       html: buildReportHtml(name, toolName, inputs, results),
     }),

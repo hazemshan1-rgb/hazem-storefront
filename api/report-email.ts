@@ -92,8 +92,7 @@ export default async function handler(req: Request): Promise<Response> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Hazem Shannak <reports@send.hazemshannak.cc>',
-      reply_to: 'connect@hazemshannak.cc',
+      from: 'Hazem Shannak <connect@hazemshannak.cc>',
       to: [email],
       subject: `Your ${toolName} Report — hazemshannak.cc`,
       html: buildReportHtml(name, toolName, inputs, results),

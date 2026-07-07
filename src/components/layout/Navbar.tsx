@@ -81,6 +81,7 @@ export function Navbar() {
                 {l.label}
               </NavLink>
             ))}
+            {/* Community link hidden pending upgrades - re-enable when ready
             <a
               href="https://www.skool.com/the-aquapreneur-inner-circle-5684"
               target="_blank"
@@ -89,6 +90,7 @@ export function Navbar() {
             >
               {t('nav.community', { defaultValue: 'Community' })}
             </a>
+            */}
           </nav>
 
           {/* Mobile toggle */}
@@ -173,7 +175,7 @@ export function Navbar() {
                   ))}
                 </div>
 
-                {/* Community external link */}
+                {/* Community link hidden pending upgrades - re-enable when ready
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -188,6 +190,7 @@ export function Navbar() {
                     <span>{t('nav.community', { defaultValue: 'Community' })}</span>
                   </a>
                 </motion.div>
+                */}
 
                 {/* CTA buttons */}
                 <motion.div

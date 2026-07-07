@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/ui/SEO'
 import { MarginWidget } from '../components/tools/MarginWidget'
+import { WisdomStatement } from '../components/ui/WisdomStatement'
 
 export function MarginRecoveryPage() {
   return (
@@ -27,8 +28,12 @@ export function MarginRecoveryPage() {
             A 0.2 improvement in FCR and closing the gap to benchmark survival can recover hundreds of thousands in lost margin. Set your revenue and current numbers to see what's actually on the table.
           </p>
         </div>
+      </div>
 
-        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-muted)] rounded-sm p-8">
+      <WisdomStatement text="Margin isn't made at harvest. It's made in the first three weeks of the cycle." variant="light" />
+
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="bg-[var(--color-navy)] border border-[var(--color-gold-muted)] rounded-sm p-8 mt-16">
           <MarginWidget showReport />
         </div>
 

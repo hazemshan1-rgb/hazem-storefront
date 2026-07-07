@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { SEO } from '../components/ui/SEO'
 import { EmailGate } from '../components/tools/EmailGate'
 import { FeedCalculator } from '../components/tools/FeedCalculator'
+import { WisdomStatement } from '../components/ui/WisdomStatement'
 
 export function FeedCalculatorPage() {
   return (
@@ -28,7 +29,11 @@ export function FeedCalculatorPage() {
             Dynamic feeding targets based on species-specific FCR curves, water temperature, pH stress coefficients, and standing biomass. Calibrated for intensive pond culture.
           </p>
         </div>
+      </div>
 
+      <WisdomStatement text="You don't need more inputs. You need fewer surprises." variant="light" />
+
+      <div className="max-w-4xl mx-auto px-6">
         <EmailGate toolName="Shrimp Feed Calculator" source="feed-calculator">
           <FeedCalculator />
         </EmailGate>

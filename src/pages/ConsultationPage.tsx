@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
+import { WisdomStatement } from '../components/ui/WisdomStatement'
 import { caseStudies } from '../data/caseStudies'
 
 const CHECKOUT_60 = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
@@ -320,6 +321,8 @@ export function ConsultationPage() {
 
         </div>
       </section>
+
+      <WisdomStatement text={t('wisdom.consultation')} variant="dark" />
     </main>
   )
 }

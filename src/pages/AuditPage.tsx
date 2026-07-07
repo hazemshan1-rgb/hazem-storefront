@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
+import { WisdomStatement } from '../components/ui/WisdomStatement'
 import { caseStudies } from '../data/caseStudies'
 
 const T1_JOTFORM = 'https://form.jotform.com/261731704452049'
@@ -417,6 +418,8 @@ export function AuditPage() {
           {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}
         </div>
       </section>
+
+      <WisdomStatement text={t('wisdom.audit')} variant="dark" />
 
       {/* Blue Sigma method */}
       <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">

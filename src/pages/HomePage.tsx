@@ -7,6 +7,7 @@ import { TrustStrip } from '../components/home/TrustStrip'
 import { TrustLogos } from '../components/home/TrustLogos'
 import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { Philosophy } from '../components/home/Philosophy'
+import { WisdomStatement } from '../components/ui/WisdomStatement'
 import { InactionClock } from '../components/home/InactionClock'
 import { ValuationTeaser } from '../components/home/ValuationTeaser'
 import { SEO } from '../components/ui/SEO'
@@ -100,6 +101,7 @@ function ConsultationBanner() {
 
 export function HomePage() {
   useLemonSqueezy()
+  const { t } = useTranslation()
   return (
     <main>
       <SEO
@@ -123,6 +125,7 @@ export function HomePage() {
       <TrustStrip />
       <TrustLogos />
       <Philosophy />
+      <WisdomStatement text={t('wisdom.home')} variant="dark" />
       <ValuationTeaser />
       <DiagnosticTeaser />
       <InactionClock />

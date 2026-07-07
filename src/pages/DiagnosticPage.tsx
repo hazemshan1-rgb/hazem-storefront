@@ -310,6 +310,10 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
           {t('diagnostic.introBody2')}
         </p>
 
+        <p className="font-serif text-xl md:text-2xl text-[var(--color-text-on-dark)] leading-snug max-w-lg mx-auto mb-12 border-t border-[rgba(255,255,255,0.08)] pt-8">
+          {t('wisdom.diagnostic')}
+        </p>
+
         <div className="flex flex-wrap justify-center gap-8 text-sm text-[var(--color-text-muted-dark)] mb-12">
           {stats.map(s => (
             <div key={s.valKey} className="text-center">

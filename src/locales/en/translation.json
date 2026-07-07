@@ -149,6 +149,12 @@
     "ctaSecondary": "See the Farm Profit-Leak Audit →",
     "imgAlt": "Hazem leading a group farm visit — consulting at shrimp ponds"
   },
+  "wisdom": {
+    "home": "You don't farm shrimp. You farm water. The shrimp just live in it.",
+    "diagnostic": "The farm doesn't fail overnight. It fails quietly, for weeks, before anyone checks.",
+    "audit": "Good farmers watch water. Great farmers watch it before there's anything to see.",
+    "consultation": "Profit is what's left after the ecosystem stops fighting you."
+  },
   "valuationTeaser": {
     "eyebrow": "Farm Valuation Tool",
     "headline": "What would your farm sell for today — and after the programme?",

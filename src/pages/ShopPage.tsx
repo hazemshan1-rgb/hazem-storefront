@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { CategoryFilter } from '../components/shop/CategoryFilter'
 import { ProductGrid } from '../components/shop/ProductGrid'
+import { ComingSoonFrame } from '../components/shop/ComingSoonFrame'
 import { getFiltered } from '../data/products'
 import { SEO } from '../components/ui/SEO'
 import type { ShopFilter } from '../types/product'
@@ -24,7 +25,8 @@ export function ShopPage() {
   const [activeFilter, setActiveFilter] = useState<ShopFilter>(
     () => parseFilterParam(searchParams.get('category'))
   )
-  const filtered = getFiltered(activeFilter)
+  const filtered = getFiltered(activeFilter).filter(p => !p.comingSoon)
+  const comingSoonProducts = getFiltered(activeFilter).filter(p => p.comingSoon)
 
   const courses = [
     { titleKey: 'shop.course1Title', descKey: 'shop.course1Desc', levelKey: 'shop.course1Level' },
@@ -62,6 +64,7 @@ export function ShopPage() {
       </div>
       <CategoryFilter active={activeFilter} onChange={setActiveFilter} />
       <ProductGrid products={filtered} />
+      <ComingSoonFrame products={comingSoonProducts} />
 
       {/* Upcoming training */}
       <div className="mt-20 pt-16 border-t border-[var(--color-gold-muted)]">

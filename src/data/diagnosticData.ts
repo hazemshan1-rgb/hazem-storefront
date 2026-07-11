@@ -1,13 +1,15 @@
 // Shrimp Profit Leak Diagnostic — data layer
 // 8 scored categories, 34 questions, species-system weighted scoring
 
-export type Species = 'vannamei' | 'monodon' | 'chinensis' | 'merguiensis'
-export type System  = 'earthen_extensive' | 'earthen_semi' | 'lined_semi' | 'biofloc' | 'ras'
+export type Species   = 'vannamei' | 'monodon' | 'chinensis' | 'merguiensis'
+export type System    = 'earthen_extensive' | 'earthen_semi' | 'lined_semi' | 'biofloc' | 'ras'
+export type NextCycle = 'within_2_weeks' | '2_6_weeks' | '6_12_weeks' | 'no_cycle_planned'
 
 export interface ContextAnswers {
   species:    Species
   system:     System
   targetSize: string
+  nextCycle:  NextCycle
 }
 
 export interface DiagnosticAnswers {
@@ -82,6 +84,16 @@ export const CONTEXT_QUESTIONS = [
       { value: '15_20g',    label: '15–20g — standard market' },
       { value: '20_30g',    label: '20–30g — large' },
       { value: 'over_30g',  label: 'Above 30g — jumbo / head-on premium' },
+    ],
+  },
+  {
+    id: 'nextCycle',
+    question: 'When does your next stocking cycle start?',
+    options: [
+      { value: 'within_2_weeks',    label: 'Within 2 weeks' },
+      { value: '2_6_weeks',         label: '2 – 6 weeks' },
+      { value: '6_12_weeks',        label: '6 – 12 weeks' },
+      { value: 'no_cycle_planned',  label: 'No cycle planned right now' },
     ],
   },
 ]
@@ -731,4 +743,96 @@ export function interpretScore(normalisedPct: number): Interpretation {
     ctaLabel: 'Apply for Tier 2 — 90-Day Transformation',
     ctaLink: '/audit',
   }
+}
+
+// ── Best-practice comparison ──────────────────────────────────────────────────
+// Every question option already carries an authored score (0 = optimal). This
+// compares the user's actual answer to the optimal answer for the same
+// question, in their own words — no fabricated peer statistics involved.
+
+export interface BestPracticeGap {
+  categoryId:   number
+  categoryName: string
+  questionText: string
+  userLabel:    string
+  optimalLabel: string
+}
+
+export function getBestPracticeGaps(
+  answers:           DiagnosticAnswers,
+  topLeakCategories: number[],
+): BestPracticeGap[] {
+  const gaps: BestPracticeGap[] = []
+
+  for (const categoryId of topLeakCategories) {
+    const categoryQuestions = QUESTIONS.filter(q => q.category === categoryId)
+
+    let worst: { question: DiagnosticQuestion; option: QuestionOption } | null = null
+    for (const q of categoryQuestions) {
+      const selected = answers[q.id]
+      if (!selected) continue
+      const option = q.options.find(o => o.value === selected)
+      if (!option) continue
+      if (!worst || option.score > worst.option.score) worst = { question: q, option }
+    }
+
+    if (!worst || worst.option.score === 0) continue // already at best practice
+
+    const optimal = worst.question.options.find(o => o.score === 0)
+    if (!optimal) continue
+
+    const categoryName = CATEGORIES.find(c => c.id === categoryId)?.name ?? `Category ${categoryId}`
+    gaps.push({
+      categoryId,
+      categoryName,
+      questionText: worst.question.question,
+      userLabel:    worst.option.label,
+      optimalLabel: optimal.label,
+    })
+  }
+
+  return gaps
+}
+
+// ── Cycle-timing guidance ─────────────────────────────────────────────────────
+// Real lead times, sourced from audit.t1LeadTime / audit.t2LeadTime in
+// src/locales/en/translation.json — not invented. Tier 1: "2–3 weeks from
+// contract signing to report delivery". Tier 2: "4–6 weeks from signing to
+// start". We use the upper bound of each so the suggested date never overpromises.
+
+const CYCLE_WEEKS: Record<NextCycle, number | null> = {
+  within_2_weeks:   1,
+  '2_6_weeks':       4,
+  '6_12_weeks':      9,
+  no_cycle_planned: null,
+}
+
+const TIER1_LEAD_WEEKS = 3
+const TIER2_LEAD_WEEKS = 6
+
+export interface CycleTimingGuidance {
+  weeksUntilCycle: number
+  leadTimeWeeks:   number
+  tierLabel:       'Tier 1 Diagnostic Audit' | 'Tier 2 90-Day Transformation'
+  startByDate:     string
+  isUrgent:        boolean // the safe start window has already passed
+}
+
+// Only surfaces when there's a real leak (score > 20) and a real cycle date to
+// work backwards from — never a manufactured countdown.
+export function getCycleTimingGuidance(
+  nextCycle:     NextCycle,
+  normalisedPct: number,
+): CycleTimingGuidance | null {
+  const weeksUntilCycle = CYCLE_WEEKS[nextCycle]
+  if (weeksUntilCycle === null || normalisedPct <= 20) return null
+
+  const tierLabel     = normalisedPct > 65 ? 'Tier 2 90-Day Transformation' : 'Tier 1 Diagnostic Audit'
+  const leadTimeWeeks = normalisedPct > 65 ? TIER2_LEAD_WEEKS : TIER1_LEAD_WEEKS
+  const weeksToSpare  = weeksUntilCycle - leadTimeWeeks
+
+  const startByDate = new Date(Date.now() + weeksToSpare * 7 * 24 * 60 * 60 * 1000)
+    .toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })
+
+  return { weeksUntilCycle, leadTimeWeeks, tierLabel, startByDate, isUrgent: weeksToSpare <= 0 }
 }

@@ -1,10 +1,19 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { SEO } from '../components/ui/SEO'
 import { ReportExport } from '../components/tools/ReportExport'
-import { saveDiagnosticResult, updateDiagnosticEmail } from '../lib/diagnosticPersistence'
+import {
+  saveDiagnosticResult,
+  updateDiagnosticEmail,
+  saveDraft,
+  updateDraftProgress,
+  saveDraftEmail,
+  loadDraft,
+  getSegmentPercentile,
+  type SegmentPercentile,
+} from '../lib/diagnosticPersistence'
 import {
   QUESTIONS,
   CATEGORIES,
@@ -12,6 +21,8 @@ import {
   QUESTIONS_BY_CATEGORY,
   calculateScore,
   interpretScore,
+  getBestPracticeGaps,
+  getCycleTimingGuidance,
   type DiagnosticQuestion,
   type ContextAnswers,
   type DiagnosticAnswers,
@@ -30,11 +41,12 @@ interface WizardState {
   currentCategoryIndex: number
   currentQuestionInCat: number
   answers:              DiagnosticAnswers
+  draftId:              string | null
 }
 
 const INIT: WizardState = {
   phase: 'intro', direction: 1, contextStep: 0, contextAnswers: {},
-  currentCategoryIndex: 0, currentQuestionInCat: 0, answers: {},
+  currentCategoryIndex: 0, currentQuestionInCat: 0, answers: {}, draftId: null,
 }
 
 // ── Animation ─────────────────────────────────────────────────────────────────
@@ -51,6 +63,8 @@ const easing = { duration: 0.26, ease: [0.16, 1, 0.3, 1] as const }
 export function DiagnosticPage() {
   const { t } = useTranslation()
   const [state, setState] = useState<WizardState>(INIT)
+  const [searchParams] = useSearchParams()
+  const [nudgeDismissed, setNudgeDismissed] = useState(false)
 
   const catIdx   = state.currentCategoryIndex
   const category = CATEGORIES[catIdx]
@@ -59,6 +73,30 @@ export function DiagnosticPage() {
 
   const answered = Object.keys(state.answers).length
   const progress = QUESTIONS.length > 0 ? Math.round((answered / QUESTIONS.length) * 100) : 0
+
+  // Resume a saved draft — only reachable via an emailed resume link, since
+  // loadDraft() only returns rows where email has been set (see comment there).
+  useEffect(() => {
+    const resumeId = searchParams.get('resume')
+    if (!resumeId) return
+    void loadDraft(resumeId).then(draft => {
+      if (!draft) return
+      setState(s => ({
+        ...s,
+        phase: 'question',
+        contextAnswers: draft.contextAnswers,
+        answers: draft.answers,
+        currentCategoryIndex: draft.currentCategoryIndex,
+        currentQuestionInCat: draft.currentQuestionInCat,
+        draftId: draft.id,
+      }))
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Idle nudge — offers to email a resume link during the question flow only.
+  const idle = useIdleTimer(state.phase === 'question' || state.phase === 'category-intro', 25000)
+  const showResumeNudge = idle && !nudgeDismissed && !!state.draftId
 
   // ── Navigation ──────────────────────────────────────────────────────────────
 
@@ -97,6 +135,10 @@ export function DiagnosticPage() {
       advance({ contextAnswers: ctx, contextStep: state.contextStep + 1 })
     } else {
       advance({ contextAnswers: ctx, phase: 'category-intro', currentCategoryIndex: 0 })
+      // Fire-and-forget: creates the recoverable draft row for abandon-capture.
+      void saveDraft(ctx).then(({ id }) => {
+        if (id) setState(s => ({ ...s, draftId: id }))
+      })
     }
   }
 
@@ -108,12 +150,22 @@ export function DiagnosticPage() {
     const lastInCat = state.currentQuestionInCat >= catQs.length - 1
     const lastCat   = catIdx >= CATEGORIES.length - 1
 
+    let nextCategoryIndex = catIdx
+    let nextQuestionInCat = state.currentQuestionInCat
+
     if (!lastInCat) {
-      advance({ answers: updated, currentQuestionInCat: state.currentQuestionInCat + 1 })
+      nextQuestionInCat = state.currentQuestionInCat + 1
+      advance({ answers: updated, currentQuestionInCat: nextQuestionInCat })
     } else if (!lastCat) {
-      advance({ answers: updated, currentCategoryIndex: catIdx + 1, currentQuestionInCat: 0, phase: 'category-intro' })
+      nextCategoryIndex = catIdx + 1
+      nextQuestionInCat = 0
+      advance({ answers: updated, currentCategoryIndex: nextCategoryIndex, currentQuestionInCat: 0, phase: 'category-intro' })
     } else {
       advance({ answers: updated, phase: 'results' })
+    }
+
+    if (state.draftId) {
+      void updateDraftProgress(state.draftId, updated, nextCategoryIndex, nextQuestionInCat)
     }
   }
 
@@ -214,13 +266,112 @@ export function DiagnosticPage() {
                 onRestart={() => setState(INIT)}
                 contextAnswers={state.contextAnswers as ContextAnswers}
                 answers={state.answers}
+                draftId={state.draftId}
               />
             </Slide>
           )}
 
         </AnimatePresence>
+
+        <AnimatePresence>
+          {showResumeNudge && state.draftId && (
+            <ResumeNudge draftId={state.draftId} onDone={() => setNudgeDismissed(true)} />
+          )}
+        </AnimatePresence>
       </div>
     </>
+  )
+}
+
+// ── Idle detection ────────────────────────────────────────────────────────────
+// Resets on any pointer/keyboard interaction; fires once after `delayMs` of
+// inactivity while `active` is true (only during the question flow).
+
+function useIdleTimer(active: boolean, delayMs: number): boolean {
+  const [idle, setIdle] = useState(false)
+
+  useEffect(() => {
+    if (!active) {
+      setIdle(false)
+      return
+    }
+    let timer = setTimeout(() => setIdle(true), delayMs)
+    const reset = () => {
+      setIdle(false)
+      clearTimeout(timer)
+      timer = setTimeout(() => setIdle(true), delayMs)
+    }
+    window.addEventListener('pointerdown', reset)
+    window.addEventListener('keydown', reset)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('pointerdown', reset)
+      window.removeEventListener('keydown', reset)
+    }
+  }, [active, delayMs])
+
+  return idle
+}
+
+// ── Resume nudge — offers to email a link to finish an in-progress draft ─────
+
+function ResumeNudge({ draftId, onDone }: { draftId: string; onDone: () => void }) {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email) return
+    setStatus('sending')
+    const { success } = await saveDraftEmail(draftId, email)
+    if (!success) {
+      setStatus('idle')
+      return
+    }
+    await fetch('/api/resume-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, draftId }),
+    }).catch(() => {/* silent — draft email already saved */})
+    setStatus('sent')
+  }
+
+  return (
+    <motion.div
+      initial={{ y: 80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 80, opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-3rem)] max-w-md bg-[var(--color-navy-2)] border border-[var(--color-gold-muted)] rounded-sm p-4 shadow-2xl"
+    >
+      {status === 'sent' ? (
+        <p className="text-xs text-[var(--color-teal-cta)] text-center py-1">Link sent — check your inbox.</p>
+      ) : (
+        <form onSubmit={submit} className="flex flex-col gap-2">
+          <p className="text-xs text-[var(--color-text-on-dark)]">Want us to email you a link to finish this later?</p>
+          <div className="flex gap-2">
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@farm.com"
+              required
+              className="flex-1 bg-white/5 border border-white/10 rounded-sm px-3 py-2 text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-[var(--color-gold-cta)]"
+            />
+            <button
+              type="submit"
+              disabled={status === 'sending'}
+              className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-4 py-2 rounded-sm hover:brightness-110 transition-all whitespace-nowrap disabled:opacity-60"
+            >
+              {status === 'sending' ? '…' : 'Email me'}
+            </button>
+          </div>
+          <button type="button" onClick={onDone} className="text-[9px] text-white/40 hover:text-white/70 self-start">
+            Not now
+          </button>
+        </form>
+      )}
+    </motion.div>
   )
 }
 
@@ -481,22 +632,60 @@ function ResultsScreen({
   onRestart,
   contextAnswers,
   answers,
+  draftId,
 }: {
   result: ScoreResult
   onRestart: () => void
   contextAnswers: ContextAnswers
   answers: DiagnosticAnswers
+  draftId: string | null
 }) {
   const [email, setEmail]           = useState('')
   const [emailSaved, setEmailSaved] = useState(false)
   const [savedId, setSavedId]       = useState<string | null>(null)
   const [showPivotModal, setShowPivotModal] = useState(result.normalisedPct > 65)
+  const [percentiles, setPercentiles] = useState<Record<number, SegmentPercentile>>({})
 
   useEffect(() => {
-    saveDiagnosticResult(answers, contextAnswers, result).then(r => {
+    saveDiagnosticResult(answers, contextAnswers, result, undefined, draftId ?? undefined).then(r => {
       if (r.id) setSavedId(r.id)
     })
   }, [])
+
+  // Best-practice comparison — zero fabricated numbers, just the user's own
+  // answer against the already-authored optimal answer for the same question.
+  const bestPracticeGaps = useMemo(
+    () => getBestPracticeGaps(answers, result.topLeakCategories),
+    [answers, result.topLeakCategories],
+  )
+
+  // Real, non-manufactured urgency — only renders when there's an actual leak
+  // and an actual cycle date to work backwards from.
+  const cycleGuidance = contextAnswers.nextCycle
+    ? getCycleTimingGuidance(contextAnswers.nextCycle, result.normalisedPct)
+    : null
+
+  // Live peer percentile — self-activates once a species+system segment has
+  // enough completed rows (see MIN_SEGMENT_SAMPLE in diagnosticPersistence.ts).
+  useEffect(() => {
+    let cancelled = false
+    async function loadPercentiles() {
+      const entries = await Promise.all(
+        result.topLeakCategories.map(async catId => {
+          const max = result.categoryMaxes[catId] ?? 1
+          const pct = Math.round(((result.categoryScores[catId] ?? 0) / max) * 100)
+          const p = await getSegmentPercentile(contextAnswers.species, contextAnswers.system, catId, pct)
+          return [catId, p] as const
+        }),
+      )
+      if (cancelled) return
+      const map: Record<number, SegmentPercentile> = {}
+      for (const [catId, p] of entries) if (p) map[catId] = p
+      setPercentiles(map)
+    }
+    void loadPercentiles()
+    return () => { cancelled = true }
+  }, [contextAnswers.species, contextAnswers.system, result.topLeakCategories, result.categoryMaxes, result.categoryScores])
 
   const interp   = interpretScore(result.normalisedPct)
   const leakLow  = Math.round(result.totalLeakUsd * 0.7 / 1000) * 1000
@@ -602,6 +791,36 @@ function ResultsScreen({
         </p>
       </div>
 
+      {/* Best-practice comparison — own answer vs. authored optimal answer */}
+      {bestPracticeGaps.length > 0 && (
+        <div className="mb-10">
+          <h3 className="text-[10px] uppercase tracking-widest text-[var(--color-text-muted-dark)] mb-5">
+            Where you're leaking vs. best practice
+          </h3>
+          <div className="flex flex-col gap-3">
+            {bestPracticeGaps.map(gap => {
+              const peer = percentiles[gap.categoryId]
+              return (
+                <div key={gap.categoryId} className="border border-white/10 rounded-sm p-4">
+                  <p className="text-xs font-semibold text-[var(--color-text-on-dark)] mb-2">{gap.categoryName}</p>
+                  <p className="text-xs text-[var(--color-text-muted-dark)] leading-relaxed">
+                    Best-practice operators answer:{' '}
+                    <span className="text-[var(--color-gold)]">{gap.optimalLabel}</span>. You reported:{' '}
+                    <span className="text-[#f97316]">{gap.userLabel}</span>.
+                  </p>
+                  {peer && (
+                    <p className="text-[10px] text-[var(--color-text-muted-dark)] mt-2">
+                      Worse than {peer.percentile}% of {peer.sampleSize} similar operators ({contextAnswers.species}
+                      /{contextAnswers.system}) who've completed this diagnostic.
+                    </p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Score legend */}
       <div className="border border-white/10 rounded-sm p-4 mb-10 grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs">
         {legend.map(b => (
@@ -611,6 +830,38 @@ function ResultsScreen({
           </div>
         ))}
       </div>
+
+      {/* Cycle-timing urgency — only renders with a real leak and a real cycle date */}
+      {cycleGuidance && (
+        <div
+          className={`border rounded-sm p-5 mb-8 ${
+            cycleGuidance.isUrgent
+              ? 'border-[#ef4444]/30 bg-[rgba(239,68,68,0.04)]'
+              : 'border-[var(--color-gold-muted)] bg-[rgba(255,255,255,0.02)]'
+          }`}
+        >
+          <p
+            className={`text-[10px] tracking-[0.2em] uppercase mb-2 ${
+              cycleGuidance.isUrgent ? 'text-[#ef4444]' : 'text-[var(--color-gold)]'
+            }`}
+          >
+            Cycle timing
+          </p>
+          {cycleGuidance.isUrgent ? (
+            <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed">
+              Your next stocking cycle is close enough that a {cycleGuidance.tierLabel} — which takes about{' '}
+              {cycleGuidance.leadTimeWeeks} weeks — won't finish before you stock. Fixes found now still apply to
+              the cycle after.
+            </p>
+          ) : (
+            <p className="text-sm text-[var(--color-text-on-dark)] leading-relaxed">
+              Your next cycle starts in roughly {cycleGuidance.weeksUntilCycle} weeks. A {cycleGuidance.tierLabel}{' '}
+              takes about {cycleGuidance.leadTimeWeeks} weeks — to have fixes in place before you stock, start by{' '}
+              <span className="text-[var(--color-gold-cta)] font-medium">{cycleGuidance.startByDate}</span>.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Score-contextual pathway nudge */}
       {result.normalisedPct > 20 && result.normalisedPct <= 65 && (
@@ -684,7 +935,7 @@ function ResultsScreen({
               if (!email) return
               const { success } = savedId
                 ? await updateDiagnosticEmail(savedId, email)
-                : await saveDiagnosticResult(answers, contextAnswers, result, email)
+                : await saveDiagnosticResult(answers, contextAnswers, result, email, draftId ?? undefined)
 
               if (success) {
                 setEmailSaved(true)

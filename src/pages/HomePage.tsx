@@ -126,12 +126,12 @@ export function HomePage() {
       <TrustLogos />
       <Philosophy />
       <WisdomStatement text={t('wisdom.home')} variant="dark" />
+      <ConsultationBanner />
       <ValuationTeaser />
       <DiagnosticTeaser />
       <InactionClock />
       <ToolsNav />
       <LibraryFeature />
-      <ConsultationBanner />
     </main>
   )
 }

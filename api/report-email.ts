@@ -37,7 +37,7 @@ function buildReportHtml(name: string, toolName: string, inputs: ReportField[], 
   <div style="margin-top:24px;padding:14px 16px;border:1px solid #ccc;border-radius:4px;">
     <p style="font-size:14px;font-weight:bold;margin:0 0 6px 0;">Want this fixed, not just measured?</p>
     <p style="font-size:12px;color:#333;margin:0;">
-      The Farm Profit-Leak Audit prices every leak on your farm from your own numbers — from $5,000.
+      The Farm Profit-Leak Audit prices every leak on your farm from your own numbers — $4,500–$7,500.
       <a href="https://hazemshannak.cc/audit" style="color:#8B6914;">hazemshannak.cc/audit</a>
     </p>
   </div>

@@ -5,26 +5,25 @@ import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { SEO } from '../components/ui/SEO'
 import { WisdomStatement } from '../components/ui/WisdomStatement'
+import { ApplicationModal } from '../components/audit/ApplicationModal'
 import { caseStudies } from '../data/caseStudies'
 
 const T1_JOTFORM = 'https://form.jotform.com/261731704452049'
-const T2_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%202%20%E2%80%93%2090-Day%20Transformation%20%E2%80%93%20Application'
-const T3_EMAIL = 'mailto:connect@hazemshannak.cc?subject=Tier%203%20%E2%80%93%20Investor-Ready%20Enterprise%20%E2%80%93%20Application'
 
 type TierKeys = {
   id: number
-  nameKey: string; taglineKey: string; price: string; priceSubKey: string; lengthKey: string
+  nameKey: string; taglineKey: string; priceKey: string; priceSubKey: string; lengthKey: string
   bestForKey: string; promiseKey: string; guaranteeKey: string; guaranteeShortKey: string
   paymentKey: string; leadTimeKey: string; availabilityKey?: string
   phases: { nameKey: string; labelKey: string; detailKey: string }[]
   includesKeys: string[]; excludesKeys: string[]
-  email: string; ctaLabelKey: string; ctaNoteKey: string
+  ctaLabelKey: string; ctaNoteKey: string
 }
 
 const tiers: TierKeys[] = [
   {
     id: 1, nameKey: 'audit.t1Name', taglineKey: 'audit.t1Tagline',
-    price: 'From $5,000', priceSubKey: 'audit.t1PriceSub', lengthKey: 'audit.t1Length',
+    priceKey: 'audit.t1Price', priceSubKey: 'audit.t1PriceSub', lengthKey: 'audit.t1Length',
     bestForKey: 'audit.t1BestFor', promiseKey: 'audit.t1Promise',
     guaranteeKey: 'audit.t1Guarantee', guaranteeShortKey: 'audit.t1GuaranteeShort',
     paymentKey: 'audit.t1Payment', leadTimeKey: 'audit.t1LeadTime', availabilityKey: 'audit.t1Availability',
@@ -36,11 +35,11 @@ const tiers: TierKeys[] = [
     ],
     includesKeys: ['audit.t1Inc1','audit.t1Inc2','audit.t1Inc3','audit.t1Inc4','audit.t1Inc5','audit.t1Inc6','audit.t1Inc7','audit.t1Inc8'],
     excludesKeys: ['audit.t1Exc1','audit.t1Exc2','audit.t1Exc3','audit.t1Exc4','audit.t1Exc5'],
-    email: T1_JOTFORM, ctaLabelKey: 'audit.t1CtaLabel', ctaNoteKey: 'audit.t1CtaNote',
+    ctaLabelKey: 'audit.t1CtaLabel', ctaNoteKey: 'audit.t1CtaNote',
   },
   {
     id: 2, nameKey: 'audit.t2Name', taglineKey: 'audit.t2Tagline',
-    price: '$15,000 – $25,000', priceSubKey: 'audit.t2PriceSub', lengthKey: 'audit.t2Length',
+    priceKey: 'audit.t2Price', priceSubKey: 'audit.t2PriceSub', lengthKey: 'audit.t2Length',
     bestForKey: 'audit.t2BestFor', promiseKey: 'audit.t2Promise',
     guaranteeKey: 'audit.t2Guarantee', guaranteeShortKey: 'audit.t2GuaranteeShort',
     paymentKey: 'audit.t2Payment', leadTimeKey: 'audit.t2LeadTime', availabilityKey: 'audit.t2Availability',
@@ -51,11 +50,11 @@ const tiers: TierKeys[] = [
     ],
     includesKeys: ['audit.t2Inc1','audit.t2Inc2','audit.t2Inc3','audit.t2Inc4','audit.t2Inc5','audit.t2Inc6','audit.t2Inc7','audit.t2Inc8','audit.t2Inc9','audit.t2Inc10','audit.t2Inc11','audit.t2Inc12'],
     excludesKeys: ['audit.t2Exc1','audit.t2Exc2','audit.t2Exc3'],
-    email: T2_EMAIL, ctaLabelKey: 'audit.t2CtaLabel', ctaNoteKey: 'audit.t2CtaNote',
+    ctaLabelKey: 'audit.t2CtaLabel', ctaNoteKey: 'audit.t2CtaNote',
   },
   {
     id: 3, nameKey: 'audit.t3Name', taglineKey: 'audit.t3Tagline',
-    price: '$25,000 – $50,000+', priceSubKey: 'audit.t3PriceSub', lengthKey: 'audit.t3Length',
+    priceKey: 'audit.t3Price', priceSubKey: 'audit.t3PriceSub', lengthKey: 'audit.t3Length',
     bestForKey: 'audit.t3BestFor', promiseKey: 'audit.t3Promise',
     guaranteeKey: 'audit.t3Guarantee', guaranteeShortKey: 'audit.t3GuaranteeShort',
     paymentKey: 'audit.t3Payment', leadTimeKey: 'audit.t3LeadTime', availabilityKey: 'audit.t3Availability',
@@ -69,7 +68,7 @@ const tiers: TierKeys[] = [
     ],
     includesKeys: ['audit.t3Inc1','audit.t3Inc2','audit.t3Inc3','audit.t3Inc4','audit.t3Inc5','audit.t3Inc6','audit.t3Inc7','audit.t3Inc8','audit.t3Inc9','audit.t3Inc10','audit.t3Inc11','audit.t3Inc12'],
     excludesKeys: ['audit.t3Exc1','audit.t3Exc2','audit.t3Exc3'],
-    email: T3_EMAIL, ctaLabelKey: 'audit.t3CtaLabel', ctaNoteKey: 'audit.t3CtaNote',
+    ctaLabelKey: 'audit.t3CtaLabel', ctaNoteKey: 'audit.t3CtaNote',
   },
 ]
 
@@ -127,7 +126,26 @@ function PhasesAccordion({ phases, featured }: { phases: TierKeys['phases']; fea
   )
 }
 
-function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boolean }) {
+function TierCTA({ tier, featured, onApply }: { tier: TierKeys; featured: boolean; onApply: (tierId: 2 | 3) => void }) {
+  const { t } = useTranslation()
+  const cls = `block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`
+
+  if (tier.id === 1) {
+    return (
+      <a href={T1_JOTFORM} target="_blank" rel="noopener noreferrer" className={cls}>
+        {t(tier.ctaLabelKey)}
+      </a>
+    )
+  }
+
+  return (
+    <button type="button" onClick={() => onApply(tier.id as 2 | 3)} className={cls}>
+      {t(tier.ctaLabelKey)}
+    </button>
+  )
+}
+
+function TierCard({ tier, featured = false, onApply }: { tier: TierKeys; featured?: boolean; onApply: (tierId: 2 | 3) => void }) {
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -148,7 +166,7 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
         <p className={`text-xs ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.taglineKey)}</p>
       </div>
       <div className="mb-4 pb-4 border-b border-[var(--color-gold-muted)]">
-        <p className={`font-serif text-2xl mb-0.5 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{tier.price}</p>
+        <p className={`font-serif text-2xl mb-0.5 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t(tier.priceKey)}</p>
         <p className={`text-[10px] ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.lengthKey)} · {t(tier.priceSubKey).split('.')[0]}</p>
       </div>
       <p className={`text-xs leading-relaxed mb-4 flex-1 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>
@@ -158,14 +176,7 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
       <div className={`text-[10px] rounded-sm px-3 py-2 mb-5 leading-relaxed ${featured ? 'bg-[rgba(202,138,4,0.12)] text-[var(--color-gold-cta)]' : 'bg-[var(--color-gold-muted)] text-[var(--color-gold)]'}`}>
         {t(tier.guaranteeShortKey)}
       </div>
-      <a
-        href={tier.email}
-        target={tier.email.startsWith('http') ? '_blank' : undefined}
-        rel={tier.email.startsWith('http') ? 'noopener noreferrer' : undefined}
-        className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}
-      >
-        {t(tier.ctaLabelKey)}
-      </a>
+      <TierCTA tier={tier} featured={featured} onApply={onApply} />
       <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
       {tier.id === 1 && (
         <div className="mt-3 border border-[var(--color-gold-muted)] rounded-sm px-3 py-2.5">
@@ -177,7 +188,7 @@ function TierCard({ tier, featured = false }: { tier: TierKeys; featured?: boole
   )
 }
 
-function TierDetail({ tier, reversed = false }: { tier: TierKeys; reversed?: boolean }) {
+function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; reversed?: boolean; onApply: (tierId: 2 | 3) => void }) {
   const { t } = useTranslation()
   const ref = useScrollReveal<HTMLElement>()
   const featured = tier.id === 2
@@ -216,7 +227,7 @@ function TierDetail({ tier, reversed = false }: { tier: TierKeys; reversed?: boo
         <div className={`lg:sticky lg:top-28 ${reversed ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
           <div className={`rounded-sm border p-6 ${featured ? 'bg-[var(--color-navy-2)] border-[var(--color-gold-cta)]' : 'bg-[var(--color-surface)] border-[var(--color-gold-muted)]'}`}>
             <p className={`text-[10px] tracking-[0.3em] uppercase mb-1 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t('audit.investmentLabel')}</p>
-            <p className={`font-serif text-3xl mb-1 ${featured ? 'text-[var(--color-text-on-dark)]' : 'text-[var(--color-text)]'}`}>{tier.price}</p>
+            <p className={`font-serif text-3xl mb-1 ${featured ? 'text-[var(--color-text-on-dark)]' : 'text-[var(--color-text)]'}`}>{t(tier.priceKey)}</p>
             <p className={`text-xs mb-6 leading-relaxed ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.priceSubKey)}</p>
             <div className="space-y-3 mb-6">
               {[{ labelKey: 'audit.durationLabel', valueKey: tier.lengthKey }, { labelKey: 'audit.leadTimeLabel', valueKey: tier.leadTimeKey }].map(({ labelKey, valueKey }) => (
@@ -238,14 +249,7 @@ function TierDetail({ tier, reversed = false }: { tier: TierKeys; reversed?: boo
                 {t(tier.availabilityKey)}
               </div>
             )}
-            <a
-              href={tier.email}
-              target={tier.email.startsWith('http') ? '_blank' : undefined}
-              rel={tier.email.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`}
-            >
-              {t(tier.ctaLabelKey)}
-            </a>
+            <TierCTA tier={tier} featured={featured} onApply={onApply} />
             <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
           </div>
 
@@ -280,6 +284,7 @@ export function AuditPage() {
   const tableRef   = useScrollReveal<HTMLElement>()
   const upgradeRef = useScrollReveal<HTMLElement>()
   const [showSticky, setShowSticky] = useState(false)
+  const [applyTier, setApplyTier] = useState<2 | 3 | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 600)
@@ -332,8 +337,9 @@ export function AuditPage() {
             '@type': 'OfferCatalog',
             name: 'Audit Tiers',
             itemListElement: [
-              { '@type': 'Offer', name: 'Tier 1 Diagnostic Audit', priceSpecification: { '@type': 'PriceSpecification', minPrice: 5000, priceCurrency: 'USD' } },
-              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 15000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 1 Diagnostic Audit', priceSpecification: { '@type': 'PriceSpecification', minPrice: 4500, maxPrice: 7500, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 15000, maxPrice: 25000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 3 Investor-Ready Enterprise Programme', priceSpecification: { '@type': 'PriceSpecification', minPrice: 25000, maxPrice: 50000, priceCurrency: 'USD' } },
             ],
           },
         }}
@@ -415,7 +421,7 @@ export function AuditPage() {
           </div>
         </div>
         <div id="tiers" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} />)}
+          {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} onApply={setApplyTier} />)}
         </div>
       </section>
 
@@ -456,15 +462,15 @@ export function AuditPage() {
         </div>
       </div>
 
-      <TierDetail tier={tiers[0]} />
-      <TierDetail tier={tiers[1]} reversed />
+      <TierDetail tier={tiers[0]} onApply={setApplyTier} />
+      <TierDetail tier={tiers[1]} reversed onApply={setApplyTier} />
 
       <div className="relative h-56 overflow-hidden">
         <img src="/images/hero/aerators-sunset.jpg" alt="Pond aerators at sunset" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[var(--color-navy)]/55" />
       </div>
 
-      <TierDetail tier={tiers[2]} />
+      <TierDetail tier={tiers[2]} onApply={setApplyTier} />
 
       {/* Comparison table */}
       <section ref={tableRef} className="scroll-reveal max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
@@ -603,15 +609,17 @@ export function AuditPage() {
             </div>
           </div>
           <div className="shrink-0 flex flex-col gap-3">
-            <a href={T2_EMAIL} className="gold-pulse inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-3.5 rounded-sm hover:brightness-110 transition-all">
+            <button type="button" onClick={() => setApplyTier(2)} className="gold-pulse inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-3.5 rounded-sm hover:brightness-110 transition-all">
               {t('audit.finalApplyBtn')}
-            </a>
+            </button>
             <a href={T1_JOTFORM} target="_blank" rel="noopener noreferrer" className="inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-8 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
               {t('audit.finalBookBtn')}
             </a>
           </div>
         </div>
       </section>
+
+      <ApplicationModal tier={applyTier} onClose={() => setApplyTier(null)} />
     </main>
   )
 }

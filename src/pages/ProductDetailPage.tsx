@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { getBySlug, products } from '../data/products'
 import { GoldBadge } from '../components/ui/GoldBadge'
 import { Button } from '../components/ui/Button'
@@ -9,7 +8,6 @@ import { Check, ArrowRight } from 'lucide-react'
 
 export function ProductDetailPage() {
   const { t } = useTranslation()
-  useLemonSqueezy()
   const { slug } = useParams<{ slug: string }>()
   const product = slug ? getBySlug(slug) : undefined
 

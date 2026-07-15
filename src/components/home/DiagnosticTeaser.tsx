@@ -44,7 +44,7 @@ export function DiagnosticTeaser() {
   }, { scope: scorecardRef })
 
   return (
-    <section ref={ref} className="scroll-reveal bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
+    <section ref={ref} className="scroll-reveal bg-[var(--color-navy)]">
       <div className="max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 

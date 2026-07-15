@@ -1,52 +1,54 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { Hero } from '../components/home/Hero'
-import { LibraryFeature } from '../components/home/LibraryFeature'
 import { TrustStrip } from '../components/home/TrustStrip'
-import { TrustLogos } from '../components/home/TrustLogos'
 import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { Philosophy } from '../components/home/Philosophy'
 import { WisdomStatement } from '../components/ui/WisdomStatement'
 import { InactionClock } from '../components/home/InactionClock'
-import { ValuationTeaser } from '../components/home/ValuationTeaser'
 import { SEO } from '../components/ui/SEO'
 
-function ToolsNav() {
+// Soft colour blend at the two genuine light/dark seams on this page, so a full-bleed
+// background swap reads as a deliberate transition rather than a hard cut.
+function GradientBridge({ direction }: { direction: 'toDark' | 'toLight' }) {
+  const background = direction === 'toDark'
+    ? 'linear-gradient(to bottom, var(--color-bg), var(--color-navy))'
+    : 'linear-gradient(to bottom, var(--color-navy), var(--color-bg))'
+
+  return <div aria-hidden="true" className="h-16 md:h-24" style={{ background }} />
+}
+
+// Quiet secondary link — the diagnostic above is the primary path here, this just
+// points researchers at the other 4 tools. Sits on the same navy as its neighbours
+// (part of one continuous dark zone), styled as a real bordered pill so it reads
+// as clickable rather than an inert label.
+function ToolsLink() {
   const { t } = useTranslation()
 
-  const tools = [
-    { to: '/diagnostic',      labelKey: 'toolsNav.farmScore',  subKey: 'toolsNav.farmScoreSub'  },
-    { to: '/benchmark',       labelKey: 'toolsNav.benchmark',  subKey: 'toolsNav.benchmarkSub'  },
-    { to: '/valuation',       labelKey: 'toolsNav.valuation',  subKey: 'toolsNav.valuationSub'  },
-    { to: '/newsletter',      labelKey: 'toolsNav.newsletter', subKey: 'toolsNav.newsletterSub' },
-    { to: '/library',         labelKey: 'toolsNav.library',    subKey: 'toolsNav.librarySub'    },
-  ]
-
   return (
-    <section className="max-w-6xl mx-auto px-6 py-24">
-      <div className="flex items-center justify-between mb-6">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)]">
-          {t('toolsNav.eyebrow')}
-        </p>
-        <Link to="/tools" className="text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] hover:text-[var(--color-gold)] transition-colors">
+    <div className="bg-[var(--color-navy)] pb-20">
+      <div className="max-w-6xl mx-auto px-6 flex justify-center">
+        <Link to="/tools"
+          className="inline-block rounded-full border border-[rgba(255,255,255,0.18)] px-6 py-3 text-[11px] font-semibold tracking-widest uppercase text-[var(--color-text-muted-dark)] transition-all hover:border-[var(--color-gold-cta)] hover:text-[var(--color-gold-cta)] hover:bg-[rgba(255,255,255,0.04)]">
           {t('toolsNav.seeAll')}
         </Link>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-        {tools.map((tool) => (
-          <Link key={tool.to} to={tool.to}
-            className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
-            <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">
-              {t(tool.labelKey)}
-            </p>
-            <p className="text-[10px] text-[var(--color-text-muted)] leading-snug">
-              {t(tool.subKey)}
-            </p>
-          </Link>
-        ))}
-      </div>
-    </section>
+    </div>
+  )
+}
+
+// Quiet closing link for visitors not ready for the consultation above — the free
+// library, styled as a bordered pill (not a competing full-width offer section).
+function LibraryLink() {
+  const { t } = useTranslation()
+
+  return (
+    <div className="max-w-6xl mx-auto px-6 py-14 flex justify-center">
+      <Link to="/library"
+        className="inline-block rounded-full border border-[var(--color-gold-muted)] px-6 py-3 text-[11px] font-semibold tracking-widest uppercase text-[var(--color-text-muted)] transition-all hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] hover:bg-[var(--color-gold-muted)]">
+        {t('libraryFeature.cta')} →
+      </Link>
+    </div>
   )
 }
 
@@ -54,7 +56,7 @@ function ConsultationBanner() {
   const { t } = useTranslation()
 
   return (
-    <section className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.08)]">
+    <section className="bg-[var(--color-navy)]">
       <div className="max-w-6xl mx-auto px-6 py-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div>
@@ -100,7 +102,6 @@ function ConsultationBanner() {
 }
 
 export function HomePage() {
-  useLemonSqueezy()
   const { t } = useTranslation()
   return (
     <main>
@@ -123,15 +124,17 @@ export function HomePage() {
       />
       <Hero />
       <TrustStrip />
-      <TrustLogos />
-      <Philosophy />
+      <GradientBridge direction="toDark" />
       <WisdomStatement text={t('wisdom.home')} variant="dark" />
-      <ConsultationBanner />
-      <ValuationTeaser />
-      <DiagnosticTeaser />
+      <GradientBridge direction="toLight" />
+      <Philosophy />
+      <GradientBridge direction="toDark" />
       <InactionClock />
-      <ToolsNav />
-      <LibraryFeature />
+      <DiagnosticTeaser />
+      <ToolsLink />
+      <ConsultationBanner />
+      <GradientBridge direction="toLight" />
+      <LibraryLink />
     </main>
   )
 }

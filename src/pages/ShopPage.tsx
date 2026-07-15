@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useLemonSqueezy } from '../hooks/useLemonSqueezy'
 import { CategoryFilter } from '../components/shop/CategoryFilter'
 import { ProductGrid } from '../components/shop/ProductGrid'
 import { ComingSoonFrame } from '../components/shop/ComingSoonFrame'
@@ -20,7 +19,6 @@ function parseFilterParam(param: string | null): ShopFilter {
 
 export function ShopPage() {
   const { t } = useTranslation()
-  useLemonSqueezy()
   const [searchParams] = useSearchParams()
   const [activeFilter, setActiveFilter] = useState<ShopFilter>(
     () => parseFilterParam(searchParams.get('category'))

@@ -49,7 +49,7 @@ export function InactionClock() {
   ]
 
   return (
-    <section ref={ref} className="bg-[var(--color-navy)] border-y border-[rgba(255,255,255,0.06)]">
+    <section ref={ref} className="bg-[var(--color-navy)]">
       <div className="max-w-6xl mx-auto px-6 py-20">
 
         {/* Header row */}

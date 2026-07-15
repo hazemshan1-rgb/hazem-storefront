@@ -7,6 +7,7 @@
     "shop": "Shop",
     "library": "Library",
     "about": "About",
+    "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "mobileNav": "Mobile navigation",
@@ -659,6 +660,23 @@
       "note": "No payment required to apply. I only take on farms where I can see the result before we begin.",
       "close": "Close"
     }
+  },
+  "contact": {
+    "eyebrow": "Get In Touch",
+    "headline": "Send me a message",
+    "subhead": "I read every message myself — expect a reply within 24–48 hours.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "errorRequired": "Please fill in the required fields.",
+    "errorEmail": "Please enter a valid email address.",
+    "errorSubmit": "Something went wrong sending your message. Please try again or email connect@hazemshannak.cc directly.",
+    "submitting": "Sending…",
+    "submitBtn": "Send Message",
+    "successHeadline": "Message sent",
+    "successBody": "I read every message myself — expect a reply within 24–48 hours.",
+    "note": "No spam. Your details are only used to reply to you.",
+    "close": "Close"
   },
   "tools": {
     "seoTitle": "Free Aquaculture Tools — Diagnostic, Benchmark, Valuation, Calculators",

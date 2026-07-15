@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { SubscribeForm } from '../ui/SubscribeForm'
+import { useContactModal } from '../../context/ContactModalContext'
 
 const footerLink = 'text-xs text-[var(--color-text-muted-dark)] hover:text-[var(--color-gold-cta)] transition-colors'
 
 export function Footer() {
   const { t } = useTranslation()
+  const { openContactModal } = useContactModal()
 
   return (
     <footer className="border-t border-[rgba(255,255,255,0.08)] bg-[var(--color-navy)] mt-24">
@@ -75,6 +77,7 @@ export function Footer() {
         <div>
           <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">{t('footer.connect')}</p>
           <div className="flex flex-col gap-2.5">
+            <button onClick={openContactModal} className={`text-left ${footerLink}`}>{t('nav.contact')}</button>
             <Link to="/about"       className={footerLink}>{t('footer.aboutHazem')}</Link>
             <Link to="/library"     className={footerLink}>{t('footer.resourcesLibrary')}</Link>
             <Link to="/newsletter"  className={footerLink}>{t('footer.newsletter')}</Link>

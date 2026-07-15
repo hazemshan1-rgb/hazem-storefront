@@ -5,6 +5,7 @@ import { Navbar } from './components/layout/Navbar'
 import { Footer } from './components/layout/Footer'
 import { SEO } from './components/ui/SEO'
 import AquaAssistBot from './components/ui/AquaAssistBot'
+import { ContactModalProvider } from './context/ContactModalContext'
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
@@ -100,10 +101,12 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <SEO />
-      <Navbar />
-      <AnimatedRoutes />
-      <Footer />
-      <AquaAssistBot />
+      <ContactModalProvider>
+        <Navbar />
+        <AnimatedRoutes />
+        <Footer />
+        <AquaAssistBot />
+      </ContactModalProvider>
     </BrowserRouter>
   )
 }

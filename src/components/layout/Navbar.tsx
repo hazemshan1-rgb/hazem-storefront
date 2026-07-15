@@ -4,9 +4,11 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../ui/Button'
+import { useContactModal } from '../../context/ContactModalContext'
 
 export function Navbar() {
   const { t } = useTranslation()
+  const { openContactModal } = useContactModal()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -89,6 +91,12 @@ export function Navbar() {
             >
               {t('nav.community', { defaultValue: 'Community' })}
             </a>
+            <button
+              onClick={openContactModal}
+              className="text-xs tracking-widest uppercase transition-colors text-white/70 hover:text-white"
+            >
+              {t('nav.contact')}
+            </button>
           </nav>
 
           {/* Mobile toggle */}
@@ -186,6 +194,12 @@ export function Navbar() {
                   >
                     <span>{t('nav.community', { defaultValue: 'Community' })}</span>
                   </a>
+                  <button
+                    onClick={() => { setOpen(false); openContactModal() }}
+                    className="flex items-center justify-between w-full py-4 text-sm tracking-widest uppercase text-white/70 hover:text-white transition-colors"
+                  >
+                    <span>{t('nav.contact')}</span>
+                  </button>
                 </motion.div>
 
                 {/* CTA buttons */}

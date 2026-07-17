@@ -167,7 +167,6 @@ export function BenchmarkPage() {
   const crossLinks = [
     { to: '/diagnostic',      labelKey: 'benchmark.crossLink1Label', subKey: 'benchmark.crossLink1Sub' },
     { to: '/valuation',       labelKey: 'benchmark.crossLink2Label', subKey: 'benchmark.crossLink2Sub' },
-    { to: '/newsletter',      labelKey: 'benchmark.crossLink3Label', subKey: 'benchmark.crossLink3Sub' },
   ]
 
   return (
@@ -234,7 +233,7 @@ export function BenchmarkPage() {
         </motion.div>
 
         {/* Cross-links */}
-        <div className="no-print grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="no-print grid grid-cols-1 sm:grid-cols-2 gap-4">
           {crossLinks.map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">

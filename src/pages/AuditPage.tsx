@@ -315,7 +315,6 @@ export function AuditPage() {
     { to: '/diagnostic',      labelKey: 'audit.crossLink1Label', subKey: 'audit.crossLink1Sub' },
     { to: '/benchmark',       labelKey: 'audit.crossLink2Label', subKey: 'audit.crossLink2Sub' },
     { to: '/valuation',       labelKey: 'audit.crossLink3Label', subKey: 'audit.crossLink3Sub' },
-    { to: '/newsletter',      labelKey: 'audit.crossLink4Label', subKey: 'audit.crossLink4Sub' },
   ]
 
   return (
@@ -580,7 +579,7 @@ export function AuditPage() {
       {/* Cross-nav */}
       <section className="max-w-6xl mx-auto px-6 py-12 border-b border-[var(--color-gold-muted)]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-6">{t('audit.crossNavEyebrow')}</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {crossNavLinks.map(l => (
             <Link key={l.to} to={l.to} className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">
               <p className="text-xs font-semibold text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors mb-1">{t(l.labelKey)}</p>

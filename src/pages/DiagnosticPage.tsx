@@ -705,7 +705,6 @@ function ResultsScreen({
   const crossLinks = [
     { to: '/benchmark',       labelKey: 'diagnostic.crossLink1Label', subKey: 'diagnostic.crossLink1Sub' },
     { to: '/valuation',       labelKey: 'diagnostic.crossLink2Label', subKey: 'diagnostic.crossLink2Sub' },
-    { to: '/newsletter',      labelKey: 'diagnostic.crossLink3Label', subKey: 'diagnostic.crossLink3Sub' },
   ]
 
   return (
@@ -972,7 +971,7 @@ function ResultsScreen({
       )}
 
       {/* Cross-links */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
         {crossLinks.map(l => (
           <Link
             key={l.to}

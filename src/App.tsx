@@ -14,7 +14,6 @@ const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage').then(m 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })))
 const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then(m => ({ default: m.ResourcesPage })))
 const ConsultationPage = lazy(() => import('./pages/ConsultationPage').then(m => ({ default: m.ConsultationPage })))
-const NewsletterPage = lazy(() => import('./pages/NewsletterPage').then(m => ({ default: m.NewsletterPage })))
 const CoursesPage = lazy(() => import('./pages/CoursesPage').then(m => ({ default: m.CoursesPage })))
 const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage').then(m => ({ default: m.CaseStudiesPage })))
 const AuditPage = lazy(() => import('./pages/AuditPage').then(m => ({ default: m.AuditPage })))
@@ -74,7 +73,6 @@ function AnimatedRoutes() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/library" element={<ResourcesPage />} />
             <Route path="/consultation" element={<ConsultationPage />} />
-            <Route path="/newsletter" element={<NewsletterPage />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/audit" element={<AuditPage />} />

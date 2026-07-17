@@ -228,11 +228,10 @@ export function ValuationPage() {
         </p>
 
         {/* Cross-links */}
-        <div className="no-print grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="no-print grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { to: '/diagnostic',      labelKey: 'valuation.crossLink1Label', subKey: 'valuation.crossLink1Sub' },
             { to: '/benchmark',       labelKey: 'valuation.crossLink2Label', subKey: 'valuation.crossLink2Sub' },
-            { to: '/newsletter',      labelKey: 'valuation.crossLink3Label', subKey: 'valuation.crossLink3Sub' },
           ].map(l => (
             <Link key={l.to} to={l.to}
               className="block p-5 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group">

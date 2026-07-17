@@ -126,12 +126,11 @@ export function ResourcesPage() {
 
         <section className="pb-10">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-5">{t('library.crossNavTitle')}</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { to: '/diagnostic',      labelKey: 'library.crossLink1Label', subKey: 'library.crossLink1Sub' },
               { to: '/benchmark',       labelKey: 'library.crossLink2Label', subKey: 'library.crossLink2Sub' },
               { to: '/valuation',       labelKey: 'library.crossLink3Label', subKey: 'library.crossLink3Sub' },
-              { to: '/newsletter',      labelKey: 'library.crossLink4Label', subKey: 'library.crossLink4Sub' },
             ].map(l => (
               <Link key={l.to} to={l.to}
                 className="block p-4 bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm hover:border-[var(--color-gold)] transition-all group text-center">

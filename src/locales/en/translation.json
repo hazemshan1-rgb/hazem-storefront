@@ -39,7 +39,6 @@
     "connect": "Connect",
     "aboutHazem": "About Hazem",
     "resourcesLibrary": "Resources Library",
-    "newsletter": "Newsletter",
     "linkedin": "LinkedIn ↗",
     "notSureWhere": "Not sure where to start?",
     "takeScorecard": "Take the Scorecard",
@@ -129,8 +128,6 @@
     "benchmarkSub": "FCR · survival · $/kg",
     "valuation": "Valuation",
     "valuationSub": "Today vs potential",
-    "newsletter": "Newsletter",
-    "newsletterSub": "Field dispatches",
     "library": "Library",
     "librarySub": "Journals & guides"
   },
@@ -449,8 +446,6 @@
     "crossLink2Sub": "FCR · survival · $/kg · DO",
     "crossLink3Label": "Valuation Calc",
     "crossLink3Sub": "What is your farm worth?",
-    "crossLink4Label": "Newsletter",
-    "crossLink4Sub": "Field dispatches",
     "finalCtaHeadline": "Ready to stop guessing and start fixing?",
     "finalCtaBody": "Send me your farm's monthly revenue, species, pond count, and your biggest current headache. I will tell you honestly which level fits — or whether you should start with the free audit guide first.",
     "socialProofLine1": "1,000+ professionals trained",
@@ -752,8 +747,6 @@
     "crossLink2Sub": "FCR · survival · $/kg · DO",
     "crossLink3Label": "Valuation Calc",
     "crossLink3Sub": "Current vs potential value",
-    "crossLink4Label": "Newsletter",
-    "crossLink4Sub": "Field dispatches",
     "aiContextNote": "Draws on 35 curated technical resources and 30 years of field experience across vannamei, monodon, and freshwater prawn systems. Ask about water quality, FCR, disease, biofloc, farm economics, or certifications.",
     "aiSuggestedQ": "Suggested questions",
     "aiFollowUp1": "Tell me more",
@@ -826,8 +819,6 @@
     "crossLink1Sub": "Get a complete score across 5 dimensions",
     "crossLink2Label": "Farm Valuation",
     "crossLink2Sub": "What is your farm worth to an investor?",
-    "crossLink3Label": "Newsletter",
-    "crossLink3Sub": "Field dispatches",
     "productFcrLabel": "Fix Your FCR — Book a Session",
     "productSurvivalLabel": "Fix Your Survival Rate — Book a Session",
     "productDoLabel": "Fix Your Water Quality — Book a Session",
@@ -878,9 +869,7 @@
     "crossLink1Label": "Farm Diagnostic",
     "crossLink1Sub": "Get your full health score first",
     "crossLink2Label": "Benchmark My Farm",
-    "crossLink2Sub": "See how your metrics compare",
-    "crossLink3Label": "Newsletter",
-    "crossLink3Sub": "Field dispatches"
+    "crossLink2Sub": "See how your metrics compare"
   },
   "bookConsultation": {
     "badge": "Payment Confirmed",
@@ -990,17 +979,6 @@
     "ctaBody": "Book a one-hour consultation. Same depth, applied directly to your operation.",
     "ctaBtn": "Book a consultation →"
   },
-  "newsletter": {
-    "eyebrow": "LinkedIn Newsletter",
-    "headline": "Aquaculture: The Last Frontier",
-    "body": "A newsletter on aquaculture business, sustainability, and systems thinking — written from 30 years of field experience across 15 countries. No theory without practice. No opinion without evidence.",
-    "subscribeCta": "Subscribe on LinkedIn",
-    "noArticles": "No articles in this category yet.",
-    "readOnLinkedIn": "Read on LinkedIn",
-    "ctaTitle": "Get new articles in your feed",
-    "ctaBody": "Published when there is something worth saying. Not on a schedule.",
-    "ctaBtn": "Follow the Newsletter →"
-  },
   "ask": {
     "eyebrow": "AI Library Assistant",
     "headline": "Ask anything about aquaculture",
@@ -1057,8 +1035,6 @@
   "diagnostic.crossLink1Sub": "See where you rank against audited farms",
   "diagnostic.crossLink2Label": "Farm Valuation",
   "diagnostic.crossLink2Sub": "What is your farm worth to an investor today?",
-  "diagnostic.crossLink3Label": "Newsletter",
-  "diagnostic.crossLink3Sub": "Field dispatches",
   "diagnostic.restartBtn": "Restart diagnostic",
   "diagnostic.disclaimer": "Results are indicative. Farm context, market conditions, and cycle history all affect actual performance. For a full audit with dollar-precise leak identification, book a consultation."
 }

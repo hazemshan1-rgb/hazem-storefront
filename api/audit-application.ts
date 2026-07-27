@@ -20,11 +20,12 @@ interface ApplicationBody {
   pondCount?: string
   species?: string
   biggestProblem?: string
+  investorAddOn?: boolean
 }
 
 function buildNotificationHtml(body: ApplicationBody): string {
   const rows: [string, string][] = [
-    ['Tier', `Tier ${body.tier}`],
+    ['Tier', body.tier === 2 && body.investorAddOn ? 'Tier 2 — with Investor-Ready ($25,000)' : `Tier ${body.tier}`],
     ['Name', body.name ?? ''],
     ['Email', body.email ?? ''],
     ['Farm location', body.farmLocation ?? ''],

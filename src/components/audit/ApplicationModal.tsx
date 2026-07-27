@@ -5,6 +5,7 @@ import { submitAuditApplication } from '../../lib/auditApplication'
 
 interface ApplicationModalProps {
   tier: 2 | 3 | null
+  investorAddOn?: boolean
   onClose: () => void
 }
 
@@ -19,7 +20,7 @@ const REVENUE_BANDS = [
 const inputCls = 'w-full bg-[var(--color-surface-2)] border border-[var(--color-gold-muted)] rounded-sm px-3 py-2.5 text-xs text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-gold)]'
 const labelCls = 'block text-[10px] tracking-widest uppercase text-[var(--color-text-muted)] mb-1.5'
 
-export function ApplicationModal({ tier, onClose }: ApplicationModalProps) {
+export function ApplicationModal({ tier, investorAddOn, onClose }: ApplicationModalProps) {
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -47,6 +48,7 @@ export function ApplicationModal({ tier, onClose }: ApplicationModalProps) {
     setStatus('submitting')
     const result = await submitAuditApplication({
       tier: tier as 2 | 3,
+      investorAddOn,
       name: name.trim(),
       email: email.trim().toLowerCase(),
       farmLocation: farmLocation.trim(),

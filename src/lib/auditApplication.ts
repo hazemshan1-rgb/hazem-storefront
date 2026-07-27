@@ -9,6 +9,7 @@ export interface AuditApplicationInput {
   pondCount?: string
   species?: string
   biggestProblem: string
+  investorAddOn?: boolean
 }
 
 // Supabase insert is the source of truth (survives even if the notification
@@ -27,6 +28,7 @@ export async function submitAuditApplication(
     pond_count: input.pondCount || null,
     species: input.species || null,
     biggest_problem: input.biggestProblem,
+    investor_add_on: input.investorAddOn ?? false,
   })
 
   if (error) {

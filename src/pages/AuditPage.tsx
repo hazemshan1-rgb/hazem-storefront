@@ -126,7 +126,7 @@ function PhasesAccordion({ phases, featured }: { phases: TierKeys['phases']; fea
   )
 }
 
-function TierCTA({ tier, featured, onApply }: { tier: TierKeys; featured: boolean; onApply: (tierId: 2 | 3) => void }) {
+function TierCTA({ tier, featured, onApply }: { tier: TierKeys; featured: boolean; onApply: (tierId: 2 | 3, investorAddOn?: boolean) => void }) {
   const { t } = useTranslation()
   const cls = `block w-full text-center text-[11px] tracking-widest uppercase font-semibold px-6 py-3.5 rounded-sm transition-all ${featured ? 'text-[var(--color-navy)] bg-[var(--color-gold-cta)] hover:brightness-110 gold-pulse' : 'text-[var(--color-navy)] bg-[var(--color-gold)] hover:brightness-110'}`
 
@@ -145,7 +145,7 @@ function TierCTA({ tier, featured, onApply }: { tier: TierKeys; featured: boolea
   )
 }
 
-function TierCard({ tier, featured = false, onApply }: { tier: TierKeys; featured?: boolean; onApply: (tierId: 2 | 3) => void }) {
+function TierCard({ tier, featured = false, onApply }: { tier: TierKeys; featured?: boolean; onApply: (tierId: 2 | 3, investorAddOn?: boolean) => void }) {
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -188,7 +188,7 @@ function TierCard({ tier, featured = false, onApply }: { tier: TierKeys; feature
   )
 }
 
-function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; reversed?: boolean; onApply: (tierId: 2 | 3) => void }) {
+function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; reversed?: boolean; onApply: (tierId: 2 | 3, investorAddOn?: boolean) => void }) {
   const { t } = useTranslation()
   const ref = useScrollReveal<HTMLElement>()
   const featured = tier.id === 2
@@ -284,7 +284,8 @@ export function AuditPage() {
   const tableRef   = useScrollReveal<HTMLElement>()
   const upgradeRef = useScrollReveal<HTMLElement>()
   const [showSticky, setShowSticky] = useState(false)
-  const [applyTier, setApplyTier] = useState<2 | 3 | null>(null)
+  const [applyTier, setApplyTier] = useState<{ tier: 2 | 3; investorAddOn: boolean } | null>(null)
+  const handleApply = (tierId: 2 | 3, investorAddOn?: boolean) => setApplyTier({ tier: tierId, investorAddOn: investorAddOn ?? false })
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 600)
@@ -420,7 +421,7 @@ export function AuditPage() {
           </div>
         </div>
         <div id="tiers" className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} onApply={setApplyTier} />)}
+          {[...tiers].reverse().map(tier => <TierCard key={tier.id} tier={tier} featured={tier.id === 2} onApply={handleApply} />)}
         </div>
       </section>
 
@@ -461,15 +462,15 @@ export function AuditPage() {
         </div>
       </div>
 
-      <TierDetail tier={tiers[0]} onApply={setApplyTier} />
-      <TierDetail tier={tiers[1]} reversed onApply={setApplyTier} />
+      <TierDetail tier={tiers[0]} onApply={handleApply} />
+      <TierDetail tier={tiers[1]} reversed onApply={handleApply} />
 
       <div className="relative h-56 overflow-hidden">
         <img src="/images/hero/aerators-sunset.jpg" alt="Pond aerators at sunset" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[var(--color-navy)]/55" />
       </div>
 
-      <TierDetail tier={tiers[2]} onApply={setApplyTier} />
+      <TierDetail tier={tiers[2]} onApply={handleApply} />
 
       {/* Comparison table */}
       <section ref={tableRef} className="scroll-reveal max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
@@ -608,7 +609,7 @@ export function AuditPage() {
             </div>
           </div>
           <div className="shrink-0 flex flex-col gap-3">
-            <button type="button" onClick={() => setApplyTier(2)} className="gold-pulse inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-3.5 rounded-sm hover:brightness-110 transition-all">
+            <button type="button" onClick={() => handleApply(2)} className="gold-pulse inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-8 py-3.5 rounded-sm hover:brightness-110 transition-all">
               {t('audit.finalApplyBtn')}
             </button>
             <a href={T1_JOTFORM} target="_blank" rel="noopener noreferrer" className="inline-block text-center text-[11px] tracking-widest uppercase font-semibold text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-8 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
@@ -618,7 +619,7 @@ export function AuditPage() {
         </div>
       </section>
 
-      <ApplicationModal tier={applyTier} onClose={() => setApplyTier(null)} />
+      <ApplicationModal tier={applyTier?.tier ?? null} investorAddOn={applyTier?.investorAddOn ?? false} onClose={() => setApplyTier(null)} />
     </main>
   )
 }

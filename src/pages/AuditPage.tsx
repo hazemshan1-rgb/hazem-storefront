@@ -10,6 +10,12 @@ import { caseStudies } from '../data/caseStudies'
 
 const T1_JOTFORM = 'https://form.jotform.com/261731704452049'
 
+const RELATED_TIER_LABELS: Record<string, string> = {
+  tier1: 'Tier 1',
+  tier2: 'Tier 2',
+  'tier2-investor': 'Tier 2 + Investor-Ready',
+}
+
 type TierKeys = {
   id: number
   nameKey: string; taglineKey: string; priceKey: string; priceSubKey: string; lengthKey: string
@@ -582,6 +588,11 @@ export function AuditPage() {
                 <span className="font-serif text-2xl text-[var(--color-gold)]">{cs.metric}</span>
                 <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)]">{cs.metricLabel}</span>
               </div>
+              {cs.relatedTier && (
+                <span className="text-[9px] tracking-widest uppercase text-[var(--color-gold-cta)]/70 -mt-2">
+                  {RELATED_TIER_LABELS[cs.relatedTier]}
+                </span>
+              )}
               <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed">"{cs.outcome.split('.')[0]}."</p>
               <div className="mt-auto pt-3 border-t border-[var(--color-gold-muted)]">
                 <p className="text-[10px] font-semibold text-[var(--color-text)]">{cs.client}</p>

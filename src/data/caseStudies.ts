@@ -7,6 +7,7 @@ export interface CaseStudy {
   outcome: string
   metric: string
   metricLabel: string
+  relatedTier?: 'tier1' | 'tier2' | 'tier2-investor'
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -24,6 +25,7 @@ export const caseStudies: CaseStudy[] = [
     outcome: 'The root cause was chronic low-grade hypoxia from over-aeration misalignment — not disease. Within two cycles, FCR had returned to 1.62 and survival rates improved from 68% to 81%. The farm recovered $340,000 in annual margin without a single new capital investment.',
     metric: '+$340K',
     metricLabel: 'Annual margin recovered',
+    relatedTier: 'tier2',
   },
   {
     client: 'Family-Owned Tilapia Producer',
@@ -39,6 +41,7 @@ export const caseStudies: CaseStudy[] = [
     outcome: 'The farm closed a $1.2M growth investment within 6 months of the engagement. The investor cited the quality of financial documentation as a primary confidence factor. The expansion is now in Phase 1 implementation.',
     metric: '$1.2M',
     metricLabel: 'Investment secured',
+    relatedTier: 'tier2-investor',
   },
   {
     client: 'New Venture — Biofloc RAS System',
@@ -54,5 +57,6 @@ export const caseStudies: CaseStudy[] = [
     outcome: 'Second cycle survival improved to 74%. Third cycle reached 82%. The investor was able to renegotiate a partial remediation contribution from the supplier using the technical audit as evidence. The operation is now in commercial production.',
     metric: '82%',
     metricLabel: 'Survival rate by cycle 3',
+    relatedTier: 'tier2',
   },
 ]

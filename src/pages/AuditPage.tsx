@@ -17,6 +17,7 @@ type TierKeys = {
   paymentKey: string; leadTimeKey: string; availabilityKey?: string
   phases: { nameKey: string; labelKey: string; detailKey: string }[]
   includesKeys: string[]; excludesKeys: string[]
+  investorAddOnKeys?: string[]
   ctaLabelKey: string; ctaNoteKey: string
 }
 
@@ -50,6 +51,7 @@ const tiers: TierKeys[] = [
     ],
     includesKeys: ['audit.t2Inc1','audit.t2Inc2','audit.t2Inc3','audit.t2Inc4','audit.t2Inc5','audit.t2Inc6','audit.t2Inc7','audit.t2Inc8','audit.t2Inc9','audit.t2Inc10','audit.t2Inc11','audit.t2Inc12'],
     excludesKeys: ['audit.t2Exc1','audit.t2Exc2','audit.t2Exc3'],
+    investorAddOnKeys: ['audit.t2AddonInc1', 'audit.t2AddonInc2', 'audit.t2AddonInc3', 'audit.t2AddonInc4', 'audit.t2AddonInc5'],
     ctaLabelKey: 'audit.t2CtaLabel', ctaNoteKey: 'audit.t2CtaNote',
   },
   {
@@ -161,6 +163,9 @@ function TierCard({ tier, featured = false, onApply }: { tier: TierKeys; feature
         <p className={`text-[10px] tracking-[0.3em] uppercase font-semibold mb-1 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>Tier {tier.id}</p>
         <h3 className={`font-serif text-xl leading-snug mb-1 ${featured ? 'text-[var(--color-text-on-dark)]' : 'text-[var(--color-text)]'}`}>{t(tier.nameKey)}</h3>
         <p className={`text-xs ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.taglineKey)}</p>
+        <p className={`text-[9px] tracking-widest uppercase font-medium mt-2 ${featured ? 'text-[var(--color-gold-cta)]/70' : 'text-[var(--color-gold)]/70'}`}>
+          {t('audit.methodologyBadge')}
+        </p>
       </div>
       <div className="mb-4 pb-4 border-b border-[var(--color-gold-muted)]">
         <p className={`font-serif text-2xl mb-0.5 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t(tier.priceKey)}</p>
@@ -189,6 +194,7 @@ function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; rever
   const { t } = useTranslation()
   const ref = useScrollReveal<HTMLElement>()
   const featured = tier.id === 2
+  const [addonSelected, setAddonSelected] = useState(false)
   return (
     <section ref={ref} id={`tier-${tier.id}`} className={`scroll-reveal border-y border-[var(--color-gold-muted)] ${featured ? 'bg-[var(--color-navy)]' : 'bg-[var(--color-bg)]'}`}>
       <div className={`max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start ${reversed ? 'lg:grid-flow-dense' : ''}`}>
@@ -198,6 +204,20 @@ function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; rever
           <p className={`text-sm leading-relaxed mb-8 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.promiseKey)}</p>
           <p className={`text-[10px] tracking-widest uppercase font-semibold mb-3 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t('audit.howItWorks')}</p>
           <div className="mb-8"><PhasesAccordion phases={tier.phases} featured={featured} /></div>
+          {tier.id === 2 && tier.investorAddOnKeys && (
+            <label className="flex items-start gap-3 mb-6 p-3 rounded-sm border border-[var(--color-gold-cta)]/40 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={addonSelected}
+                onChange={e => setAddonSelected(e.target.checked)}
+                className="mt-0.5"
+              />
+              <span>
+                <span className="block text-xs font-semibold text-[var(--color-gold-cta)]">{t('audit.t2AddonToggleLabel')}</span>
+                <span className="block text-[10px] text-[var(--color-text-muted-dark)] mt-0.5">{t('audit.t2AddonToggleNote')}</span>
+              </span>
+            </label>
+          )}
           <p className={`text-[10px] tracking-widest uppercase font-semibold mb-3 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t('audit.whatYouGet')}</p>
           <ul className="space-y-2 mb-6">
             {tier.includesKeys.map((key, i) => (
@@ -208,6 +228,19 @@ function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; rever
                 <span className={`text-xs leading-relaxed ${i === 0 && tier.id > 1 ? (featured ? 'text-[var(--color-gold-cta)] font-semibold' : 'text-[var(--color-gold)] font-semibold') : (featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]')}`}>
                   {t(key)}
                 </span>
+              </li>
+            ))}
+            {addonSelected && tier.investorAddOnKeys && (
+              <li className="pt-2 mt-1 border-t border-[var(--color-gold-cta)]/30">
+                <span className="text-[10px] tracking-widest uppercase font-semibold text-[var(--color-gold-cta)]">{t('audit.t2AddonIncludesIntro')}</span>
+              </li>
+            )}
+            {addonSelected && tier.investorAddOnKeys?.map((key, i) => (
+              <li key={`addon-${i}`} className="flex items-start gap-2.5">
+                <svg className="shrink-0 mt-0.5" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2 6l2.5 2.5L10 3.5" stroke="#CA8A04" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-xs leading-relaxed text-[var(--color-gold-cta)]">{t(key)}</span>
               </li>
             ))}
           </ul>
@@ -224,7 +257,9 @@ function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; rever
         <div className={`lg:sticky lg:top-28 ${reversed ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
           <div className={`rounded-sm border p-6 ${featured ? 'bg-[var(--color-navy-2)] border-[var(--color-gold-cta)]' : 'bg-[var(--color-surface)] border-[var(--color-gold-muted)]'}`}>
             <p className={`text-[10px] tracking-[0.3em] uppercase mb-1 ${featured ? 'text-[var(--color-gold-cta)]' : 'text-[var(--color-gold)]'}`}>{t('audit.investmentLabel')}</p>
-            <p className={`font-serif text-3xl mb-1 ${featured ? 'text-[var(--color-text-on-dark)]' : 'text-[var(--color-text)]'}`}>{t(tier.priceKey)}</p>
+            <p className={`font-serif text-3xl mb-1 ${featured ? 'text-[var(--color-text-on-dark)]' : 'text-[var(--color-text)]'}`}>
+              {tier.id === 2 && addonSelected ? t('audit.t2PriceWithAddon') : t(tier.priceKey)}
+            </p>
             <p className={`text-xs mb-6 leading-relaxed ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.priceSubKey)}</p>
             <div className="space-y-3 mb-6">
               {[{ labelKey: 'audit.durationLabel', valueKey: tier.lengthKey }, { labelKey: 'audit.leadTimeLabel', valueKey: tier.leadTimeKey }].map(({ labelKey, valueKey }) => (
@@ -246,7 +281,7 @@ function TierDetail({ tier, reversed = false, onApply }: { tier: TierKeys; rever
                 {t(tier.availabilityKey)}
               </div>
             )}
-            <TierCTA tier={tier} featured={featured} onApply={onApply} />
+            <TierCTA tier={tier} featured={featured} onApply={(id) => onApply(id, tier.id === 2 ? addonSelected : undefined)} />
             <p className={`text-[9px] text-center mt-2 ${featured ? 'text-[var(--color-text-muted-dark)]' : 'text-[var(--color-text-muted)]'}`}>{t(tier.ctaNoteKey)}</p>
           </div>
 

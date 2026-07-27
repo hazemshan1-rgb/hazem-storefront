@@ -644,7 +644,17 @@
       "successBody": "I read every application myself. If it's a fit, you'll get a calendar link by email within a few days.",
       "note": "No payment required to apply. I only take on farms where I can see the result before we begin.",
       "close": "Close"
-    }
+    },
+    "t2AddonToggleLabel": "+ Investor-Ready Package (+$10,000)",
+    "t2AddonToggleNote": "For operators who also want to raise capital or position for sale.",
+    "t2AddonIncludesIntro": "With the Investor-Ready Package added:",
+    "t2AddonInc1": "Financial model, business plan, and risk register for investor or buyer due diligence",
+    "t2AddonInc2": "Pitch deck and investor teaser",
+    "t2AddonInc3": "Virtual data room setup",
+    "t2AddonInc4": "Five pre-vetted capital source introductions",
+    "t2AddonInc5": "Pre-close operational review to remediate investor objections",
+    "t2PriceWithAddon": "$25,000",
+    "methodologyBadge": "Built on The Blue Acres Methodology"
   },
   "contact": {
     "eyebrow": "Get In Touch",

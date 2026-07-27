@@ -362,7 +362,7 @@ export function AuditPage() {
           '@context': 'https://schema.org',
           '@type': 'ProfessionalService',
           name: 'Aquaculture Farm Audit & Transformation Programme',
-          description: 'On-site diagnostic audits, 90-day transformation sprints, and investor-ready enterprise redesigns for aquaculture operators doing $200K–$2M/year.',
+          description: 'On-site diagnostic audits, 90-day margin transformation sprints, and ongoing Continuous Protection monitoring retainers for aquaculture operators doing $200K–$2M/year.',
           url: 'https://hazemshannak.cc/audit',
           provider: { '@type': 'Person', name: 'Hazem Shannak' },
           areaServed: ['Southeast Asia', 'Middle East', 'North Africa', 'Sub-Saharan Africa'],
@@ -372,8 +372,8 @@ export function AuditPage() {
             name: 'Audit Tiers',
             itemListElement: [
               { '@type': 'Offer', name: 'Tier 1 Diagnostic Audit', priceSpecification: { '@type': 'PriceSpecification', minPrice: 4500, maxPrice: 7500, priceCurrency: 'USD' } },
-              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint', priceSpecification: { '@type': 'PriceSpecification', minPrice: 15000, maxPrice: 25000, priceCurrency: 'USD' } },
-              { '@type': 'Offer', name: 'Tier 3 Investor-Ready Enterprise Programme', priceSpecification: { '@type': 'PriceSpecification', minPrice: 25000, maxPrice: 50000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 2 90-Day Transformation Sprint (with optional Investor-Ready add-on)', priceSpecification: { '@type': 'PriceSpecification', minPrice: 15000, maxPrice: 25000, priceCurrency: 'USD' } },
+              { '@type': 'Offer', name: 'Tier 3 Continuous Protection (Monthly Retainer)', priceSpecification: { '@type': 'UnitPriceSpecification', minPrice: 3000, maxPrice: 6000, priceCurrency: 'USD', unitText: 'MONTH' } },
             ],
           },
         }}
@@ -461,7 +461,7 @@ export function AuditPage() {
 
       <WisdomStatement text={t('wisdom.audit')} variant="dark" />
 
-      {/* Blue Sigma method */}
+      {/* Blue Acres Methodology */}
       <section className="max-w-6xl mx-auto px-6 py-16 border-b border-[var(--color-gold-muted)]">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold)] mb-2">{t('audit.methodEyebrow')}</p>
         <h2 className="font-serif text-2xl md:text-3xl text-[var(--color-text)] leading-tight mb-4 max-w-2xl">{t('audit.methodHeadline')}</h2>

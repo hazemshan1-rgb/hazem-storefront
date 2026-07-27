@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Hero } from '../components/home/Hero'
 import { TrustStrip } from '../components/home/TrustStrip'
+import { CaseStudyTeaser } from '../components/home/CaseStudyTeaser'
 import { DiagnosticTeaser } from '../components/home/DiagnosticTeaser'
 import { Philosophy } from '../components/home/Philosophy'
 import { WisdomStatement } from '../components/ui/WisdomStatement'
@@ -107,7 +108,7 @@ export function HomePage() {
     <main>
       <SEO
         title="Hazem Shannak — Aquaculture Systems & Profitability"
-        description="Turning aquaculture ventures into high-yield, investment-ready enterprises through field-tested frameworks and 30 years of expertise."
+        description="Free diagnostic tools and a Farm Profit-Leak Audit for shrimp farm operators losing margin to problems a standard P&L never shows. 30+ years of field experience across 15 countries."
         url="/"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -124,6 +125,7 @@ export function HomePage() {
       />
       <Hero />
       <TrustStrip />
+      <CaseStudyTeaser />
       <GradientBridge direction="toDark" />
       <WisdomStatement text={t('wisdom.home')} variant="dark" />
       <GradientBridge direction="toLight" />

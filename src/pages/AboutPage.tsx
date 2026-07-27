@@ -93,14 +93,22 @@ export function AboutPage() {
             <span className="text-[var(--color-text)]">{t('about.basedLabel')}:</span> {t('about.basedValue')} &nbsp;·&nbsp;
             <span className="text-[var(--color-text)]">{t('about.languagesLabel')}:</span> {t('about.languagesValue')}
           </p>
-          <a
-            href="https://www.linkedin.com/in/hazemhshannak"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block text-[var(--color-gold)] text-xs tracking-widest uppercase hover:underline mt-2"
-          >
-            {t('about.linkedinCta')}
-          </a>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-2">
+            <a
+              href="https://www.linkedin.com/in/hazemhshannak"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-[var(--color-gold)] text-xs tracking-widest uppercase hover:underline"
+            >
+              {t('about.linkedinCta')}
+            </a>
+            <a
+              href="mailto:connect@hazemshannak.cc"
+              className="inline-block text-[var(--color-text-muted)] text-xs tracking-widest hover:text-[var(--color-gold)] transition-colors"
+            >
+              connect@hazemshannak.cc
+            </a>
+          </div>
         </div>
       </div>
 

@@ -77,6 +77,7 @@ export function Footer() {
           <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-[var(--color-gold-cta)] mb-4">{t('footer.connect')}</p>
           <div className="flex flex-col gap-2.5">
             <button onClick={openContactModal} className={`text-left ${footerLink}`}>{t('nav.contact')}</button>
+            <a href="mailto:connect@hazemshannak.cc" className={footerLink}>connect@hazemshannak.cc</a>
             <Link to="/about"       className={footerLink}>{t('footer.aboutHazem')}</Link>
             <Link to="/library"     className={footerLink}>{t('footer.resourcesLibrary')}</Link>
             <a

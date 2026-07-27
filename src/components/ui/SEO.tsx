@@ -13,7 +13,7 @@ interface SEOProps {
 
 export function SEO({
   title = 'Hazem Shannak — Aquaculture Systems & Profitability',
-  description = 'Turning aquaculture ventures into high-yield, investment-ready enterprises through field-tested frameworks and 30 years of expertise across 15 countries.',
+  description = 'Free diagnostic tools and a Farm Profit-Leak Audit for shrimp farm operators losing margin to problems a standard P&L never shows. 30+ years of field experience across 15 countries.',
   image = '/images/hero/hazem-studio.jpg',
   url,
   type = 'website',

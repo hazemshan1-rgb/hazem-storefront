@@ -65,6 +65,10 @@
     "professionals": "1,000+",
     "professionalsLabel": "Professionals Trained"
   },
+  "caseStudyTeaser": {
+    "eyebrow": "Field Results",
+    "cta": "Read the full case study"
+  },
   "diagnosticTeaser": {
     "eyebrow": "Free Diagnostic Tool",
     "headline": "What score would your farm get?",

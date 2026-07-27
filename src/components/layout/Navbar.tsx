@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
@@ -9,13 +9,10 @@ import { useContactModal } from '../../context/ContactModalContext'
 export function Navbar() {
   const { t } = useTranslation()
   const { openContactModal } = useContactModal()
-  const location = useLocation()
-  const isAboutPage = location.pathname === '/about'
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   const links = [
-    { to: '/',             label: t('nav.home') },
     { to: '/tools',        label: t('nav.tools') },
     { to: '/audit',        label: t('nav.audit') },
     { to: '/consultation', label: t('nav.consultation') },
@@ -85,22 +82,12 @@ export function Navbar() {
                 {l.label}
               </NavLink>
             ))}
-            <a
-              href="https://www.reddit.com/r/JumboShrimp/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs tracking-widest uppercase transition-colors text-[var(--color-gold-cta)] hover:text-[var(--color-gold-cta)]/80"
+            <button
+              onClick={openContactModal}
+              className="text-xs tracking-widest uppercase transition-colors text-white/70 hover:text-white"
             >
-              {t('nav.community', { defaultValue: 'Community' })}
-            </a>
-            {isAboutPage && (
-              <button
-                onClick={openContactModal}
-                className="text-xs tracking-widest uppercase transition-colors text-white/70 hover:text-white"
-              >
-                {t('nav.contact')}
-              </button>
-            )}
+              {t('nav.contact')}
+            </button>
           </nav>
 
           {/* Mobile toggle */}
@@ -190,22 +177,12 @@ export function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: links.length * 0.04, duration: 0.18 }}
                 >
-                  <a
-                    href="https://www.reddit.com/r/JumboShrimp/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between py-4 text-sm tracking-widest uppercase text-[var(--color-gold-cta)]"
+                  <button
+                    onClick={() => { setOpen(false); openContactModal() }}
+                    className="flex items-center justify-between w-full py-4 text-sm tracking-widest uppercase text-white/70 hover:text-white transition-colors"
                   >
-                    <span>{t('nav.community', { defaultValue: 'Community' })}</span>
-                  </a>
-                  {isAboutPage && (
-                    <button
-                      onClick={() => { setOpen(false); openContactModal() }}
-                      className="flex items-center justify-between w-full py-4 text-sm tracking-widest uppercase text-white/70 hover:text-white transition-colors"
-                    >
-                      <span>{t('nav.contact')}</span>
-                    </button>
-                  )}
+                    <span>{t('nav.contact')}</span>
+                  </button>
                 </motion.div>
 
                 {/* CTA buttons */}

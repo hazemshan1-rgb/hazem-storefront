@@ -339,7 +339,6 @@ export function AuditPage() {
   const upgradeKeys = [
     { fromKey: 'audit.upg1From', detailKey: 'audit.upg1Detail' },
     { fromKey: 'audit.upg2From', detailKey: 'audit.upg2Detail' },
-    { fromKey: 'audit.upg3From', detailKey: 'audit.upg3Detail' },
   ]
   const decisionKeys = [
     { conditionKey: 'audit.dec1Condition', tierKey: 'audit.dec1Tier', color: 'text-[var(--color-gold)]' },
@@ -547,7 +546,7 @@ export function AuditPage() {
         <div className="max-w-6xl mx-auto px-6 py-16">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] mb-2">{t('audit.upgradeEyebrow')}</p>
           <h2 className="font-serif text-2xl text-[var(--color-text-on-dark)] mb-10">{t('audit.upgradeHeadline')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {upgradeKeys.map((u, i) => (
               <div key={i} className="bg-[var(--color-navy-2)] border border-[var(--color-gold-muted)] rounded-sm p-5">
                 <p className="text-[10px] tracking-[0.3em] uppercase text-[var(--color-gold-cta)] font-semibold mb-3">{t(u.fromKey)}</p>

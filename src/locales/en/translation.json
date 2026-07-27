@@ -614,10 +614,8 @@
     "upgradeCreditEyebrow": "Upgrade credit",
     "upg1From": "Tier 1 → Tier 2",
     "upg1Detail": "If you buy Tier 1 and decide within 30 days of receiving the report that you want to upgrade, I credit 100% of what you paid toward Tier 2. You only pay the difference. What you paid for Tier 1 is not lost — it becomes a down payment.",
-    "upg2From": "Tier 2 → Tier 3",
-    "upg2Detail": "If you are in Tier 2 and realise you want to raise capital or sell, Tier 3 is a separate engagement. Because you already have the Operations Manual and the logs, I discount Tier 3 by $5,000.",
-    "upg3From": "Tier 1 → Tier 3",
-    "upg3Detail": "Not recommended. You need the operational foundation first. If you insist, a Tier 2 diagnostic is included in the Tier 3 price. But I will not make investor introductions until the operations are clean.",
+    "upg2From": "Tier 2 → Continuous Protection",
+    "upg2Detail": "Every 90-Day Transformation includes the first 30 days of Continuous Protection at no charge, enrolled automatically when we close out the engagement — this locks in the gain instead of leaving it to erode once the intensive phase ends. Continue after that at $3,000–$6,000/month, or opt out.",
     "apply": {
       "tier2Eyebrow": "Tier 2 Application",
       "tier3Eyebrow": "Tier 3 Application",

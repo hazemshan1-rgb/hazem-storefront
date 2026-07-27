@@ -77,20 +77,23 @@ const tableRowKeys: { featureKey: string; t1?: string; t2?: string; t3?: string;
   { featureKey: 'audit.tableRow3',  t1: '✓', t2: '✓', t3: '✓' },
   { featureKey: 'audit.tableRow4',  t1k: 'audit.tableRow4T1', t2k: 'audit.tableRow4T2', t3k: 'audit.tableRow4T3' },
   { featureKey: 'audit.tableRow5',  t1k: 'audit.tableRow5T1', t2k: 'audit.tableRow5T2', t3k: 'audit.tableRow5T3' },
-  { featureKey: 'audit.tableRow6',  t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow7',  t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow8',  t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow9',  t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow10', t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow11', t1: '—', t2: '✓', t3: '✓' },
-  { featureKey: 'audit.tableRow12', t1: '—', t2: '✓', t3: '✓' },
+  { featureKey: 'audit.tableRow6',  t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow7',  t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow8',  t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow9',  t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow10', t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow11', t1: '—', t2: '✓', t3: '—' },
+  { featureKey: 'audit.tableRow12', t1: '—', t2: '✓', t3: '—' },
   { featureKey: 'audit.tableRowProbiotic', t1k: 'audit.tableRowProbioticT1', t2k: 'audit.tableRowProbioticT2', t3k: 'audit.tableRowProbioticT3' },
-  { featureKey: 'audit.tableRow13', t1: '—', t2: '—', t3: '✓' },
-  { featureKey: 'audit.tableRow14', t1: '—', t2: '—', t3: '✓' },
-  { featureKey: 'audit.tableRow15', t1: '—', t2: '—', t3: '✓' },
-  { featureKey: 'audit.tableRow16', t1: '—', t2: '—', t3: '✓' },
-  { featureKey: 'audit.tableRow17', t1: '—', t2: '—', t3: '✓' },
-  { featureKey: 'audit.tableRow18', t1: '—', t2: '—', t3: '✓' },
+  { featureKey: 'audit.tableRow13', t1: '—', t2: '+', t3: '—' },
+  { featureKey: 'audit.tableRow14', t1: '—', t2: '+', t3: '—' },
+  { featureKey: 'audit.tableRow15', t1: '—', t2: '+', t3: '—' },
+  { featureKey: 'audit.tableRow16', t1: '—', t2: '+', t3: '—' },
+  { featureKey: 'audit.tableRow17', t1: '—', t2: '+', t3: '—' },
+  { featureKey: 'audit.tableRow19', t1: '—', t2: '—', t3: '✓' },
+  { featureKey: 'audit.tableRow20', t1: '—', t2: '—', t3: '✓' },
+  { featureKey: 'audit.tableRow21', t1: '—', t2: '—', t3: '✓' },
+  { featureKey: 'audit.tableRow22', t1: '—', t2: '—', t3: '✓' },
 ]
 
 function PhasesAccordion({ phases, featured }: { phases: TierKeys['phases']; featured: boolean }) {
@@ -531,10 +534,11 @@ export function AuditPage() {
                 <td className="py-3 pr-6 font-semibold text-[var(--color-text)]">{t('audit.tablePriceRow')}</td>
                 <td className="text-center py-3 px-4 font-semibold text-[var(--color-gold)]">$4.5K–$7.5K</td>
                 <td className="text-center py-3 px-4 font-semibold text-[var(--color-gold-cta)] bg-[rgba(202,138,4,0.04)]">$15K–$25K</td>
-                <td className="text-center py-3 px-4 font-semibold text-[var(--color-text-muted)]">$25K–$50K+</td>
+                <td className="text-center py-3 px-4 font-semibold text-[var(--color-text-muted)]">$3K–$6K/mo</td>
               </tr>
             </tbody>
           </table>
+          <p className="text-[9px] text-[var(--color-text-muted)] mt-3">{t('audit.tableRowInvestorNote')}</p>
         </div>
       </section>
 

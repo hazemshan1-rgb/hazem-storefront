@@ -602,7 +602,6 @@
     "tableRow15": "Pitch deck + investor teaser",
     "tableRow16": "Virtual data room",
     "tableRow17": "Investor/buyer introductions",
-    "tableRow18": "Quarterly check-ins (1 year)",
     "dec1Condition": "Revenue $30K–$100K/month. Operations run but you cannot see where the margin goes. You will execute a roadmap if someone shows you exactly what to do.",
     "dec1Tier": "→ Tier 1",
     "dec2Condition": "Revenue $50K–$200K/month. You know the leaks exist but cannot close them alone. Your crew needs training. You need someone on the ground.",
@@ -654,7 +653,12 @@
     "t2AddonInc4": "Five pre-vetted capital source introductions",
     "t2AddonInc5": "Pre-close operational review to remediate investor objections",
     "t2PriceWithAddon": "$25,000",
-    "methodologyBadge": "Built on The Blue Acres Methodology"
+    "methodologyBadge": "Built on The Blue Acres Methodology",
+    "tableRow19": "Monthly Vital Six review",
+    "tableRow20": "Quarterly mini-Scan refresh",
+    "tableRow21": "Priority response access",
+    "tableRow22": "Monitoring guarantee (48hr flag)",
+    "tableRowInvestorNote": "+ = available as the Investor-Ready add-on (+$10,000)"
   },
   "contact": {
     "eyebrow": "Get In Touch",

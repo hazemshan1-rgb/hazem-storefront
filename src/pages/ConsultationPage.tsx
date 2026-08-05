@@ -6,9 +6,8 @@ import { SEO } from '../components/ui/SEO'
 import { WisdomStatement } from '../components/ui/WisdomStatement'
 import { caseStudies } from '../data/caseStudies'
 
-const CHECKOUT_60 = import.meta.env.VITE_CONSULTATION_CHECKOUT_URL ?? ''
-const CHECKOUT_30 = import.meta.env.VITE_CONSULTATION_30_CHECKOUT_URL ?? ''
-const BOOK_FORM   = 'https://form.jotform.com/261730956335057'
+const CHECKOUT_URL = import.meta.env.VITE_CONSULTATION_30_CHECKOUT_URL ?? ''
+const BOOK_FORM     = 'https://form.jotform.com/261730956335057'
 
 function bookUrl(checkout: string) {
   return checkout || BOOK_FORM
@@ -56,14 +55,12 @@ export function ConsultationPage() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const url60 = bookUrl(CHECKOUT_60)
-  const url30 = bookUrl(CHECKOUT_30)
+  const url = bookUrl(CHECKOUT_URL)
 
   const bullets = t('consultation.bullets', { returnObjects: true }) as string[]
   const deliverables = t('consultation.deliverables', { returnObjects: true }) as string[]
   const faqs = t('consultation.faqs', { returnObjects: true }) as Array<{ q: string; a: string }>
-  const deepDiveBullets = t('consultation.deepDive.bullets', { returnObjects: true }) as string[]
-  const focusBullets = t('consultation.focus.bullets', { returnObjects: true }) as string[]
+  const sessionBullets = t('consultation.session.bullets', { returnObjects: true }) as string[]
 
   return (
     <main className="min-h-screen bg-[var(--color-bg)] pt-24 pb-24">
@@ -223,43 +220,42 @@ export function ConsultationPage() {
               </div>
             </div>
 
-            {/* 60-min (featured) */}
+            {/* Advisory session */}
             <div className="bg-[var(--color-navy)] border border-[var(--color-gold-cta)] rounded-sm p-7">
               <div className="flex items-start justify-between mb-1">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold-cta)] font-semibold">{t('consultation.deepDive.badge')}</p>
-                <span className="text-[9px] tracking-widest uppercase text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-2 py-0.5 rounded-sm font-semibold">{t('consultation.deepDive.mostChosen')}</span>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold-cta)] font-semibold">{t('consultation.session.badge')}</p>
+                <span className="text-[9px] tracking-widest uppercase text-[var(--color-navy)] bg-[var(--color-gold-cta)] px-2 py-0.5 rounded-sm font-semibold">{t('consultation.session.duration')}</span>
               </div>
               <div className="flex items-end gap-2 mb-1">
-                <span className="font-serif text-4xl text-[var(--color-text-on-dark)]">{t('consultation.deepDive.price')}</span>
-                <span className="text-xs text-[var(--color-text-muted-dark)] mb-1.5">{t('consultation.deepDive.duration')}</span>
+                <span className="font-serif text-4xl text-[var(--color-text-on-dark)]">{t('consultation.session.price')}</span>
               </div>
-              <p className="text-xs text-[var(--color-text-muted-dark)] mb-5 leading-relaxed">{t('consultation.deepDive.desc')}</p>
+              <p className="text-xs text-[var(--color-text-muted-dark)] mb-5 leading-relaxed">{t('consultation.session.desc')}</p>
               <ul className="space-y-2.5 mb-6">
-                {Array.isArray(deepDiveBullets) && deepDiveBullets.map(item => (
+                {Array.isArray(sessionBullets) && sessionBullets.map(item => (
                   <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text-muted-dark)] leading-snug">
                     {checkIcon}
                     {item}
                   </li>
                 ))}
               </ul>
-              {url60 ? (
-                <a href={url60}
+              {url ? (
+                <a href={url}
                   className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all">
-                  {t('consultation.deepDive.bookBtn')}
+                  {t('consultation.session.bookBtn')}
                 </a>
               ) : (
                 <a href={BOOK_FORM}
                   className="block w-full text-center bg-[var(--color-gold-cta)] text-[var(--color-navy)] text-[11px] font-semibold tracking-widest uppercase px-6 py-4 rounded-sm hover:brightness-110 transition-all">
-                  {t('consultation.deepDive.enquireBtn')}
+                  {t('consultation.session.enquireBtn')}
                 </a>
               )}
-              {CHECKOUT_60 && (
+              {CHECKOUT_URL && (
                 <div className="flex items-center justify-center gap-2 mt-4">
                   <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
                     <rect x="1" y="6" width="10" height="7" rx="1.5" stroke="var(--color-text-muted-dark)" strokeWidth="1.2"/>
                     <path d="M3.5 6V4a2.5 2.5 0 015 0v2" stroke="var(--color-text-muted-dark)" strokeWidth="1.2" strokeLinecap="round"/>
                   </svg>
-                  <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">{t('consultation.deepDive.secure')}</p>
+                  <p className="text-[10px] text-[var(--color-text-muted-dark)] tracking-wide">{t('consultation.session.secure')}</p>
                 </div>
               )}
               <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.06)]">
@@ -267,38 +263,7 @@ export function ConsultationPage() {
                   If the session delivers no actionable insight, I'll refund you. No form. No friction.
                 </p>
               </div>
-              <p className="text-[10px] text-[var(--color-gold)] mt-3 leading-relaxed">{t('consultation.deepDive.tier1CreditNote')}</p>
-            </div>
-
-            {/* 30-min */}
-            <div className="bg-[var(--color-surface)] border border-[var(--color-gold-muted)] rounded-sm p-7">
-              <div className="flex items-start justify-between mb-1">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--color-gold)] font-semibold">{t('consultation.focus.badge')}</p>
-                <span className="text-[9px] tracking-widest uppercase text-[var(--color-text-muted)] border border-[var(--color-gold-muted)] px-2 py-0.5 rounded-sm">{t('consultation.focus.duration30')}</span>
-              </div>
-              <div className="flex items-end gap-2 mb-1">
-                <span className="font-serif text-4xl text-[var(--color-text)]">{t('consultation.focus.price')}</span>
-              </div>
-              <p className="text-xs text-[var(--color-text-muted)] mb-5 leading-relaxed">{t('consultation.focus.desc')}</p>
-              <ul className="space-y-2.5 mb-6">
-                {Array.isArray(focusBullets) && focusBullets.map(item => (
-                  <li key={item} className="flex items-start gap-3 text-xs text-[var(--color-text-muted)] leading-snug">
-                    {checkIcon}
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {url30 ? (
-                <a href={url30}
-                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-                  {t('consultation.focus.bookBtn')}
-                </a>
-              ) : (
-                <a href={BOOK_FORM}
-                  className="block w-full text-center border border-[var(--color-gold-muted)] text-[var(--color-text-muted)] text-[10px] font-semibold tracking-widest uppercase px-6 py-3.5 rounded-sm hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all">
-                  {t('consultation.focus.enquireBtn')}
-                </a>
-              )}
+              <p className="text-[10px] text-[var(--color-gold)] mt-3 leading-relaxed">{t('consultation.session.tier1CreditNote')}</p>
             </div>
 
             {/* Policy */}

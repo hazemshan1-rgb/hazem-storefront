@@ -731,7 +731,7 @@ export function interpretScore(normalisedPct: number): Interpretation {
     label: 'Moderate Bleeding',
     colour: '#f97316',
     border: 'rgba(249,115,22,0.3)',
-    description: 'You are losing 20–40% of potential profit. A Deep Dive session or Diagnostic Audit will locate and quantify every leak.',
+    description: 'You are losing 20–40% of potential profit. An Advisory Session or Diagnostic Audit will locate and quantify every leak.',
     ctaLabel: 'Book a Consultation',
     ctaLink: '/consultation',
   }

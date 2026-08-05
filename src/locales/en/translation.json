@@ -189,7 +189,7 @@
     "bullet1": "Focused on your specific operation",
     "bullet2": "Written action summary within 24 hrs",
     "bullet3": "No retainer. No upsell.",
-    "ctaSee": "See Session Options →",
+    "ctaSee": "See the Session →",
     "ctaProgram": "Want a full transformation? See the 90-Day Farm Programme →"
   },
   "thankYou": {
@@ -251,7 +251,7 @@
   },
   "consultation": {
     "seoTitle": "Book an Advisory Session — Hazem Shannak",
-    "seoDesc": "A focused working session on your aquaculture operation. 30 or 60 minutes. Written action plan within 24 hours. No retainer.",
+    "seoDesc": "A focused 60-minute working session on your aquaculture operation. Written action plan within 24 hours. No retainer.",
     "eyebrow": "Advisory Session",
     "headline": "You're making expensive decisions about your operation without the right reference point. That ends here.",
     "body1": "A bad stocking call. A missed intervention window. A miscalculated investment. These aren't operator errors — they're information gaps. You made the best decision available with what you had. This session changes what you have. You bring the problem; we work through it with the same diagnostic rigour I apply on-site.",
@@ -281,10 +281,6 @@
         "a": "Come with one or two specific problems — not a general overview of your operation. The more focused your question, the more useful the session. If you have production data, financial snapshots, or a site layout, bring them. We work best from real numbers."
       },
       {
-        "q": "Which session is right for me?",
-        "a": "Choose the 30-minute session if you have one clear, specific question and already understand your situation reasonably well. Choose the 60-minute session if you are dealing with a complex problem, making a significant investment decision, or want to work through multiple dimensions of your operation."
-      },
-      {
         "q": "Do you work with all aquaculture species?",
         "a": "My practice covers five shrimp species: Litopenaeus vannamei (Pacific white shrimp), Penaeus monodon (giant tiger prawn), Fenneropenaeus indicus (Indian white prawn), Penaeus semisulcatus (green tiger prawn), and Macrobrachium rosenbergii (giant freshwater prawn). If your operation involves one of these, we are a direct fit."
       },
@@ -303,14 +299,13 @@
     ],
     "socialProofTitle": "Client Results",
     "stickyEyebrow": "Advisory Session",
-    "stickyBody": "From $350 · Written action within 24 hrs",
-    "stickyBtn": "See Options →",
+    "stickyBody": "$450 · Written action within 24 hrs",
+    "stickyBtn": "Book the Session →",
     "consultantTitle": "Aquaculture Systems Consultant — 30+ years, 15 countries",
-    "deepDive": {
-      "badge": "Deep Dive",
-      "mostChosen": "Most chosen",
-      "price": "$750",
-      "duration": "/ 60 minutes",
+    "session": {
+      "badge": "Advisory Session",
+      "duration": "60 minutes",
+      "price": "$450",
       "desc": "Full diagnostic. Multiple dimensions. Best for complex decisions, site evaluations, or any situation where you need to work through more than one layer of the problem.",
       "bullets": [
         "Full diagnostic across your operation",
@@ -318,23 +313,10 @@
         "Multiple problems or dimensions covered",
         "No retainer. No upsell."
       ],
-      "bookBtn": "Book Deep Dive — $750",
+      "bookBtn": "Book the Session — $450",
       "enquireBtn": "Enquire by Email",
       "secure": "Secure payment via Gumroad",
       "tier1CreditNote": "Book Tier 1 within 30 days of your session and the full session fee is credited toward your audit investment."
-    },
-    "focus": {
-      "badge": "Focus Session",
-      "duration30": "30 min",
-      "price": "$350",
-      "desc": "One specific question. One clear answer. One action. Best for operators who already understand their situation and need a sharp, experienced second opinion.",
-      "bullets": [
-        "Targeted on a single problem or decision",
-        "Written follow-up within 24 hours",
-        "All time zones covered"
-      ],
-      "bookBtn": "Book Focus Session — $350",
-      "enquireBtn": "Enquire by Email"
     },
     "rescheduleTitle": "Reschedule policy",
     "rescheduleBody": "Reschedule up to 24 hours before with no charge. Cancellations inside 24 hours are non-refundable.",
